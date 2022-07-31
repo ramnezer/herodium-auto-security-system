@@ -36,8 +36,8 @@ by systemd,python and bash scripts to create a single
 coordinated system against malicious activity.
 
 
-For debian/ubuntu based distributions
-like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
+#### For debian/ubuntu based distributions
+#### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
 
 *******************************************************
 At this point, i do not recommend installing
@@ -48,8 +48,8 @@ a year to a year to stabilize new LTS distro.
 
 
 
-### Before we start the installation ... 
-### Explanation of the program
+#### Before we start the installation ... 
+#### Explanation of the program
 
 
 ### auto-clam-antivirus
@@ -105,7 +105,7 @@ once a week
 
 3.
 
-### real-time scanner 
+#### real-time scanner 
 
 To make the program more effective and identify risks immediately.
 you have the option to enable real-time scanner for home (by default) or additional target directories.
@@ -130,14 +130,14 @@ the program will turn off the execution scanner but will continue to listen for 
 and if there were new changes while performing the scan the program will perform another scan
 after finishing the first.
 **************************************************************************************************
-### The real-time scanner is not a substitute for scheduled scans !!!
+#### The real-time scanner is not a substitute for scheduled scans !!!
 it is surely not a substitute for the full scan but neither substitute for a home-scan-timer.
 this is because if the real-time scanner is failed for any reason,you will be left without
 protection of your home directory until the next full system scan,
 and the second reason is because real-time scanning is not trying to detect and scan
 changes in some of the hidden directories as I mentioned before.
 
-### all that real-time scanning gives you is an extra layer of protection but no more than that !
+#### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
 **************************************************************************************************
 Earlier versions of ubuntu 22.04 come with a directory called "firefox.tmp"
@@ -157,7 +157,7 @@ and then delete "firefox.tmp" if it exists in the download directory
 Add or change a real-time-scan target directory
 
 
-### example for apache web server
+#### example for apache web server
 
 go to /opt/auto-clamIPS/auto-clamav/if-change.sh
 
@@ -172,7 +172,7 @@ to:
 '%Xe %w%f' --exclude $exc /home/ /var/www/html/ >>
 
 
-### You should also change it for 'real-time-scaner-backup-scan'
+#### You should also change it for 'real-time-scaner-backup-scan'
 
 go to /opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh
 
@@ -186,14 +186,14 @@ DIRTOSCAN="/home/"
 to:
 DIRTOSCAN="/home/ /var/www/html/"
 
-### save the file and reboot the system
+#### save the file and reboot the system
 
 ***************************************************************************************************
 ***************************************************************************************************
 
 
 
-### logs files and messages
+#### logs files and messages
 
 if the system detects malware
 it will do the following steps. 
@@ -235,10 +235,10 @@ not interfere with network usage.
 
 
 
-## Option to experienced users only
+### Option to experienced users only
 
 1.
-### auto-move-malwares with real-time-scaner for home(default) or target directory
+#### auto-move-malwares with real-time-scaner for home(default) or target directory
 
 If you want to make the detection system mor autonomous 
 you have the option to automatically move threats 
@@ -259,7 +259,7 @@ malware detection,the program will put the directory
 will not include the scheduled scanners.
 
 
-## !!! Note !!!
+#### !!! Note !!!
 
 auto-move-malwares will not include the regular schedulers
 (full scan and home)for the reason that sometimes 'auto-move'
@@ -268,7 +268,7 @@ in case it fails or in case malware is found,the backup scan will
 include the entire home directory and if you choose to enable
 'auto-move' its settings will also be included in this scan !
 
-## !!! Warning !!!
+#### !!! Warning !!!
 
 If there are files in your home or target directory
 that are compatible with windows that have undergone reverse
@@ -276,7 +276,7 @@ engineering with tools like wine to run on linux distro,the
 antivirus may identify them as a risk and in case you choose
 to automatically move risks they might move to 'VIRUS-FOUND' directory
 
-### Use this option only if you know what you are doing !
+#### Use this option only if you know what you are doing !
 
 
 ********************************************************************************************************************************************
@@ -291,7 +291,7 @@ to automatically move risks they might move to 'VIRUS-FOUND' directory
 
 
 
-### maltrail
+#### maltrail
 
 Maltrail is a malicious traffic detection system, utilizing publicly
 available (black)lists containing malicious and/or generally suspicious
@@ -305,7 +305,7 @@ traffic containing malwares(only malwares/malicious traffic)
 and block it within a few seconds by iptables/ipset.
 
 
-### maltrail-notify-log
+#### maltrail-notify-log
 
 as soon as the system detects malicious traffic,it will send a
 message by 'notify-send' until contact with the infected ip stop.
@@ -358,8 +358,8 @@ https://github.com/stamparm/maltrail
 
 ********************************************************************************************************************************************
 
-### if you chose to use maltrail-server 
-### Here is an explanation of how to change the password
+#### if you chose to use maltrail-server 
+#### Here is an explanation of how to change the password
 
 
 
@@ -525,10 +525,11 @@ or
 
 
 
+
 Note !
 *************************************************************************
 
-### FOR MX-LINUX
+#### FOR MX-LINUX
 
 If you intend to install the program on MX-LINUX
 You will need to enable systemd manually
@@ -565,7 +566,7 @@ https://daylifetips.com/enable-systemd-on-mx-linux/
 ********************************************************************************************************************************************
 
 
-### uninstall
+#### uninstall
 
 
 1.Run the program and select "uninstall"
@@ -574,12 +575,12 @@ this option will remove most of the installation (not all of it) and try to back
 2.While installing clamIPS,the program will try to perform a backup using a 'timeshift' named
 "auto-clamav-uninstall". You can select this option to return to the state you were in before installing the program.
 
-## Warning !
+#### Warning !
 
 #### option '2' will return your entire system (all settings) to the state it was in before installation. 
 
 
-### Note !
+#### Note !
 **************************************************************************************************
 The reason for using - 'timeshift'
 
@@ -599,44 +600,44 @@ It is always good that 'timeshift' is installed :-)
 
 
 
-## options
+### options
 
 
-### manage services 
+#### manage services 
 
 ********************************************************************************************************************************************
 
-### full-scan
+#### full-scan
 $ sudo systemctl start/stop/enable/disable clamscan-root-week.timer
 
-### home scan
+#### home scan
 $ sudo systemctl start/stop/enable/disable clamscan-home-day.timer
 
-### real-time-home-scaner
+#### real-time-home-scaner
 $ sudo systemctl start/stop/enable/disable if-change-scan.timer
 
-### zram-config
+#### zram-config
 $ sudo systemctl start/stop/enable/disable zram-config.service
 
-### auto-update-clamav
+#### auto-update-clamav
 $ sudo systemctl start/stop/enable/disable auto-update-clamav.timer
 
-### maltrail
+#### maltrail
 $ sudo systemctl start/stop/enable/disable maltrail-sensor.service
 
-### maltrail-auto-active
+#### maltrail-auto-active
 $ sudo systemctl start/stop/enable/disable maltrail_scan.timer
 
-### notify-clamMA
+#### notify-clamMA
 $ sudo systemctl start/stop/enable/disable notify-send.timer
 
-### Return apparmor to omplain mode
+#### Return apparmor to omplain mode
 $ sudo aa-complain /etc/apparmor.d/*
 
 
 ********************************************************************************************************************************************
 
-### Use a ignore files list for clamscan
+#### Use a ignore files list for clamscan
 
 This means that the antivirus ignores files
 that appear in the list if you need to do so
@@ -659,8 +660,8 @@ example of adding a file to a list:
 
 Note !
 *******************************************************
-### This ignore-list will work on all types of scans,
-### so be careful with it !
+#### This ignore-list will work on all types of scans,
+#### so be careful with it !
 
 and if you chose to use the list..
 perform from time to time a manual check to see
@@ -678,8 +679,8 @@ $ cat -n /opt/auto-clamIPS/auto-clamav/ignore_list.txt
 ******************************************************************************************************
 
 
-### Remember there is no protection system which is a substitute
-### for responsible use of the system and over the internet !!!
+#### Remember there is no protection system which is a substitute
+#### for responsible use of the system and over the internet !!!
 
 In addition
 
@@ -748,8 +749,8 @@ system and check what it does and what it is for.
 Large and inflated distributions that will contain an
 unnecessary amount of package and software
 may increase the risk of security vulnerabilities,
-### in other words always try to build the distribution
-### in yourself and install and use only what you really need !
+#### in other words always try to build the distribution
+#### in yourself and install and use only what you really need !
 
 **************************************************************************************************
 
@@ -757,7 +758,7 @@ may increase the risk of security vulnerabilities,
 
 
 
-## Thanks to the amazing developers !
+### Thanks to the amazing developers !
 
 https://www.clamav.net/
 
@@ -769,7 +770,7 @@ https://github.com/ecdye/zram-config
 
 
 #
-### done !
+#### done !
 #
 
 
