@@ -585,7 +585,8 @@ this option will remove most of the installation (not all of it) and try to back
 **************************************************************************************************
 The reason for using - 'timeshift'
 
-1.to Allow quick removal of the program in case you
+1.
+to Allow quick removal of the program in case you
 regret shortly after installation.
 
 2.
