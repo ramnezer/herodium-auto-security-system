@@ -650,6 +650,7 @@ You need to add this command before target
 example of adding a file to a list:
 ****************************************
 --exclude=/home/user/test/file_test.sh
+
 --exclude=/usr/local/bin/file_test2.py
 ****************************************
 
