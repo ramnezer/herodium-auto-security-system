@@ -243,7 +243,7 @@ If you want to make the detection system mor autonomous
 you have the option to automatically move threats 
 with real-time-home-scaner to a special test directory
 named 'virus-found'
-Located in: /home/user_name/auto-clamMA-antivirus/VIRUS-FOUND/
+Located in: /home/user_name/auto-clamIPS/VIRUS-FOUND/
 
 Within this directory a zip file will be created that will include
 all the infected files and will allow the user to make a selection
