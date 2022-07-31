@@ -73,8 +73,11 @@ and is therefore set as a default once a week.
 but if you want you can change it.
 
 every 12 hours
+
 once a day
+
 once a week(default)
+
 once a month
 
 *******************************************************************************************************************************
@@ -91,8 +94,11 @@ for example, if you run a full scan once a week, you will want to run a home-sca
 You have 4 options:
 
 every 6 hours
+
 every 12 hours
+
 once a day
+
 once a week
 
 *******************************************************************************************************************************
