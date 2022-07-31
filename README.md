@@ -237,7 +237,6 @@ not interfere with network usage.
 
 ### Option to experienced users only
 
-1.
 #### auto-move-malwares with real-time-scaner for home(default) or target directory
 
 If you want to make the detection system mor autonomous 
