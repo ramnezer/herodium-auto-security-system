@@ -392,8 +392,11 @@ now you can run the maltrail-server with a service
 running the command;
 
 sudo cp /opt/maltrail/maltrail-server.service /etc/systemd/system/maltrail-server.service
+
 sudo systemctl daemon-reload
+
 sudo systemctl start maltrail-server.service
+
 sudo systemctl enable maltrail-server.service
 
 check if it is active;
