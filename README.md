@@ -550,6 +550,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"
 to:
 
 GRUB_CMDLINE_LINUX_DEFAULT="quiet splash init=lib/systemd/systemd"
+
 and save the file
 
 update grub:
