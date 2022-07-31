@@ -750,8 +750,7 @@ system and check what it does and what it is for.
 Large and inflated distributions that will contain an
 unnecessary amount of package and software
 may increase the risk of security vulnerabilities,
-#### in other words always try to build the distribution
-#### in yourself and install and use only what you really need !
+#### in other words always try to build the distribution in yourself and install and use only what you really need !
 
 **************************************************************************************************
 
