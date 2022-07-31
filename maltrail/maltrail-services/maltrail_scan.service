@@ -1,0 +1,5 @@
+[Unit]
+Description=maltrail_scan service
+
+[Service]
+ExecStart=python3 /opt/auto-clamIPS/maltrail/maltrail_scan.py

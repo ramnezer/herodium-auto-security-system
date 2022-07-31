@@ -1,0 +1,13 @@
+[Unit]
+Description=if-change service timer
+After=multi-user.target network.target
+
+[Timer]
+OnStartupSec=10sec
+OnUnitActiveSec=15sec
+Unit=if-change.service
+
+[Install]
+WantedBy=timers.target
+
+

@@ -1,0 +1,5 @@
+[Unit]
+Description=auto-update-clamav service
+
+[Service]
+ExecStart=python3 /opt/auto-clamIPS/auto-clamav/auto-update-clamav.py
