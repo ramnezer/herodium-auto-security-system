@@ -228,14 +228,23 @@ updates clamav-database on a daily basis are very small so they will
 not interfere with network usage.
 
 *******************************************************************************************************************************
+*******************************************************************************************************************************
+*******************************************************************************************************************************
+
+
+
 
 
 ### Options for experienced or professionals users
 
 
-1.
+#### 1.
 
+
+
+#
 #### auto-move-malware with real-time-scanner for home(default) or target directory
+#
 
 If you want to make the detection system mor autonomous 
 you have the option to automatically move threats 
@@ -276,10 +285,16 @@ to automatically move risks they might move to 'VIRUS-FOUND' directory
 #### Use this option only if you know what you are doing !
 
 
+*******************************************************************************************************************************************
 
-2.
 
+#### 2.
+
+
+
+#
 ### Linux Kernel security hardening to improve the system security
+#
 
 Recommended for use from kernel 5.8 and up.
 
@@ -296,11 +311,14 @@ Note !
 I recommend trying the config on a virtual or test environment before
 implementing it in a real environment.
 
+*******************************************************************************************************************************************
 
 
-3.
+#### 3.
 
+#
 Option for servers/companies/businesses
+#
 
 ### crowdsec
 
@@ -350,9 +368,12 @@ The installation will not active cscli-dashboard
 *******************************************************************************************************************************************
 
 
-4.
+#### 4.
 
+
+#
 #### unofficial sources for clamav
+#
 
 Using databases from unofficial sources can increase your 
 clam signatures dramatically (50% or more in some cases) but may
