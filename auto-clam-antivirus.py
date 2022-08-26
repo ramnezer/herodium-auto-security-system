@@ -54,7 +54,6 @@ def timeshift_commands():
 
 timeshift_commands()
 
-
 ##############################################################################################################################
 
 
@@ -152,6 +151,8 @@ clamav_install_commands()
 
 
 def root_scan_commands():    
+ 
+ print("")
  print("")
  print("You can set 4 types of auto-full-scan for the entire system and each") 
  print("device connected to it.")
@@ -216,7 +217,7 @@ def root_scan_commands():
 
   if int(pro.returncode)==0:
         print("") 
-        print("* enable root_scaner_timer was successful *")
+        print("* enable root_scanner_timer was successful *")
         print("")
         print("")
         print("the program will continue the installation process in a few seconds, please wait ...")  
@@ -224,7 +225,7 @@ def root_scan_commands():
   else:
 
     print("")  
-    print("enable root_scaner_timer was failed ")
+    print("enable root_scanner_timer was failed ")
     print("")
 
  update_timer()
@@ -233,8 +234,10 @@ root_scan_commands()
 
 ##############################################################################################################################
 
-def home_scan():
 
+def home_scan():
+ 
+ print("")
  print("")   
  print("A full scan of the system can take a very long time, so most users ") 
  print("will prefer to perform it once a week.")
@@ -274,13 +277,14 @@ def home_scan():
 
     else:
     
-     print("enable home directory scaner was filled' ")
+     print("enable home directory scanner was filled' ")
 
      loop = input("Do you want to try to fix possible problems and try to install again? [y/n]")  
      if loop  == "y":
       subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
       timer2_commands()
-
+    
+    print("")
     print("")
     print("By logic you will need to perform the scan at a lower ")
     print("timing than the full scan.")
@@ -348,7 +352,7 @@ def home_scan():
 
     if int(pro.returncode)==0:
      print("") 
-     print("* enable home directory scaner was successful *")
+     print("* enable home directory scanner was successful *")
      print("")
      print("")
      print("the program will continue the installation process in a few seconds, please wait ...")  
@@ -356,7 +360,7 @@ def home_scan():
    
     else:
 
-     print("enable home directory scaner was failed ")
+     print("enable home directory scanner was failed ")
 
   update2_timer()
 
@@ -374,7 +378,8 @@ home_scan()
 def real_time():
 
  def if_change():
-    
+
+  print("")  
   print("")   
   print("To make the program more effective and identify risks immediately.") 
   print("You have the option to enable automatic scan of changes.")
@@ -385,7 +390,7 @@ def real_time():
   print("in case malware is found the program will perform a full scan of home directory.")
   print("")
 
-  change = input("Are you interested to enable a real-time-home-scaner ? [y/n] ")  
+  change = input("Are you interested to enable a real-time-home-scanner ? [y/n] ")  
   if change  == "y":
 
     pro = subprocess.run(['sudo', 'apt-get', 'install', 'inotify-tools', '-y'])
@@ -467,9 +472,9 @@ def real_time():
  if_change()
 
 
-#####################
-#   move_malwares   #
-#####################
+##################
+#  move_malware  #
+##################
 
 
  def auto_move_malwares():
@@ -491,10 +496,10 @@ def real_time():
    print("")
    print("To make the detection system mor autonomous") 
    print("You have the option to automatically move threats")
-   print("with real-time-home-scaner to a special directory")
+   print("with real-time-home-scanner to a special directory")
    print("named 'virus-found'")
-   print("Located in:  /home/$(users)/auto-clamMA-antivirus/VIRUS-FOUND/")
-   print("Within this directory a zip file will be created that will")
+   print("Located in:  /home/$(users)/auto-clamIPS/VIRUS-FOUND/")
+   print("within this directory a zip file will be created that will")
    print("include all the infected files,it will allow the user to")
    print("make a selection between the files.")
    print("")
@@ -512,7 +517,7 @@ def real_time():
    print("")
    print("If there are files in your home directory that are compatible with windows")
    print("that have undergone reverse engineering with tools like")
-   print("Wine to run on linux distro,the antivirus may identify them as a risk")
+   print("wine to run on linux distro,the antivirus may identify them as a risk")
    print("and in case you choose to automatically move risks")
    print("They might move to the target directory")
    print("")
@@ -522,8 +527,8 @@ def real_time():
 
 
 
-   auto_delete = input("Are you interested to enable automatically-move-threats together with real-time-home-scaner ? [y/n] ")  
-   if auto_delete  == "y":
+   auto_move = input("Are you interested to enable automatically-move-threats together with real-time-home-scaner ? [y/n] ")  
+   if auto_move  == "y":
 
 
   #######
@@ -532,7 +537,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[10] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
+          data[11] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -545,7 +550,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[14] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
+          data[15] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -559,19 +564,20 @@ real_time()
 
 ################################################################################################################################
 
-### to prevent bugs during installation the service will be temporarily stopped until the system rboot
+### to prevent bugs during installation the service will be temporarily stopped until the system reboot
 subprocess.run(['sudo', 'systemctl', 'stop', 'if-change.timer'], capture_output=True)
 
 
 ###########################
-#  istalling zram-config  #
+#  installing zram-config  #
 ###########################
 
 
 def zram_commands():
-
+ 
  print("")
- print("Use in Maltrail cost you '10%' of the RAM in your system,") 
+ print("")
+ print("Use in maltrail cost you '10%' of the RAM in your system,") 
  print("to deal with this problem the program will give you the")
  print("option to 'install zram-config' which will optimize and")  
  print("actually increase the dynamic memory in your system by '50%'")
@@ -583,7 +589,7 @@ def zram_commands():
 
   def zram_ubuntu_debian():
 
-### for ubuntu distro 
+### for ubuntu based distros
    pro = subprocess.run('cat /proc/version | grep Ubuntu' ,capture_output=True ,shell=True)
    print(pro.stdout)
    if int(pro.returncode)==0:
@@ -612,7 +618,7 @@ def zram_commands():
        zram_ubuntu_debian()   
 
     
-### for debian distro
+### for debian based distros
    pro2 = subprocess.run('cat /proc/version | grep Debian',
                          capture_output=True, shell=True)
    print(pro2.stdout)
@@ -793,7 +799,8 @@ freshclam_fix()
 
 
 def maltrail_commands():
-
+  
+  print("")
   print("")
   print("Maltrail is a malicious traffic detection system") 
   print("This program will use maltrail sensors to detect")
@@ -802,7 +809,7 @@ def maltrail_commands():
   print("")
   print("")
 
-  maltrail = input("Are you interested to install and enable auto-maltrail ? [y/n] ")  
+  maltrail = input("Are you interested to install and enable maltrail-real-time-protection ? [y/n] ")  
   if maltrail  == "y":
     
     def maltrail_install():
@@ -943,7 +950,8 @@ def maltrail_commands():
      pro17 = subprocess.run(
          'sudo ip6tables -C INPUT  -m set  --match-set blacklists2  src -j DROP 2> /dev/null || sudo ip6tables -I INPUT 1  -m set  --match-set blacklists2 src -j DROP 2> /dev/null', shell=True)
      
-     pro18 = subprocess.run('sudo -i ipset save > /etc/ipset.conf', shell=True)
+     pro18 = subprocess.run('sudo -i ipset save blacklists > /etc/ipset_maltrail.conf', shell=True)
+     pro19 = subprocess.run('sudo -i ipset save blacklists2 > /etc/ipset_maltrail2.conf', shell=True)
 
 ### ipset optimization
      pro20 = subprocess.run(['sudo', 'apt-get', 'install', 'iprange', 'libcorkipset-utils',
@@ -984,12 +992,121 @@ def maltrail_commands():
       if loop  == "y":
         subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
         ClamMaltrail_enable()
-
+    
     ClamMaltrail_enable()
 
 
-maltrail_commands()
+### Automatic blacklist cleaning
 
+    def flush_blacklists():
+     
+     print("")
+     print("")
+     print("IP addresses that are considered malicious today can")
+     print("become legitimate again after a certain period of time.")
+     print("")
+     print("The program will allow you two options ")
+     print("for automatically cleaning the block list.")
+     print("once a week or once a month")
+     print("")
+     print("If the addresses remain malicious, they will be returned")
+     print("to the list automatically if the maltrail sensors detect")
+     print("them again.")
+     print("")
+     print("")
+
+
+
+     blacklists = input("Are you interested to enable automatic blacklist cleaning for maltrail-blocker ? [y/n] ")  
+     if blacklists  == "y":
+      
+      pro = subprocess.run(['sudo', 'cp', 'maltrail/flush_blacklists.sh', '/opt/auto-clamIPS/maltrail/'])
+
+      pro1 = subprocess.run(
+        ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.timer', '/etc/systemd/system/'])
+
+      pro2 = subprocess.run(
+        ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.service', '/etc/systemd/system/'])  
+    
+
+      print("")
+      print("")  
+      print("Enter [1] clean once a week(default)")  
+      print("Enter [2] clean once a month on /**/15/ 02:00:00")
+      print("")
+      print("")
+
+      retls = input("select an option: ")
+
+      if retls  == "1":
+
+        with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[4] = "OnCalendar=Sat 2:00:00 \n"
+
+        with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+      if retls  == "2":
+        
+        with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[4] = "OnCalendar=*-*-15 02:00:00 \n"
+
+        with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+      pro3 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
+     
+      pro4 = subprocess.run(
+         ['sudo', 'systemctl', 'start', 'flush_blacklists.timer'])
+     
+      pro5 = subprocess.run(
+         ['sudo', 'systemctl', 'enable', 'flush_blacklists.timer'])
+
+      print(pro.returncode)
+      print(pro1.returncode)
+      print(pro2.returncode)
+      print(pro3.returncode)
+      print(pro4.returncode)
+      print(pro5.returncode)
+
+      if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode)==0:
+       print("") 
+       print("enable automatic-blacklist-cleaning services was successful")
+       print("")
+       print("the program will continue the installation process in a few seconds, please wait ...")  
+       time.sleep(3)
+
+      else:
+
+       print("") 
+       print("*enable automatic-blacklist-cleaning services was was failed*")
+       print("")
+       time.sleep(3)
+       print("")
+       loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
+       if loop  == "y":
+        subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+        flush_blacklists() 
+
+       else:
+
+        print("") 
+        print("* warning: enable automatic-blacklist-cleaning services was was failed *")
+        print("")
+        time.sleep(3)
+        print("")
+
+
+    flush_blacklists()
+
+
+maltrail_commands()
 
 
 #####################################################################################################################################
@@ -1088,12 +1205,177 @@ enable_notify()
 #####################################################################################################################################
 
 
+def fix_firefox_u22():
+
+### fix tmp error for ubuntu 22.04 LTS only
+ 
+ pro = subprocess.run("cat /etc/os-release | grep -F 'Ubuntu 22.04' " ,capture_output=True ,shell=True)
+ print(pro.stdout)
+ if int(pro.returncode)==0:
+  
+### check if snapd is install and update if this is true 
+
+  pro1 = subprocess.run("snap list | grep -F 'snapd' " ,capture_output=True ,shell=True)
+  print(pro1.stdout)
+  if int(pro1.returncode)==0:
+
+    pro2 = subprocess.run(['sudo', 'snap', 'refresh', 'firefox'])
+    print(pro2.returncode)
+    if int(pro2.returncode)==0:    
+     print("") 
+     print("* Updated/fix firefox-snap successfully *")
+     print("")
+     print("")
+     print("the program will continue the installation process in a few seconds, please wait ...")
+     time.sleep(3)
+
+fix_firefox_u22() 
+
+
+#########################################################################################################################################
+
+
+def crowdsec_install():
+
+ print("")
+ print("")   
+ print("Option for servers/companies/businesses")
+ print("")
+ print('"CrowdSec is a free,modern & collaborative behavior detection"')
+ print('"engine,coupled with a global IP reputation network."')
+ print("")
+ print("")
+ print("unlike maltrail which will work under this concept ")
+ print("to detect and block traffic which has been proven to be malicious,")
+ print("crowdsec will focus on identifying and blocking traffic that has ")
+ print("been proven to have problematic behavior(ddos attack,web crawlers,")
+ print("credit card fraud...)")
+ print
+ print("crowdsec also uses very small system resources.")
+ print("")
+ print("this way crowdsec will become a complementary program to maltrail")
+ print("")
+ print("")
+ print("Note !")
+ print("The installation will not active cscli-dashboard")
+ print("")
+ print("")
+
+
+ crowdsec = input("Are you interested to install and enable crowdsec + firewall-bouncer ? [y/n] ")  
+ if crowdsec  == "y":
+
+     pro = subprocess.run(['sudo', 'apt-get', 'install', 'curl', '-y'])
+     
+     pro1 = subprocess.run(
+         "curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash", shell=True)
+     
+     pro2 = subprocess.run(['sudo', 'apt-get', 'install', 'crowdsec'])
+     
+     pro3 = subprocess.run(
+         ['sudo', 'apt-get', 'install', 'crowdsec-firewall-bouncer-iptables', '-y'])
+
+  
+     print(pro.returncode)
+     print(pro1.returncode)
+     print(pro2.returncode)
+     print(pro3.returncode)
+
+     if int(pro.returncode + pro1.returncode + pro2.returncode + pro3.returncode)==0:
+      print("") 
+      print("* Installing crowdsec was successful *")
+      print("")
+      print("")
+      print("the program will continue the installation process in a few seconds, please wait ...")  
+      time.sleep(8)
+
+     else:
+
+      print("") 
+      print("* warning: Installing crowdsec ended with errors *")
+      print("")
+      time.sleep(3)
+      print("")
+      loop = input("Do you want to try to Installing crowdsec again and fix the errors ? [y/n]")  
+      if loop  == "y":
+        subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+        crowdsec_install() 
+
+      else:
+
+        print("") 
+        print("* warning: Installing crowdsec was failed *")
+        print("")
+        time.sleep(3)
+        print("")
+    
+ else:
+
+# Installing fail2ban #
+
+       def fail2ban_commands():
+       
+        pro = subprocess.run(['sudo', 'apt-get', 'install', 'fail2ban', '-y'])
+        pro1 = subprocess.run(['sudo', 'systemctl', 'enable', 'fail2ban'])
+        pro2 = subprocess.run(['sudo', 'systemctl', 'start', 'fail2ban'])
+
+
+        print(pro.returncode)
+        print(pro1.returncode)
+        print(pro2.returncode)
+
+        if int(pro.returncode + pro1.returncode + pro2.returncode)==0:
+         print("########################################################")
+         print("*       Installing/enable fail2ban was successful      *")
+         print("########################################################")
+         print("")
+         print("the program will continue the installation process in a few seconds, please wait ...")
+         time.sleep(3)
+
+        else:
+
+         print("#########################################################################") 
+         print("*                 warning: failed installing fail2ban                   *")
+         print("#########################################################################")
+         time.sleep(3)
+         print("")
+         print("##################################################################")
+         print("Please check if the internet connection is available and try again")
+         print("##################################################################")
+         print("")
+         loop = input("Do you want to try to installing fail2ban again? [y/n]")  
+         if loop  == "y":
+          subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+          fail2ban_commands()
+
+
+         else:
+
+              print("#######################################################################") 
+              print("*                 warning: failed installing fail2ban                 *")
+              print("#######################################################################")
+              time.sleep(3)
+              print("")
+        
+              while input("Do you want to continue without installing fail2ban ? [y/n]") == "n":
+                exit ()
+
+       fail2ban_commands()
+ 
+crowdsec_install()
+
+
+#########################################################################################################################################
+
+
 #############################
 #   Apparmor optimization   #
 #############################
 
 
 def apparmor_commands():
+
+  print("")
   print("")
   print("For advanced users there is the option to enable apparmor in enforce mode and add")
   print("a huge amount of profiles and utilities")
@@ -1111,7 +1393,7 @@ def apparmor_commands():
   print("to disable apparmor manually from the terminal go to grub <sudo nano /etc/default/grub>")
   print("to line 'GRUB_CMDLINE_LINUX_DEFAULT=' ")
   print("change <apparmor=1> to <apparmor=0> save the file")
-  print("go to trminall again and update-grub <sudo upadte-grub> after this reboot your system")
+  print("go to terminal again and update-grub <sudo update-grub> after this reboot your system")
   print("")
   time.sleep(3)
 
@@ -1149,6 +1431,8 @@ def apparmor_commands():
                  exit()
 
       timeshift_create()     
+
+
 
       def enable_apparmot():
 
@@ -1219,106 +1503,188 @@ def apparmor_commands():
 apparmor_commands()
 
 
-#####################################################################################################################################
+#########################################################################################################################################
 
 
-#######################
-# Installing fail2ban #
-#######################
+### Linux Kernel security hardening
+### Backup sysctl file 
 
 
-def fail2ban_commands():
-  pro = subprocess.run(['sudo', 'apt-get', 'install', 'fail2ban', '-y'])
-  pro2 = subprocess.run(['sudo', 'systemctl', 'enable', 'fail2ban'])
-  pro3 = subprocess.run(['sudo', 'systemctl', 'start', 'fail2ban'])
+def hardening_commands():
+
+ print("")
+ print("")
+ print("Use linux Kernel security hardening to improve the system security")
+ print("")
+ print("Recommended for use from kernel 5.8 and up.")
+ print("")
+ print("sysctl is an interface that allows you to make changes")
+ print("to a linux kernel,with /etc/sysctl.conf file you can")
+ print("configure various linux networking and system settings.")
+ print("")
+ print("This list(config) includes new fixing")
+ print("for security vulnerabilities(2022)")
+ print("")
+ print("Note !")
+ print("I recommend trying the config on a virtual or test")
+ print("environment before implementing it in a real system.")
+ print("")
+ print("you can do it manually in over time by copy the list from")
+ print("clamIPS/scripts/sysctl.conf to /etc/sysctl.conf")
+ print("")
+ print("")
 
 
-  print(pro.returncode)
-  print(pro2.returncode)
-  print(pro3.returncode)
+ hardening = input("Do you want to optimize sysctl.conf for security ? [y/n] ")  
+ if hardening  == "y":
 
-  if int(pro.returncode + pro2.returncode + pro3.returncode)==0:
-      print("########################################################")
-      print("*       Installing/enable fail2ban was successful      *")
-      print("########################################################")
-      print("")
-      print("the program will continue the installation process in a few seconds, please wait ...")
-      time.sleep(3)
+    pro = subprocess.run(['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/backup/'])
+    
+    pro1 = subprocess.run(
+        ['sudo', 'cp', '-n', '/etc/sysctl.conf', '/opt/auto-clamIPS/backup/'])
 
-  else:
+    check_sysctl = subprocess.run(
+        "grep -F '### AUTO-CLAM-IPS SYSTEM SECURITY OPTIONS ###' /etc/sysctl.conf", capture_output=True, shell=True)
+    print(check_sysctl.stdout)
 
-      print("#########################################################################") 
-      print("*                 warning: failed installing fail2ban                   *")
-      print("#########################################################################")
-      time.sleep(3)
-      print("")
-      print("##################################################################")
-      print("Please check if the internet connection is available and try again")
-      print("##################################################################")
-      print("")
-      loop = input("Do you want to try to installing fail2ban again? [y/n]")  
-      if loop  == "y":
-        subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
-        fail2ban_commands()
+    if int(check_sysctl.returncode) == 1:
+
+      subprocess.run(
+          "sudo cat scripts/sysctl.conf >> /etc/sysctl.conf", shell=True)
+      
+      subprocess.run(['sudo', 'sysctl', '-p'])    
+      
+    print(pro.returncode)
+    print(pro1.returncode)
+    
 
 
-      else:
+    if int(pro.returncode + pro1.returncode)==0:
+       print("#########################################################") 
+       print("*       optimize sysctl.conf file was successful         *")
+       print("#########################################################")
+       print("")
+       print("")
+       print("the program will continue the installation process in a few seconds, please wait ...")
+       time.sleep(3)
 
-              print("#######################################################################") 
-              print("*                 warning: failed installing fail2ban                 *")
-              print("#######################################################################")
-              time.sleep(3)
-              print("")
-        
-              while input("Do you want to continue without installing fail2ban ? [y/n]") == "n":
-                exit ()
+    else:
 
-fail2ban_commands()
+       print("#############################################################################") 
+       print("*                warning: optimize sysctl.conf file was failed              *")
+       print("#############################################################################")
+       time.sleep(3)
+       print("")
+       print("")
+       loop = input("Do you want to try to optimize the file again? [y/n]")  
+       if loop  == "y":
+        hardening_commands()
+            
+
+hardening_commands() 
 
 
-#####################################################################################################################################
+#########################################################################################################################################
 
 
-def fix_firefox_u22():
 
-### fix tmp error for ubuntu 22.04 LTS only
+##############################
+# enable ufw && install gufw #
+##############################
+
+
+
+def ufw_commands():
  
- pro = subprocess.run("cat /etc/os-release | grep -F 'Ubuntu 22.04' " ,capture_output=True ,shell=True)
- print(pro.stdout)
- if int(pro.returncode)==0:
-  
-### chack if snapd is install and update if this is true 
+ print("")
+ print("")
+ print("enable ufw and set default(deny incoming/allow outgoing)")
+ print("firewall rules for iptables and install gufw (gui for ufw)")
+ print("")
+ print("")
+ print("")
+ print("Note!")
+ print("")
+ print("This default option is intended for regular users who do not")
+ print("need to use incoming remote connection such as 'ssh' for example")
+ print("")
+ print("If you intend to use incoming connections skip this option")
+ print("and configure the firewall manually before you enable the rules.")
+ print("")
+ print("You can get explanation on how to do this at the following link")
+ print("")
+ print("https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-18-04")
+ print("")
+ print("")
+ print("")
 
-  pro1 = subprocess.run("snap list | grep -F 'snapd' " ,capture_output=True ,shell=True)
-  print(pro1.stdout)
-  if int(pro1.returncode)==0:
+ ufw = input("Are you interested to enable ufw firewall rules for iptables right now ? [y/n]")  
+ if ufw  == "y":
 
-    pro2 = subprocess.run(['sudo', 'snap', 'refresh', 'firefox'])
+
+    pro = subprocess.run(['sudo', 'apt-get', 'install', 'gufw', '-y'])
+    pro2 = subprocess.run(['sudo', 'ufw', 'default', 'deny', 'incoming'])
+    pro3 = subprocess.run(['sudo', 'ufw', 'default', 'allow', 'outgoing'])
+    pro4 = subprocess.run(['sudo', 'ufw', 'enable'])
+
+
+    print(pro.returncode)
     print(pro2.returncode)
-    if int(pro2.returncode)==0:    
-     print("") 
-     print("* Updated/fix firefox-snap successfully *")
-     print("")
-     print("")
-     print("the program will continue the installation process in a few seconds, please wait ...")
-     time.sleep(3)
+    print(pro3.returncode)
+    print(pro4.returncode)
 
-fix_firefox_u22() 
+    if int(pro.returncode + pro2.returncode + pro2.returncode + pro3.returncode
+    + pro4.returncode)==0:
+        print("########################################################") 
+        print("*               enable ufw was successful              *")
+        print("########################################################")
+        print("")
+        print("the program will continue the installation process in a few seconds, please wait ...")
+        time.sleep(3)
+
+    else:
+
+        print("#########################################################################") 
+        print("*                   warning: enable ufw was failed                      *")
+        print("#########################################################################")
+        time.sleep(3)
+        print("")
+        print("")
+        loop = input("Do you want to try to install ufw again? [y/n]")  
+        if loop  == "y":
+          subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+          ufw_commands()
 
 
-### To improve the response speed of the detection system of maltrail and notify-send relevant process priority to top
-nice_priority = subprocess.run(
-    "sudo -i nice -20 python3 /opt/auto-clamIPS/maltrail/maltrail_scan.py 1> /dev/null", shell=True)
-nice_priority_2 = subprocess.run(
-    "sudo -i nice -20 python3 /opt/auto-clamIPS/notify-clamMA/notify-send.py 1> /dev/null", shell=True)
+        else:
 
-### to prevent bugs after the installation finished the program will make sure the file is clean
+                print("#############################################################################") 
+                print("*                       warning: enable ufw was failed                      *")
+                print("#############################################################################")
+                time.sleep(3)
+                print("")
+          
+                while input("Do you want to continue without enable ufw ? [y/n]") == "n":
+                  exit ()
+
+
+ufw_commands()
+
+
+#########################################################################################################################################
+
+
+
+
+### To prevent bugs after the installation finished the program will make sure the file is clean
 subprocess.run("sudo -i truncate -s 0 /opt/auto-clamIPS/auto-clamav/logs/change.log", shell=True)
 
 
+
+
 print("")
 print("")
-print("For more details")
+print("")
 print("############################################")
 print("https://github.com/ramner98/auto-clamIPS.git")
 print("############################################")
@@ -1329,3 +1695,4 @@ print("###############################################")
 print("Installation complete please reboot your system")
 print("###############################################")
 print("")
+
