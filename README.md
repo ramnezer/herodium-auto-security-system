@@ -293,7 +293,7 @@ to automatically move risks they might move to 'VIRUS-FOUND' directory
 
 
 #
-### Linux Kernel hardening to improve the system security
+### Linux Kernel hardening to improve system security
 #
 
 Recommended for use from kernel 5.8 and up.
