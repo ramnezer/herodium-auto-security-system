@@ -1,4 +1,5 @@
 #!/bin/bash
+sudo mkdir -p /var/log/clamav/
 sudo python3 /opt/auto-clamIPS/notify-clamMA/notify-reset-boot.py
 LOGFILE="/var/log/clamav/clamav-found-malware-$(date +'%Y-%m-%d').log";
 LOGS_HISTORY="/opt/auto-clamIPS/auto-clamav/logs/logs_history/real-time-history/real-time-history-$(date +'%Y-%m-%d').log";
