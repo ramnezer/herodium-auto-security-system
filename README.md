@@ -6,11 +6,22 @@ auto-clamIPS is an automatic-integrated-protection-system against malware and ma
 The purpose of this tool is to create auto-active-system 
 against malware and malicious traffic for debian/ubuntu based distros.
 The project was based on a combination of several other open
-source projects (clamav,maltrail,apparmor) that will
+source projects (clamav,maltrail,apparmor and more) that will
 be managed by scripts in bash,python and systemd to
-create a one coordinated system.
+create one coordinated and automatic system.
+
+you can also look at it as a Intrusion Prevention System
 
 
+
+#### For debian/ubuntu based distributions
+#### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
+
+
+
+
+#### Before we start the installation ... 
+#### Explanation of the program
 
 Whereas in the past the use of antivirus on
 Linux-based distributions was unnecessary.
@@ -31,25 +42,11 @@ unfortunately for some users (even advanced)
 the use of these programs can be difficult.
 
 This tool wants to solve this problem by combining
-between clamav,maltrail and apparmor managed 
-by systemd,python and bash scripts to create a single
-coordinated system against malicious activity.
+between clamav,maltrail,apparmor and other projects
+managed by systemd,python and bash scripts to
+create a single coordinated system against
+malicious activity.
 
-
-#### For debian/ubuntu based distributions
-#### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
-
-*******************************************************
-At this point, i do not recommend installing
-the tool on ubuntu 22.04 based distributions !!
-This is because it takes to canonical between half
-a year to a year to stabilize new LTS distro.
-*******************************************************
-
-
-
-#### Before we start the installation ... 
-#### Explanation of the program
 
 
 ### auto-clam-antivirus
@@ -233,15 +230,16 @@ not interfere with network usage.
 *******************************************************************************************************************************
 
 
+### Options for experienced or professionals users
 
 
-### Option to experienced users only
+1.
 
-#### auto-move-malwares with real-time-scaner for home(default) or target directory
+#### auto-move-malware with real-time-scanner for home(default) or target directory
 
 If you want to make the detection system mor autonomous 
 you have the option to automatically move threats 
-with real-time-home-scaner to a special test directory
+with real-time-home-scanner to a special test directory
 named 'virus-found'
 Located in: /home/user_name/auto-clamIPS/VIRUS-FOUND/
 
@@ -260,9 +258,9 @@ will not include the scheduled scanners.
 
 #### !!! Note !!!
 
-auto-move-malwares will not include the regular schedulers
+auto-move-malware will not include the regular schedulers
 (full scan and home)for the reason that sometimes 'auto-move'
-may be too aggressive.the real-time-scaner includes a backup scan
+may be too aggressive.the real-time-scanner includes a backup scan
 in case it fails or in case malware is found,the backup scan will
 include the entire home directory and if you choose to enable
 'auto-move' its settings will also be included in this scan !
@@ -278,29 +276,136 @@ to automatically move risks they might move to 'VIRUS-FOUND' directory
 #### Use this option only if you know what you are doing !
 
 
+
+2.
+
+### Linux Kernel security hardening to improve the system security
+
+Recommended for use from kernel 5.8 and up.
+
+sysctl is an interface that allows you to make changes
+to a running linux kernel,with /etc/sysctl.conf you can
+configure various linux networking and system settings.
+
+This list(config) includes new fixing for security vulnerabilities(2022)
+
+The program will create a backup for the current file and push the new
+changes to the end of sysctl.conf.
+
+Note !
+I recommend trying the config on a virtual or test environment before
+implementing it in a real environment.
+
+
+
+3.
+
+Option for servers/companies/businesses
+
+### crowdsec
+
+"CrowdSec is a free, modern & collaborative behavior detection
+engine,coupled with a global IP reputation network."
+
+"CrowdSec is able to block port scans, web scans, password attacks,
+as well as application denial of service, bots, and credit card fraud,
+among many other classes of attacks."
+
+#### links
+
+https://www.crowdsec.net/blog/hackers-without-borders-and-crowdsec-sign-a-partnership-to-serve-civil-society
+
+https://github.com/crowdsecurity/crowdsec
+
+
+unlike maltrail which will work under this concept 
+to detect and block traffic which has been proven to be malicious(mostly malware),
+crowdsec will focus on identifying and blocking traffic that has been proven to have
+problematic behavior(ddos attack,web crawlers,credit card fraud....)
+crowdsec it is actually a modern and powerful upgrade to tools such as fail2ban.
+
+crowdsec also uses very small system resources.
+
+The tool is built so well that the only thing I had to do with it
+was automate its installation.
+
+
+If you choose not to use crowdsec,the program will automatically install fail2ban instead
+
+
+
+#### recommended to make sure that everything is set correctly by the command
+
+$ sudo /usr/share/crowdsec/wizard.sh -c
+
+
+$ sudo cscli hub list
+
+
+#### Note !
+************************************************
+The installation will not active cscli-dashboard
+************************************************
+
+*******************************************************************************************************************************************
+
+
+4.
+
+#### unofficial sources for clamav
+
+Using databases from unofficial sources can increase your 
+clam signatures dramatically (50% or more in some cases) but may
+cause over-aggressiveness especially cases of identifying text
+files containing names of known viruses.
+This can sometimes lead to strange scenarios in which an antivirus
+will detect one of the signatures of clamav or the lists of 'maltrail'
+as if it contained malware even though it is of course incorrect
+and illogical and this problem of over-aggressiveness can also
+happen with 'ad-blockers' for browsers.
+
+Despite everything I said,
+According to a study I did, using unofficial sources can
+make an antivirus much more effective if used properly.
+And thus increase the success rate from 80%-85% to 90%-95%.
+For these reasons the use of unofficial sources is
+recommended for professional or experienced users who
+can benefit greatly from them.
+
+Unfortunately this is problematic to automatically add unofficial
+sources through the program,this is because in some cases registration
+for the services is required,and in others cases the
+servers that provide the download links change frequently.
+
+So if you wish to add external sources you
+will have to do this manually. 
+
+This is an example of one company that offers effective services for
+improving clamav signatures when its basic services are free.
+
+https://www.securiteinfo.com/services-cybersecurite/anti-spam-anti-virus/improve-detection-rate-of-zero-day-malwares-for-clamav.shtml?lg=en
+*******************************************************************************************************************************************
+
+
 ********************************************************************************************************************************************
 ********************************************************************************************************************************************
-********************************************************************************************************************************************
 
 
 
-********************************************************************************************************************************************
-
-### maltrail-auto-active
-
-
-
-#### maltrail
+### maltrail
 
 Maltrail is a malicious traffic detection system, utilizing publicly
 available (black)lists containing malicious and/or generally suspicious
 trails, along with static trails compiled from various AV.
 
+
+#### maltrail-real-time-protection
+
 Although maltrail is a great tool it does not take active
 action against malicious traffic.
 
 This program will use maltrail sensors to detect network
-traffic containing malwares(only malwares/malicious traffic)
+traffic containing malware(only malware/malicious traffic)
 and block it within a few seconds by iptables/ipset.
 
 
@@ -312,20 +417,42 @@ in addition the system will send to desktop a log file named
 "maltrail-found" contain a list of malicious IP.
 
 
+#### Automatic blacklist cleaning
+
+IP addresses that are considered malicious today can
+become legitimate again after a certain period of time.
+
+The program will allow you two options for
+automatically cleaning the block lists.
+
+1.
+once a week
+
+2.
+once a month
+
+If the addresses remain malicious, they will be returned
+to the list automatically if the maltrail sensors detect
+them again.
+
+This option will not have an effect on other blocking
+lists in your system if such exist.
+
+
 ********************************************************
 
 To follow the black list use
 
 $ sudo ipset list | cat -n
 
-to move ipset list to log files
+to move ipset list to log file
 
 $ sudo ipset list | cat -n >> test.log
  
 
-to check if specific address is blocked
+to check if maltrail address (ipv4 && ipv6) is blocked
 
-$ sudo ipset list | grep -F 'ip-address'
+$ sudo ipset list blacklists && sudo ipset list blacklists2
 
 To look at the tracking history of maltrail
 
@@ -347,13 +474,14 @@ continue to work until contact with the malicious
 address or attacker stops.this is to give the users 
 an indication that an attempted attack or unwanted
 contact is still taking place.
+
+For obvious reasons ipset will add IP addresses to
+a block list only if a successful ping was made to
+infected address.
 *******************************************************
 
 Maltrail server will be disabled by default
-But if you want to use it you can enable it easily,
-Visit the developer page for more details.
-
-https://github.com/stamparm/maltrail
+But if you want to use it you can enable it easily.
 
 ********************************************************************************************************************************************
 
@@ -382,8 +510,6 @@ if you were changing for the admin user,
 USERS
 
     admin:5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8:0:                        # password
-    admin:9ab3cd9d67bf49d01f6a2e33d0bd9bc804ddbe6ce1ff5d219c42624851db5dbc:0:                        # changeme!
-    local:9ab3cd9d67bf49d01f6a2e33d0bd9bc804ddbe6ce1ff5d219c42624851db5dbc:1000:192.168.0.0/16       # changeme!
 
 
 now you can run the maltrail-server with a service
@@ -406,6 +532,9 @@ $ systemctl status maltrail-server.service
 now go to the developer page of maltrail 
 in github to see how to login to the server
 by your browser.
+
+
+https://github.com/stamparm/maltrail
 
 ********************************************************************************************************************************************
 
@@ -438,7 +567,7 @@ $ sudo systemctl restart maltrail-sensor.service
 
 or 
 
-reboot your system
+reboot the system
 
 ********************************************************************************************************************************************
 
@@ -450,7 +579,7 @@ reboot your system
 
 ### zram-config
 
-Use in Maltrail cost you up to '10%' of the RAM in your system,
+Use in maltrail cost you up to '10%' of the RAM in your system,
 to deal with this problem the installation will give you the 
 option to use 'zram-config' which will optimize and
 actually increase the dynamic memory in your system by '50%'
@@ -473,14 +602,14 @@ who need a high level of security.
 
 A simple explanation for apparmor...
 
-Apparmor is a security framework that prevents applications
+"Apparmor is a security framework that prevents applications
 from turning evil.For example:If I run Firefox and visit a
 bad site that tries to install malware that will delete my
 home folder,Apparmor has limits on Firefox though preventing
 it from doing anything I don't want
 (like accessing my music, documents, etc).
 This way even if your application is
-compromised, no harm can be done.
+compromised, no harm can be done."
 
 
 Note !
@@ -493,6 +622,31 @@ by Debian/Ubuntu developers.
 ************************************************************
 
 *********************************************************************
+
+********************************************************************************************************************************************
+
+
+### ufw
+
+enable ufw and set default firewall rules (deny incoming/allow outgoing)
+for iptables and install gufw (gui for ufw).
+
+
+#### Note!
+*****************************************************************************************************
+This default option is intended for regular users who do not
+need to use incoming remote connection such as 'ssh' for example
+
+If you intend to use incoming connections skip this option
+and configure the firewall manually before you enable the rules.
+
+You can get explanation on how to do this at the following link
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-18-04
+****************************************************************************************************
+
+********************************************************************************************************************************************
+
 
 
 
@@ -570,10 +724,10 @@ https://daylifetips.com/enable-systemd-on-mx-linux/
 
 
 1.Run the program and select "uninstall"
-this option will remove most of the installation (not all of it) and try to backup to the existing state by timeshift. 
+this option will remove most of the installation (not all of it) and backup the existing state by timeshift. 
 
-2.While installing clamIPS,the program will try to perform a backup using a 'timeshift' named
-"auto-clamav-uninstall". You can select this option to return to the state you were in before installing the program.
+2.While installing clamIPS,the program will perform a backup using a 'timeshift' named
+"auto-clamav-uninstall".you can select this option to return to the state you were in before installing the program.
 
 #### Warning !
 
@@ -585,7 +739,7 @@ this option will remove most of the installation (not all of it) and try to back
 The reason for using - 'timeshift'
 
 1.
-to Allow quick removal of the program in case you
+to allow quick removal of the program in case you
 regret shortly after installation.
 
 2.
@@ -626,13 +780,18 @@ $ sudo systemctl start/stop/enable/disable auto-update-clamav.timer
 #### maltrail
 $ sudo systemctl start/stop/enable/disable maltrail-sensor.service
 
-#### maltrail-auto-active
+#### maltrail-real-time-protection
 $ sudo systemctl start/stop/enable/disable maltrail_scan.timer
+
+#### automatic maltrail blacklist cleaning
+$ sudo systemctl start/stop/enable/disable flush_blacklists.timer
 
 #### notify-clamMA
 $ sudo systemctl start/stop/enable/disable notify-send.timer
 
-#### Return apparmor to omplain mode
+
+
+#### return apparmor to complain mode
 $ sudo aa-complain /etc/apparmor.d/*
 
 
@@ -720,15 +879,15 @@ for ipv6:
 
 $ sudo ipset flush blacklists2 
 
-go to '/etc/ipset.conf'
+go to '/etc/ipset_maltrail.conf' for ipv4 or '/etc/ipset_maltrail2.conf' for ipv6
 
-$ sudo nano /etc/ipset.conf
+$ sudo nano /etc/ipset_maltrail.conf
 
 and remove the relevant addresses.
 
 Note
 ************************************
-by using this file you can also
+by using this files you can also
 remove specific addresses without
 completely removing the list.
 ***********************************
@@ -752,13 +911,13 @@ unnecessary amount of package and software
 may increase the risk of security vulnerabilities,
 #### in other words always try to build the distribution in yourself and install and use only what you really need !
 
-**************************************************************************************************
+********************************************************************************************************************************************
 
-******************************************************************************************************
+********************************************************************************************************************************************
 
 
 
-### Thanks to the amazing developers !
+### credit to 
 
 https://www.clamav.net/
 
@@ -768,9 +927,14 @@ https://gitlab.com/apparmor
 
 https://github.com/ecdye/zram-config
 
+https://github.com/crowdsecurity/crowdsec
+
+https://github.com/fail2ban/fail2ban
+
+https://github.com/teejee2008/timeshift
+
 
 #
 #### done !
 #
-
 
