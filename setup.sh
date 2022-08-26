@@ -18,8 +18,10 @@ chmod +x clamav-scan/change_service/clamav-scan-home2.sh
 chmod +x maltrail/blacklist.sh
 chmod +x maltrail/listener_maltrail.sh
 chmod +x maltrail/maltrail_scan.py
+chmod +x maltrail/flush_blacklists.sh
 chmod +x notify-send/notify-send.py
 chmod +x notify-send/notify-reset-boot.py
+
 
 
 ### *Prepare the system for installation* ###
