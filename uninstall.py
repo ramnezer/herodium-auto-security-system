@@ -2,7 +2,7 @@ import subprocess
 import time
 
 
-def unistalling_auto_clamav_commands():
+def uninstalling_auto_clamav_commands():
 
 
 ############################################################################################################################
@@ -85,11 +85,11 @@ def unistalling_auto_clamav_commands():
 
   
 ###############################
-#   unistalling auto_clamav   #
+#   uninstalling auto_clamav   #
 ###############################
 
 
-  def unistalling_commands():
+  def uninstalling_commands():
     pro = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav', '-y'])
     pro2 = subprocess.run(['sudo', 'apt-get', 'purge', 'clamav', '-y'])
     pro3 = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav-daemon', '-y'])
@@ -116,7 +116,9 @@ def unistalling_auto_clamav_commands():
     pro22 = subprocess.run(['sudo', 'systemctl', 'disable', 'listener_maltrail.timer'])
     pro21 = subprocess.run(['sudo', 'systemctl', 'stop', 'maltrail_scan.timer'])
     pro22 = subprocess.run(['sudo', 'systemctl', 'disable', 'maltrail_scan.timer'])
-    pro23 = subprocess.run('sudo ipset flush blacklist && sudo ipset flush blacklist2' ,shell=True)
+    pro23 = subprocess.run(['sudo', 'bash', '/opt/auto-clamIPS/maltrail/flush_blacklists.sh'])
+    pro24 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
+    pro25 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec-firewall-bouncer-iptables', '-y'])
 
     print(pro.returncode)
     print(pro2.returncode)
@@ -138,14 +140,13 @@ def unistalling_auto_clamav_commands():
     print(pro18.returncode)
     print(pro21.returncode)
     print(pro22.returncode)
+    print(pro23.returncode)
 
 
-    if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode + pro7.returncode + 
-       pro8.returncode + pro9.returncode + pro10.returncode + pro11.returncode + pro12.returncode + pro13.returncode + pro14.returncode
-       + pro15.returncode + pro16.returncode + pro17.returncode + pro18.returncode +
-       pro21.returncode + pro22.returncode)==0:
+
+    if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode)==0:
        print("") 
-       print("* unstalling auto_clamav was successful *")
+       print("* uninstalling auto_clamav was successful *")
        print("")
        print("")
        print("the program will continue the installation process in a few seconds, please wait ...")
@@ -154,28 +155,28 @@ def unistalling_auto_clamav_commands():
     else:
 
        print("") 
-       print("* warning: unstalling auto_clamav finished with bugs *")
+       print("* warning: uninstalling auto_clamav finished with bugs *")
        print("")
        time.sleep(3)
        print("")
        print("")
-       loop = input("Do you want to try to unstalling auto_clamav again? [y/n]")  
+       loop = input("Do you want to try to uninstalling auto_clamav again? [y/n]")  
        if loop  == "y":
         subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
-        unistalling_commands()                
+        uninstalling_commands()                
 
-  unistalling_commands()  
+  uninstalling_commands()  
 
 
 ##############################################################################################################################
 ##############################################################################################################################
 
 
-###############################
-#   unistalling zram-config   #
-###############################
+##############################
+#  uninstalling zram-config  #
+##############################
 
-### for ubuntu and debian distro
+### for ubuntu and debian distros
 
   def zram_commands():
 
@@ -223,42 +224,100 @@ def unistalling_auto_clamav_commands():
 #################################
 
 
-  reapparmor = input("Are you interested to restart apparmor to default mode ? [y/n] ")  
-  if reapparmor == "y": 
+####### check apparmor status
+  pro0 = subprocess.run("sudo aa-unconfined | grep -F 'avahi-daemon (enforce)'" ,capture_output=True ,shell=True)
+  print(pro0.stdout)
+  if int(pro0.returncode)==0:
+ 
+    reapparmor = input("Are you interested to restart apparmor to default mode ? [y/n] ")  
+    if reapparmor == "y": 
 
-   def reapparmor_commands():
-    pro = subprocess.run("sudo aa-complain  /etc/apparmor.d/*" ,shell=True)
-    pro2 = subprocess.run(['sudo', 'apt-get','purge',  'apparmor-profiles', 'apparmor-profiles-extra',
-    'apparmor-easyprof', 'apparmor-notify', 'apparmor-utils', 'certspotter', 'auditd', 'apparmor-profiles-kicksecure', '-y'])
+     def reapparmor_commands():
+      pro = subprocess.run("sudo aa-complain  /etc/apparmor.d/*" ,shell=True)
+      pro2 = subprocess.run(['sudo', 'apt-get', 'purge',  'apparmor-profiles', 'apparmor-profiles-extra',
+      'apparmor-easyprof', 'apparmor-notify', 'apparmor-utils', 'certspotter', 'auditd', 'apparmor-profiles-kicksecure', '-y'])
+
+      print(pro.returncode)
+      print(pro2.returncode)
+ 
+      if int(pro.returncode + pro2.returncode)==0:
+       print("") 
+       print(" *** restart apparmor to default was successful  ***")
+       print("")
+       print("")
+       print("the program will continue the installation process in a few seconds, please wait ...")
+       time.sleep(3)
+
+      else:
+
+       print("") 
+       print("***  warning: restart apparmor to default was failed  ***")
+       print("")
+       time.sleep(3)
+       print("")
+       print("")
+       loop = input("Do you want to try to fix the problem and try again? [y/n]")  
+       if loop  == "y":
+        subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+        reapparmor_commands()
+          
+
+    reapparmor_commands()
+
+###################################################################################################################################
+
+
+######################
+# return sysctl.conf #
+######################
+
+
+  def returnup_commands():
+   
+   print("")
+   print("using sysctl.conf backup to return the")
+   print("file to the state it was in before")
+   print("installing the program")
+   print("")
+   print("Note !")
+   print("This action will overwrite the current file")
+   print("")
+   print("")
+
+   returnup = input("Are you interested to return sysctl.conf to its original state ? [y/n] ")
+   if returnup == "y": 
+
+    pro = subprocess.run(['sudo', 'cp', '/opt/auto-clamIPS/backup/sysctl.conf', '/etc/sysctl.conf'])
 
     print(pro.returncode)
-    print(pro2.returncode)
- 
-    if int(pro.returncode + pro2.returncode)==0:
-      print("") 
-      print(" *** restart apparmor to default was successful  ***")
-      print("")
-      print("")
-      print("the program will continue the installation process in a few seconds, please wait ...")
-      time.sleep(3)
+
+    if int(pro.returncode)==0:
+       print("") 
+       print("*** return sysctl.conf file was successful ***")
+       print("")
+       print("")
+       time.sleep(3)
 
     else:
 
-      print("") 
-      print("***  warning: restart apparmor to default was failed  ***")
-      print("")
-      time.sleep(3)
-      print("")
-      print("")
-      loop = input("Do you want to try to fix the problam and try again? [y/n]")  
-      if loop  == "y":
-       subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
-       reapparmor_commands()
-          
+       print("") 
+       print("*** warning: return sysctl.conf file was failed ***")
+       print("")
+       time.sleep(3)
+       print("")
+       print("")
+       loop = input("Do you want to try to return the file again? [y/n]")  
+       if loop  == "y":
+        subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+        returnup_commands()
+            
 
-   reapparmor_commands()
+  returnup_commands()  
 
-###################################################################################################################################
+
+############################################################################################################################
+############################################################################################################################
+
 
 
 #############################
@@ -298,13 +357,13 @@ def unistalling_auto_clamav_commands():
   autoclean_commands()
 
 
-unistalling_auto_clamav_commands()
+uninstalling_auto_clamav_commands()
 
 
 
 print("")
 print("")
-print("For more details")
+print("")
 print("############################################")
 print("https://github.com/ramner98/auto-clamIPS.git")
 print("############################################")
