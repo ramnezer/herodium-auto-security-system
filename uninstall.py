@@ -262,7 +262,7 @@ def uninstalling_auto_clamav_commands():
         reapparmor_commands()
           
 
-    reapparmor_commands()
+     reapparmor_commands()
 
 ###################################################################################################################################
 
