@@ -47,20 +47,22 @@ managed by systemd,python and bash scripts to
 create a single coordinated system against
 malicious activity.
 
-
+#
+#
+#
+*******************************************************************************************************************************
 
 ### auto-clam-antivirus
 
 to prevent unnecessary use of ram memory,the installation will
-not install 'clamav-daemon',you can install clamav-daemon
+not install 'clamav-daemon' you can install clamav-daemon
 manually if you want and use 'clamdscan' with your shell.
 
 The program will then allow you to perform two types of scans,
 each scan includes several scheduling options.
 and a third option for real-time-scanner.
 
-
-*******************************************************************************************************************************
+#
 
 1.
 
@@ -77,7 +79,7 @@ once a week(default)
 
 once a month
 
-*******************************************************************************************************************************
+#
 
 2.
 
@@ -98,7 +100,7 @@ once a day
 
 once a week
 
-*******************************************************************************************************************************
+#
 
 3.
 
@@ -112,21 +114,20 @@ creating,downloading,copying,moving a file or directories with files
 it will start scanning the only the specific files added or moved inside the home directory
 in case malware is found the program will perform a full scan of home directory.
 
-Note !
-
-**************************************************************************************************
+#### Note !
+#
 For obvious reasons the service will not listen to changes on Hidden directories that come inside
 'home' such ".mozilla" ".cache" ".local"
 In addition the scanner partially ignored from snap directory if it is installed,
 he will allow only visible files to be scanned within the snap directory.
 all other hidden folders and files inside home directory will be scanned
 by real-time scanner 
-**************************************************************************************************
+#
 To avoid duplicate scans while transferring large directories containing multiple files
 the program will turn off the execution scanner but will continue to listen for new changes
 and if there were new changes while performing the scan the program will perform another scan
 after finishing the first.
-**************************************************************************************************
+#
 #### The real-time scanner is not a substitute for scheduled scans !!!
 it is surely not a substitute for the full scan but neither substitute for a home-scan-timer.
 this is because if the real-time scanner is failed for any reason,you will be left without
@@ -136,7 +137,7 @@ changes in some of the hidden directories as I mentioned before.
 
 #### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
-**************************************************************************************************
+#
 Earlier versions of ubuntu 22.04 come with a directory called "firefox.tmp"
 In the downloads directory that creates a problem with real-time-scanner.
 To fix this you need to update Firefox via snap.
