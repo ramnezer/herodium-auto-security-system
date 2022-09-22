@@ -3,9 +3,9 @@ Description=listener_maltrail service timer
 After=multi-user.target
 
 [Timer]
-OnBootSec=0min
+OnBootSec=10s
+OnCalendar=*:0/15
 Unit=listener_maltrail.service
 
 [Install]
 WantedBy=timers.target
-
