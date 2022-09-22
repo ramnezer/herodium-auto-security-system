@@ -47,20 +47,22 @@ managed by systemd,python and bash scripts to
 create a single coordinated system against
 malicious activity.
 
-
+#
+#
+#
+*******************************************************************************************************************************
 
 ### auto-clam-antivirus
 
 to prevent unnecessary use of ram memory,the installation will
-not install 'clamav-daemon',you can install clamav-daemon
+not install 'clamav-daemon' you can install clamav-daemon
 manually if you want and use 'clamdscan' with your shell.
 
 The program will then allow you to perform two types of scans,
 each scan includes several scheduling options.
 and a third option for real-time-scanner.
 
-
-*******************************************************************************************************************************
+#
 
 1.
 
@@ -77,7 +79,7 @@ once a week(default)
 
 once a month
 
-*******************************************************************************************************************************
+#
 
 2.
 
@@ -98,7 +100,7 @@ once a day
 
 once a week
 
-*******************************************************************************************************************************
+#
 
 3.
 
@@ -112,21 +114,20 @@ creating,downloading,copying,moving a file or directories with files
 it will start scanning the only the specific files added or moved inside the home directory
 in case malware is found the program will perform a full scan of home directory.
 
-Note !
-
-**************************************************************************************************
+#### Note !
+#
 For obvious reasons the service will not listen to changes on Hidden directories that come inside
 'home' such ".mozilla" ".cache" ".local"
 In addition the scanner partially ignored from snap directory if it is installed,
 he will allow only visible files to be scanned within the snap directory.
 all other hidden folders and files inside home directory will be scanned
 by real-time scanner 
-**************************************************************************************************
+#
 To avoid duplicate scans while transferring large directories containing multiple files
 the program will turn off the execution scanner but will continue to listen for new changes
 and if there were new changes while performing the scan the program will perform another scan
 after finishing the first.
-**************************************************************************************************
+#
 #### The real-time scanner is not a substitute for scheduled scans !!!
 it is surely not a substitute for the full scan but neither substitute for a home-scan-timer.
 this is because if the real-time scanner is failed for any reason,you will be left without
@@ -136,7 +137,7 @@ changes in some of the hidden directories as I mentioned before.
 
 #### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
-**************************************************************************************************
+#
 Earlier versions of ubuntu 22.04 come with a directory called "firefox.tmp"
 In the downloads directory that creates a problem with real-time-scanner.
 To fix this you need to update Firefox via snap.
@@ -228,14 +229,23 @@ updates clamav-database on a daily basis are very small so they will
 not interfere with network usage.
 
 *******************************************************************************************************************************
+*******************************************************************************************************************************
+*******************************************************************************************************************************
+
+
+
 
 
 ### Options for experienced or professionals users
 
 
-1.
+#### 1.
 
+
+
+#
 #### auto-move-malware with real-time-scanner for home(default) or target directory
+#
 
 If you want to make the detection system mor autonomous 
 you have the option to automatically move threats 
@@ -276,10 +286,16 @@ to automatically move risks they might move to 'VIRUS-FOUND' directory
 #### Use this option only if you know what you are doing !
 
 
+*******************************************************************************************************************************************
 
-2.
 
-### Linux Kernel security hardening to improve the system security
+#### 2.
+
+
+
+#
+### Linux Kernel hardening to improve system security
+#
 
 Recommended for use from kernel 5.8 and up.
 
@@ -292,15 +308,18 @@ This list(config) includes new fixing for security vulnerabilities(2022)
 The program will create a backup for the current file and push the new
 changes to the end of sysctl.conf.
 
-Note !
+#### Note !
 I recommend trying the config on a virtual or test environment before
 implementing it in a real environment.
 
+*******************************************************************************************************************************************
 
 
-3.
+#### 3.
 
+#
 Option for servers/companies/businesses
+#
 
 ### crowdsec
 
@@ -350,9 +369,12 @@ The installation will not active cscli-dashboard
 *******************************************************************************************************************************************
 
 
-4.
+#### 4.
 
+
+#
 #### unofficial sources for clamav
+#
 
 Using databases from unofficial sources can increase your 
 clam signatures dramatically (50% or more in some cases) but may
@@ -937,4 +959,3 @@ https://github.com/teejee2008/timeshift
 #
 #### done !
 #
-
