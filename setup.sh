@@ -6,6 +6,7 @@ chmod +x scripts/fix.sh
 chmod +x scripts/freshclam_fix/freshclam_fix.py
 chmod +x scripts/freshclam_fix/freshclam_fix.sh
 chmod +x scripts/notify_send.sh
+chmod +x scripts/maltrail-clear-symbols.sh
 chmod +x clamav-scan/auto_update_clamav/freshclam_fix.sh
 chmod +x clamav-scan/clamav-root-scan.sh
 chmod +x clamav-scan/clamav-scan-home.sh
@@ -21,6 +22,7 @@ chmod +x maltrail/maltrail_scan.py
 chmod +x maltrail/flush_blacklists.sh
 chmod +x notify-send/notify-send.py
 chmod +x notify-send/notify-reset-boot.py
+
 
 
 
