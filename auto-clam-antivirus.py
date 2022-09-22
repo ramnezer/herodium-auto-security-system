@@ -1525,7 +1525,7 @@ def hardening_commands():
 
  print("")
  print("")
- print("Use linux Kernel security hardening to improve the system security")
+ print("Use linux Kernel hardening to improve system security"")
  print("")
  print("Recommended for use from kernel 5.8 and up.")
  print("")
