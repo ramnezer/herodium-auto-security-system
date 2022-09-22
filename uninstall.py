@@ -144,7 +144,7 @@ def uninstalling_auto_clamav_commands():
 
 
 
-    if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode)==0:
+    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
        print("") 
        print("* uninstalling auto_clamav was successful *")
        print("")
@@ -191,7 +191,7 @@ def uninstalling_auto_clamav_commands():
     print(pro2.returncode)
 
 
-    if int(pro.returncode + pro2.returncode)==0:
+    if int(pro.returncode|pro2.returncode)==0:
    
      print("") 
      print("* disable zram-config was successful *")
@@ -240,7 +240,7 @@ def uninstalling_auto_clamav_commands():
       print(pro.returncode)
       print(pro2.returncode)
  
-      if int(pro.returncode + pro2.returncode)==0:
+      if int(pro.returncode|pro2.returncode)==0:
        print("") 
        print(" *** restart apparmor to default was successful  ***")
        print("")
@@ -262,7 +262,7 @@ def uninstalling_auto_clamav_commands():
         reapparmor_commands()
           
 
-     reapparmor_commands()
+    reapparmor_commands()
 
 ###################################################################################################################################
 
@@ -332,7 +332,7 @@ def uninstalling_auto_clamav_commands():
    print(pro.returncode)
    print(pro2.returncode)
 
-   if int(pro.returncode + pro2.returncode)==0:
+   if int(pro.returncode|pro2.returncode)==0:
       print("###########################################################") 
       print("*         autoclean && autoremove was successful          *")
       print("###########################################################")
