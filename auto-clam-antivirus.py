@@ -14,7 +14,7 @@ def timeshift_commands():
     print(pro.returncode)
     print(pro2.returncode)
 
-    if int(pro.returncode + pro2.returncode)==0:
+    if int(pro.returncode|pro2.returncode)==0:
         print("############################################################")
         print("* Timeshift installation and system backup were successful *")
         print("############################################################")
@@ -113,11 +113,11 @@ def clamav_install_commands():
     print(pro13.returncode)
 
 
-    if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode
-    + pro7.returncode + pro8.returncode + pro9.returncode + pro10.returncode + pro11.returncode +
-    pro12.returncode + pro13.returncode)==0:
+    if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode
+    |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
+    |pro12.returncode|pro13.returncode)==0:
         print("") 
-        print("* Installing and update clamav was successful *")
+        print("* Installing and update clamav was successful*")
         print("")
         print("")
         print("the program will continue the installation process in a few seconds, please wait ...")  
@@ -272,7 +272,7 @@ def home_scan():
     print(pro5.returncode)
     print(pro6.returncode)
 
-    if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode)==0:  
+    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode)==0:  
      time.sleep(1)
 
     else:
@@ -448,9 +448,9 @@ def real_time():
     print(pro14.returncode)
 
 
-    if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode + 
-    pro7.returncode + pro8.returncode + pro9.returncode + pro10.returncode + pro11.returncode + pro12.returncode
-    + pro13.returncode + pro14.returncode)==0:
+    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
+    |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
+    |pro13.returncode|pro14.returncode)==0:
      print("") 
      print("enable 'if_change' and timers && scripts was successful")
      print("")
@@ -640,7 +640,7 @@ def zram_commands():
     print(pro7.returncode)
 
 
-    if int(pro3.returncode + pro4.returncode + pro5.returncode + pro7.returncode)==0:    
+    if int(pro3.returncode|pro4.returncode|pro5.returncode|pro7.returncode)==0:    
      print("") 
      print("*** Installation zram-config was successful ***")
      print("")
@@ -709,8 +709,8 @@ def auto_update_clamav():
  print(pro9.returncode)
  print(pro10.returncode)
 
- if int(pro.returncode + pro2.returncode + pro3.returncode + pro4.returncode +
- pro5.returncode + pro6.returncode + pro7.returncode + pro8.returncode + pro9.returncode + pro10.returncode)==0:
+ if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode
+ |pro5.returncode|pro6.returncode|pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode)==0:
   
   print("")
   print("*** enable auto_update_clamav was successful ***")
@@ -861,9 +861,9 @@ def maltrail_commands():
      print(pro12.returncode)
 
 
-     if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode
-     + pro7.returncode + pro8.returncode + pro9.returncode + pro10.returncode + pro11.returncode +
-     pro12.returncode)==0:
+     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode
+     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
+     |pro12.returncode)==0:
       print("") 
       print("* Installing maltrail was successful *")
       print("")
@@ -957,6 +957,15 @@ def maltrail_commands():
      pro20 = subprocess.run(['sudo', 'apt-get', 'install', 'iprange', 'libcorkipset-utils',
                              'libcorkipset1', 'libipset-dev', 'libipset13', '-y'])
 
+     pro21 = subprocess.run(
+         ['sudo', 'cp', 'scripts/maltrail-clear-symbols.sh', '/opt/auto-clamIPS/maltrail/'])
+
+# make sure dnsutils is install
+     pro22 = subprocess.run(
+         ['sudo', 'apt-get', 'install', 'bind9-dnsutils', '-y'])
+
+
+
      print(pro1.returncode)
      print(pro2.returncode)
      print(pro3.returncode)
@@ -970,11 +979,13 @@ def maltrail_commands():
      print(pro11.returncode)
      print(pro12.returncode)
      print(pro13.returncode)
+     print(pro21.returncode)
+     print(pro22.returncode)
 
 
-     if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode + 
-     pro7.returncode + pro8.returncode + pro9.returncode + pro10.returncode + pro11.returncode + pro12.returncode
-     + pro13.returncode)==0:
+     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
+     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
+     |pro13.returncode|pro21.returncode|pro22.returncode)==0:
       print("") 
       print("enable maltrail-active-sensors services was successful")
       print("")
@@ -984,7 +995,7 @@ def maltrail_commands():
      else:
 
       print("") 
-      print("*enable maltrail-active-sensors services was failed*")
+      print("*install maltrail-active-sensors services finished with errors *")
       print("")
       time.sleep(3)
       print("")
@@ -1075,7 +1086,7 @@ def maltrail_commands():
       print(pro4.returncode)
       print(pro5.returncode)
 
-      if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode)==0:
+      if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode)==0:
        print("") 
        print("enable automatic-blacklist-cleaning services was successful")
        print("")
@@ -1178,8 +1189,8 @@ def enable_notify():
  print(pro12.returncode)
 
 
- if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode + pro6.returncode + 
- pro7.returncode + pro10.returncode + pro11.returncode + pro12.returncode)==0:
+ if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
+ |pro7.returncode|pro10.returncode|pro11.returncode|pro12.returncode)==0:
   
   print("") 
   print("*enable notify services was successful*")
@@ -1281,7 +1292,7 @@ def crowdsec_install():
      print(pro2.returncode)
      print(pro3.returncode)
 
-     if int(pro.returncode + pro1.returncode + pro2.returncode + pro3.returncode)==0:
+     if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode)==0:
       print("") 
       print("* Installing crowdsec was successful *")
       print("")
@@ -1324,7 +1335,7 @@ def crowdsec_install():
         print(pro1.returncode)
         print(pro2.returncode)
 
-        if int(pro.returncode + pro1.returncode + pro2.returncode)==0:
+        if int(pro.returncode|pro1.returncode|pro2.returncode)==0:
          print("########################################################")
          print("*       Installing/enable fail2ban was successful      *")
          print("########################################################")
@@ -1467,8 +1478,8 @@ def apparmor_commands():
           print(pro7.returncode)
 
 
-          if int(pro1.returncode + pro2.returncode + pro3.returncode + pro4.returncode + pro5.returncode 
-          + pro6.returncode + pro7.returncode)==0:
+          if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode 
+          |pro6.returncode|pro7.returncode)==0:
               print("#############################################################################") 
               print("* apparmor optimization and installation of useful utilities was successful *")
               print("#############################################################################")
@@ -1514,7 +1525,7 @@ def hardening_commands():
 
  print("")
  print("")
- print("Use linux Kernel hardening to improve system security")
+ print("Use linux Kernel security hardening to improve the system security")
  print("")
  print("Recommended for use from kernel 5.8 and up.")
  print("")
@@ -1559,9 +1570,9 @@ def hardening_commands():
     
 
 
-    if int(pro.returncode + pro1.returncode)==0:
+    if int(pro.returncode|pro1.returncode)==0:
        print("#########################################################") 
-       print("*       optimize sysctl.conf file was successful         *")
+       print("*       optimize sysctl.conf file was successful        *")
        print("#########################################################")
        print("")
        print("")
@@ -1633,8 +1644,7 @@ def ufw_commands():
     print(pro3.returncode)
     print(pro4.returncode)
 
-    if int(pro.returncode + pro2.returncode + pro2.returncode + pro3.returncode
-    + pro4.returncode)==0:
+    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
         print("########################################################") 
         print("*               enable ufw was successful              *")
         print("########################################################")
