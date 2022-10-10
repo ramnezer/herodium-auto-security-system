@@ -2,8 +2,9 @@
 sudo python3 /opt/auto-clamIPS/notify-clamMA/notify-reset-boot.py
 IPSCAN=$(cat /opt/auto-clamIPS/maltrail/logs/ipset.log)
 ipset_log="/opt/auto-clamIPS/maltrail/logs/ipset.log"
+dig_log="/opt/auto-clamIPS/maltrail/logs/dig.log"
 user=$(echo $(users) | cut -d ' ' -f 1)
-dig=$(echo $(dig $IPSCAN +short))
+dig=$(dig $IPSCAN +short >> $dig_log && dig AAAA $IPSCAN +short >> $dig_log && cat $dig_log)
 
 echo $(cat $ipset_log) >> /home/$user/Desktop/maltrail-found-$(date +'%Y-%m-%d').log
 echo $(cat $ipset_log) >> /root/maltrail-found-$(date +'%Y-%m-%d').log
@@ -34,6 +35,8 @@ scan address "$IPADD"."
 sudo ipset add blacklists "$S" 2> /dev/null
 # ipv6
 sudo ipset add blacklists2 "$S" 2> /dev/null
+
+sudo -i truncate -s 0 /opt/auto-clamIPS/maltrail/logs/dig.log
 
 done
 
