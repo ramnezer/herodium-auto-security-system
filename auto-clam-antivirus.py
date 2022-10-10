@@ -1281,9 +1281,11 @@ def crowdsec_install():
      pro1 = subprocess.run(
          "curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash", shell=True)
      
-     pro2 = subprocess.run(['sudo', 'apt-get', 'install', 'crowdsec'])
+     pro2 = subprocess.run(['sudo', 'apt-get', 'update'])
+
+     pro3 = subprocess.run(['sudo', 'apt-get', 'install', 'crowdsec'])
      
-     pro3 = subprocess.run(
+     pro4 = subprocess.run(
          ['sudo', 'apt-get', 'install', 'crowdsec-firewall-bouncer-iptables', '-y'])
 
   
@@ -1291,8 +1293,9 @@ def crowdsec_install():
      print(pro1.returncode)
      print(pro2.returncode)
      print(pro3.returncode)
+     print(pro4.returncode)
 
-     if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode)==0:
+     if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
       print("") 
       print("* Installing crowdsec was successful *")
       print("")
@@ -1307,13 +1310,18 @@ def crowdsec_install():
       print("")
       time.sleep(3)
       print("")
+      pro = subprocess.run(
+         ['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
+      pro1 = subprocess.run(
+         ['sudo', 'apt-get', 'purge', 'crowdsec', '-y'])
+      
       loop = input("Do you want to try to Installing crowdsec again and fix the errors ? [y/n]")  
       if loop  == "y":
         subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
         crowdsec_install() 
 
       else:
-
+        
         print("") 
         print("* warning: Installing crowdsec was failed *")
         print("")
@@ -1705,4 +1713,3 @@ print("###############################################")
 print("Installation complete please reboot your system")
 print("###############################################")
 print("")
-
