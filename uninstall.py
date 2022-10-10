@@ -23,7 +23,7 @@ def uninstalling_auto_clamav_commands():
         print("*             Preparation was successful              *")
         print("#######################################################")
         print("")
-        print("the program will continue the installation process in a few seconds, please wait ...")
+        print("the program will continue the process in a few seconds, please wait ...")
         time.sleep(3)
 
     else:
@@ -60,7 +60,7 @@ def uninstalling_auto_clamav_commands():
           print("")
           print("")
           print("")
-          print("the program will continue the installation process in a few seconds, please wait ...")
+          print("the program will continue the process in a few seconds, please wait ...")
           time.sleep(3)
 
       else:
@@ -149,7 +149,7 @@ def uninstalling_auto_clamav_commands():
        print("* uninstalling auto_clamav was successful *")
        print("")
        print("")
-       print("the program will continue the installation process in a few seconds, please wait ...")
+       print("the program will continue the process in a few seconds, please wait ...")
        time.sleep(3)
 
     else:
@@ -197,7 +197,7 @@ def uninstalling_auto_clamav_commands():
      print("* disable zram-config was successful *")
      print("")
      print("")
-     print("the program will continue the installation process in a few seconds, please wait ...")
+     print("the program will continue the process in a few seconds, please wait ...")
      time.sleep(3)
 
     else:
@@ -245,7 +245,7 @@ def uninstalling_auto_clamav_commands():
        print(" *** restart apparmor to default was successful  ***")
        print("")
        print("")
-       print("the program will continue the installation process in a few seconds, please wait ...")
+       print("the program will continue the process in a few seconds, please wait ...")
        time.sleep(3)
 
       else:
@@ -337,7 +337,7 @@ def uninstalling_auto_clamav_commands():
       print("*         autoclean && autoremove was successful          *")
       print("###########################################################")
       print("")
-      print("the program will continue the installation process in a few seconds, please wait ...")
+      print("the program will continue the process in a few seconds, please wait ...")
       time.sleep(3)
 
    else:
