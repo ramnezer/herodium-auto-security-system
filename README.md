@@ -861,8 +861,7 @@ $ cat -n /opt/auto-clamIPS/auto-clamav/ignore_list.txt
 ******************************************************************************************************
 
 
-#### Remember there is no protection system which is a substitute
-#### for responsible use of the system and over the internet !!!
+#### Remember there is no protection system which is a substitute for responsible use of the system and over the internet !!!
 
 In addition
 
