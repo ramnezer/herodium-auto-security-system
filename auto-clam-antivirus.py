@@ -1261,7 +1261,7 @@ def crowdsec_install():
  print("crowdsec will focus on identifying and blocking traffic that has ")
  print("been proven to have problematic behavior(ddos attack,web crawlers,")
  print("credit card fraud...)")
- print
+ print("")
  print("crowdsec also uses very small system resources.")
  print("")
  print("this way crowdsec will become a complementary program to maltrail")
