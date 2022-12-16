@@ -235,7 +235,7 @@ def uninstalling_auto_clamav_commands():
      def reapparmor_commands():
       pro = subprocess.run("sudo aa-complain  /etc/apparmor.d/*" ,shell=True)
       pro2 = subprocess.run(['sudo', 'apt-get', 'purge',  'apparmor-profiles', 'apparmor-profiles-extra',
-      'apparmor-easyprof', 'apparmor-notify', 'apparmor-utils', 'certspotter', 'auditd', 'apparmor-profiles-kicksecure', '-y'])
+      'apparmor-easyprof', 'apparmor-notify', 'apparmor-utils', 'certspotter', 'auditd', '-y'])
 
       print(pro.returncode)
       print(pro2.returncode)
