@@ -1456,38 +1456,24 @@ def apparmor_commands():
       def enable_apparmot():
 
 #### make sure wget is install
-          pro1 = subprocess.run(['sudo', 'apt-get', 'install', 'wget', '-y'])
+          pro0 = subprocess.run(['sudo', 'apt-get', 'install', 'wget', '-y'])
 ####
-          pro2 = subprocess.run(
-              ['wget', 'https://www.kicksecure.com/derivative.asc'])
+          pro1 = subprocess.run(['sudo', 'apt-get', 'update'])
           
-          pro4 = subprocess.run(
-              "sudo cp derivative.asc /usr/share/keyrings/derivative.asc", shell=True)
+          pro2 = subprocess.run(['sudo', 'apt-get', 'install', 'apparmor-profiles', 'apparmor-profiles-extra',
+                                 'apparmor-easyprof', 'apparmor-utils', 'certspotter', 'auditd', '-y'])
           
           pro3 = subprocess.run(
-              'echo "deb [signed-by=/usr/share/keyrings/derivative.asc] https://deb.kicksecure.com bullseye main contrib non-free" | sudo tee /etc/apt/sources.list.d/derivative.list', shell=True)
-          
-          pro4 = subprocess.run(['sudo', 'apt-get', 'update'])
-          
-          pro5 = subprocess.run(['sudo', 'apt-get', 'install', 'apparmor-profiles', 'apparmor-profiles-extra',
-                                 'apparmor-easyprof', 'apparmor-utils', 'certspotter', 'auditd', 'apparmor-profiles-kicksecure', '-y'])
-          
-          pro6 = subprocess.run(['sudo', 'rm', '-f', 'derivative.asc'])
-          
-          pro7 = subprocess.run(
               "sudo aa-enforce /etc/apparmor.d/*", shell=True)
           
+          print(pro0.returncode)
           print(pro1.returncode)
           print(pro2.returncode)
           print(pro3.returncode)
-          print(pro4.returncode)
-          print(pro5.returncode)
-          print(pro6.returncode)
-          print(pro7.returncode)
 
 
-          if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode 
-          |pro6.returncode|pro7.returncode)==0:
+          if int(pro0.returncode|pro1.returncode|pro2.returncode 
+          |pro3.returncode)==0:
               print("#############################################################################") 
               print("* apparmor optimization and installation of useful utilities was successful *")
               print("#############################################################################")
