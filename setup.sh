@@ -49,10 +49,6 @@ sudo dpkg --configure -a
 sudo apt-get install -f
 ######
 
-###### check if python3.8 is installed
-sudo apt-get install python3.8 -y 
-######
-
 ###### install make
 sudo apt-get install make
 ######
