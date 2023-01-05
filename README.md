@@ -12,7 +12,7 @@ create one coordinated and automatic system.
 
 you can also look at it as a Intrusion Prevention System
 
-
+https://github.com/
 
 #### For debian/ubuntu based distributions
 #### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
@@ -777,21 +777,24 @@ It is always good that 'timeshift' is installed :-)
 
 
 
-### options
 
 
-#### manage services 
+### Options
+
+
+#### Manage services 
 
 ********************************************************************************************************************************************
 
-#### full-scan
-$ sudo systemctl start/stop/enable/disable clamscan-root-week.timer
+#### go to:
 
-#### home scan
-$ sudo systemctl start/stop/enable/disable clamscan-home-day.timer
+$ sudo /opt/auto-clamIPS/auto-clamav/options/edit-options.sh
 
-#### real-time-home-scaner
-$ sudo systemctl start/stop/enable/disable if-change-scan.timer
+make the changes,save the file and exit(ctrl+s && ctrl+x)
+and allow the system to execute the changes.
+
+
+#### for more options:
 
 #### zram-config
 $ sudo systemctl start/stop/enable/disable zram-config.service
@@ -799,21 +802,10 @@ $ sudo systemctl start/stop/enable/disable zram-config.service
 #### auto-update-clamav
 $ sudo systemctl start/stop/enable/disable auto-update-clamav.timer
 
-#### maltrail
-$ sudo systemctl start/stop/enable/disable maltrail-sensor.service
-
-#### maltrail-real-time-protection
-$ sudo systemctl start/stop/enable/disable maltrail_scan.timer
-
-#### automatic maltrail blacklist cleaning
-$ sudo systemctl start/stop/enable/disable flush_blacklists.timer
-
 #### notify-clamMA
 $ sudo systemctl start/stop/enable/disable notify-send.timer
 
-
-
-#### return apparmor to complain mode
+#### to return apparmor to complain mode
 $ sudo aa-complain /etc/apparmor.d/*
 
 
@@ -825,7 +817,7 @@ This means that the antivirus ignores files
 that appear in the list if you need to do so
 for some reason.
 
-The text file is located in 
+The text file located in 
 
 $ /opt/auto-clamIPS/auto-clamav/ignore_list.txt
 
