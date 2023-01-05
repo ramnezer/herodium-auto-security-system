@@ -12,7 +12,7 @@ create one coordinated and automatic system.
 
 you can also look at it as a Intrusion Prevention System
 
-https://github.com/
+
 
 #### For debian/ubuntu based distributions
 #### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
