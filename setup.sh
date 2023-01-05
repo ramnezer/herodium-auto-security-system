@@ -22,6 +22,8 @@ chmod +x maltrail/maltrail_scan.py
 chmod +x maltrail/flush_blacklists.sh
 chmod +x notify-send/notify-send.py
 chmod +x notify-send/notify-reset-boot.py
+chmod +x options/edit-options.sh
+chmod +x options/line-generator.sh
 
 
 
