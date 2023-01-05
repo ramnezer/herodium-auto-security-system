@@ -36,9 +36,9 @@ sudo ipset add blacklists "$S" 2> /dev/null
 # ipv6
 sudo ipset add blacklists2 "$S" 2> /dev/null
 
-sudo -i truncate -s 0 /opt/auto-clamIPS/maltrail/logs/dig.log
-
 done
+
+sudo -i truncate -s 0 /opt/auto-clamIPS/maltrail/logs/dig.log
 
 sudo -i ipset save blacklists > /etc/ipset_maltrail.conf
 sudo -i ipset save blacklists2 > /etc/ipset_maltrail2.conf
