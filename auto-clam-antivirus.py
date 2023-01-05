@@ -57,6 +57,7 @@ timeshift_commands()
 ##############################################################################################################################
 
 
+
 ###########################
 #   auto-clam-antivirus   #
 ###########################
@@ -149,6 +150,34 @@ clamav_install_commands()
 
 ####################################################################################################################################
 
+def options():
+ pro = subprocess.run(['sudo', 'cp', '-r', 'options',  '/opt/auto-clamIPS/auto-clamav/'])   
+ 
+ print(pro.returncode)
+ 
+ if int(pro.returncode)==0:
+    print("") 
+    print("* Options file copied successfully *")
+    print("")
+    print("")
+    print("the program will continue the installation process in a few seconds, please wait ...")  
+    time.sleep(3)
+
+ else:
+
+    print("") 
+    print("* warning: Failed to copy options file *")
+    print("")
+    time.sleep(3)
+    print("")
+    loop = input("Do you want to try to repeat the procedure again ? [y/n]")  
+    if loop  == "y":
+     subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+     options() 
+  
+options()    
+ 
+
 
 def root_scan_commands():    
  
@@ -175,8 +204,21 @@ def root_scan_commands():
         data[4] = "OnCalendar=*-*-* 00,12:00:00 \n"
   
         with open('/etc/systemd/system/clamscan-root-week.timer', 'w', encoding='utf-8') as file:
-         file.writelines(data)
+           file.writelines(data)
+        
+###
+        
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
 
+        print(data)
+        data[21] = "scheduler full-scan = 1 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+           file.writelines(data)
+
+###
+        
  if retls  == "2":
         
         with open('/etc/systemd/system/clamscan-root-week.timer', 'r', encoding='utf-8') as file:
@@ -186,7 +228,20 @@ def root_scan_commands():
         data[4] = "OnCalendar=*-*-* 3:00:00 \n"
   
         with open('/etc/systemd/system/clamscan-root-week.timer', 'w', encoding='utf-8') as file:
-         file.writelines(data)
+           file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[21] = "scheduler full-scan = 2 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
 
  if retls  == "3":
         
@@ -199,6 +254,19 @@ def root_scan_commands():
         with open('/etc/systemd/system/clamscan-root-week.timer', 'w', encoding='utf-8') as file:
          file.writelines(data)
 
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[21] = "scheduler full-scan = 3 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+            
+###
+
  if retls  == "4":
         
         with open('/etc/systemd/system/clamscan-root-week.timer', 'r', encoding='utf-8') as file:
@@ -209,6 +277,19 @@ def root_scan_commands():
   
         with open('/etc/systemd/system/clamscan-root-week.timer', 'w', encoding='utf-8') as file:
          file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[21] = "scheduler full-scan = 4 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
 
  def update_timer():
   pro = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
@@ -248,6 +329,21 @@ def home_scan():
  if home_directory  == "y":   
   
   def timer2_commands():
+      
+###
+
+    with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+        data = file.readlines()
+
+    print(data)
+    data[29] = "home-scan = enable \n"
+
+    with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+        file.writelines(data)
+
+###          
+      
+      
     pro = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/clamav-scan-home.sh', '/opt/auto-clamIPS/auto-clamav/'])
     
@@ -308,7 +404,20 @@ def home_scan():
 
         with open('/etc/systemd/system/clamscan-home-day.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
+        
+###
 
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[42] = "scheduler home-scan = 1 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)        
+    
+###
+                
     if retls  == "2":
         
         with open('/etc/systemd/system/clamscan-home-day.timer', 'r', encoding='utf-8') as file:
@@ -319,6 +428,19 @@ def home_scan():
 
         with open('/etc/systemd/system/clamscan-home-day.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[42] = "scheduler home-scan = 2 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
 
     if retls  == "3":
         
@@ -331,6 +453,19 @@ def home_scan():
         with open('/etc/systemd/system/clamscan-home-day.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
 
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[42] = "scheduler home-scan = 3 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
+
     if retls  == "4":
         
         with open('/etc/systemd/system/clamscan-home-day.timer', 'r', encoding='utf-8') as file:
@@ -341,6 +476,19 @@ def home_scan():
 
         with open('/etc/systemd/system/clamscan-home-day.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[42] = "scheduler home-scan = 4 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
 
   timer2_commands()
 
@@ -393,6 +541,18 @@ def real_time():
   change = input("Are you interested to enable a real-time-home-scanner ? [y/n] ")  
   if change  == "y":
 
+###
+
+    with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+        data = file.readlines()
+
+    print(data)
+    data[51] = "clam-real-time = enable \n"
+
+    with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+        file.writelines(data)
+
+###
     pro = subprocess.run(['sudo', 'apt-get', 'install', 'inotify-tools', '-y'])
     
     pro2 = subprocess.run(
@@ -531,13 +691,26 @@ def real_time():
    if auto_move  == "y":
 
 
-  #######
+#######
+
+###
+
+          with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+          print(data)
+          data[60] = "move-malware = enable \n"
+
+          with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'r', encoding='utf-8') as file:
            data = file.readlines()
 
           print(data)
-          data[11] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
+          data[12] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -550,7 +723,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[15] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
+          data[16] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -814,6 +987,19 @@ def maltrail_commands():
     
     def maltrail_install():
 
+###
+
+     with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+        data = file.readlines()
+
+     print(data)
+     data[74] = "maltrail-real-time = enable \n"
+
+     with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+        file.writelines(data)
+
+###
+
      pro1 = subprocess.run(['sudo', 'apt-get', 'install', 'git', 'python3', 'python3-dev', 'python3-pip',
                             'python-is-python3', 'libpcap-dev', 'build-essential', 'procps', 'schedtool', '-y'])
      
@@ -1030,7 +1216,20 @@ def maltrail_commands():
 
      blacklists = input("Are you interested to enable automatic blacklist cleaning for maltrail-blocker ? [y/n] ")  
      if blacklists  == "y":
-      
+
+###
+
+      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+        data = file.readlines()
+
+      print(data)
+      data[89] = "maltrail-blacklist-cleaning = enable \n"
+
+      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+        file.writelines(data)
+
+###      
+         
       pro = subprocess.run(['sudo', 'cp', 'maltrail/flush_blacklists.sh', '/opt/auto-clamIPS/maltrail/'])
 
       pro1 = subprocess.run(
@@ -1060,6 +1259,19 @@ def maltrail_commands():
         with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
 
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[94] = "blacklist-cleaning = 1 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+    
+###
+
       if retls  == "2":
         
         with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
@@ -1070,6 +1282,19 @@ def maltrail_commands():
 
         with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
             file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[94] = "blacklist-cleaning = 2 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)    
+
+###
 
       pro3 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
      
