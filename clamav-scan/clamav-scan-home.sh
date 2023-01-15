@@ -12,7 +12,7 @@ for S in ${DIRTOSCAN}; do
 DIRSIZE=$(du -sh "$S" 2>/dev/null | cut -f1)
 echo "Starting a scan of "$S" directory.
 Amount of data to be scanned is "$DIRSIZE"."
-clamscan --infected --detect-pua=yes --recursive $exclude "$S" >> "$LOGFILE"
+clamscan --infected --recursive $exclude "$S" >> "$LOGFILE"
 mkdir -p /opt/auto-clamIPS/auto-clamav/logs/logs_history/home-scan-history/
 cat "$LOGFILE" >> "$LOGS_HISTORY"
 cat "$LOGFILE" >> "$LOGFILE2"
