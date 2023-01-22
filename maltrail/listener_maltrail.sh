@@ -1,7 +1,5 @@
 #!/bin/bash
 
-sudo sysctl -p
-
 sudo -i ipset restore -f -! /etc/ipset_maltrail.conf
 sudo -i ipset restore -f -! /etc/ipset_maltrail2.conf
 
