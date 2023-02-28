@@ -90,6 +90,7 @@ def uninstalling_auto_clamav_commands():
 
 
   def uninstalling_commands():
+###   
     pro = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav', '-y'])
     pro2 = subprocess.run(['sudo', 'apt-get', 'purge', 'clamav', '-y'])
     pro3 = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav-daemon', '-y'])
@@ -104,21 +105,29 @@ def uninstalling_auto_clamav_commands():
     pro12 = subprocess.run(['sudo', 'systemctl', 'disable', 'if-change-scan.timer'])
     pro13 = subprocess.run(['sudo', 'systemctl', 'stop', 'auto-update-clamav.timer'])
     pro14 = subprocess.run(['sudo', 'systemctl', 'disable', 'auto-update-clamav.timer'])
+###  
     pro15 = subprocess.run(['sudo', 'systemctl', 'stop', 'notify-send.timer'])
     pro16 = subprocess.run(['sudo', 'systemctl', 'disable', 'notify-send.timer'])
+###  
     pro17 = subprocess.run(['sudo', 'systemctl', 'stop', 'maltrail-sensor.service'])
     pro18 = subprocess.run(['sudo', 'systemctl', 'disable', 'maltrail-sensor.service'])
-### Make sure maltrail-server is be disable
     pro19 = subprocess.run(['sudo', 'systemctl', 'stop', 'maltrail-server.service'])
-    pro20 = subprocess.run(['sudo', 'systemctl', 'disable', 'maltrail-server.service'])
-###########################################################################################   
+    pro20 = subprocess.run(['sudo', 'systemctl', 'disable', 'maltrail-server.service'])   
     pro21 = subprocess.run(['sudo', 'systemctl', 'stop', 'listener_maltrail.timer'])
     pro22 = subprocess.run(['sudo', 'systemctl', 'disable', 'listener_maltrail.timer'])
     pro21 = subprocess.run(['sudo', 'systemctl', 'stop', 'maltrail_scan.timer'])
     pro22 = subprocess.run(['sudo', 'systemctl', 'disable', 'maltrail_scan.timer'])
     pro23 = subprocess.run(['sudo', 'bash', '/opt/auto-clamIPS/maltrail/flush_blacklists.sh'])
-    pro24 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
-    pro25 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec-firewall-bouncer-iptables', '-y'])
+    pro24 = subprocess.run(['sudo', 'systemctl', 'stop', 'flush_blacklists.timer'])
+    pro25 = subprocess.run(['sudo', 'systemctl', 'disable', 'flush_blacklists.timer'])
+###  
+    pro26 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
+    pro27 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec-firewall-bouncer-iptables', '-y'])
+###  
+    pro28 = subprocess.run(['sudo', 'systemctl', 'stop', 'rkhunter_scanner.timer'])
+    pro29 = subprocess.run(['sudo', 'systemctl', 'disable', 'rkhunter_scanner.timer'])
+    pro30 = subprocess.run(['sudo', 'apt-get', 'remove', 'rkhunter', '-y'])
+###
 
     print(pro.returncode)
     print(pro2.returncode)
