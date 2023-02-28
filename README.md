@@ -10,8 +10,6 @@ source projects (clamav,maltrail,apparmor and more) that will
 be managed by scripts in bash,python and systemd to
 create one coordinated and automatic system.
 
-you can also look at it as a Intrusion Prevention System
-
 
 
 #### For debian/ubuntu based distributions
@@ -646,6 +644,45 @@ by Debian/Ubuntu developers.
 *********************************************************************
 
 ********************************************************************************************************************************************
+
+### rkhunter
+
+"rkhunter (Rootkit Hunter) is a Unix-based tool that scans for rootkits, backdoors and
+possible local exploits."
+
+The program used rkhunter to perform
+automatic scans at pre-defined times and
+send notifications and log file to the 
+user in case of a warning about a 
+suspicious directory or file.
+
+
+You have 4 options:
+
+1.all 6-hours (default)
+
+2.rkhunter-scan 12-hours
+
+3.rkhunter-scan once a day
+
+4.rkhunter-scan once week
+
+
+Note!
+####################################################
+To avoid a situation of over-aggressive
+the program will focus only for three scans,
+which are:
+'rootkits' 'additional rootkit' 'Linux specific'.
+
+This meant that the users had to perform a
+manual scan from time to time
+by using: [sudo rkhunter --check --sk]
+####################################################
+
+
+********************************************************************************************************************************************
+
 
 
 ### ufw
