@@ -24,6 +24,15 @@ def check_internet():
     pro2 = subprocess.run(['sudo', 'freshclam'])
     time.sleep(3)
     pro3 = subprocess.run(['sudo', 'systemctl', 'start', 'clamav-freshclam'])
+    time.sleep(3)
+    
+  ### check if rkhunter is installed and update if it is true
+  
+    check_rkhunter = subprocess.run(['sudo', 'rkhunter', '--version'])
+    print(check_rkhunter.returncode)
+
+    if int(check_rkhunter.returncode) == 0:
+     pro4 = subprocess.run(['sudo', 'rkhunter', '--update'])
 
   auto_update_clamav()
 
