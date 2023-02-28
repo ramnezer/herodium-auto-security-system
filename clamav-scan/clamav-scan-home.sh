@@ -18,7 +18,7 @@ cat "$LOGFILE" >> "$LOGS_HISTORY"
 cat "$LOGFILE" >> "$LOGFILE2"
 # get the value of "Infected lines"
 MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3)
-# if the value is not equal to zero, send log to desktop and root
+# 
 if [ "$MALWARE" -ne "0" ];then
 # using file below
 
@@ -32,4 +32,3 @@ fi
 
 done
 exit 0
-
