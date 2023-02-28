@@ -151,6 +151,7 @@ clamav_install_commands()
 ####################################################################################################################################
 
 def options():
+    
  pro = subprocess.run(['sudo', 'cp', '-r', 'options',  '/opt/auto-clamIPS/auto-clamav/'])   
  
  print(pro.returncode)
@@ -1057,6 +1058,310 @@ def maltrail_commands():
       print("the program will continue the installation process in a few seconds, please wait ...")  
       time.sleep(3)
 
+    ### maltrail-auto-active-sensors 
+
+      def ClamMaltrail_enable():
+        
+        pro = subprocess.run(
+            ['sudo', 'apt-get', 'install', 'ipset', 'iptables', '-y'])
+        
+        pro1 = subprocess.run(
+            ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/maltrail/logs/'])
+        
+        pro2 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/blacklist.sh', '/opt/auto-clamIPS/maltrail/'])
+        
+        pro3 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/listener_maltrail.sh', '/opt/auto-clamIPS/maltrail/'])
+        
+        pro03 = subprocess.run(
+            ['sudo', 'cp', 'scripts/maltrail_fix_service.sh', '/opt/auto-clamIPS/maltrail/'])
+
+        pro04 = subprocess.run(
+            ['sudo', 'cp', 'scripts/maltrail_fix_listener.sh', '/opt/auto-clamIPS/maltrail/'])     
+        
+        pro4 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail_scan.py', '/opt/auto-clamIPS/maltrail/'])
+        
+        pro5 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/listener_maltrail.service', '/etc/systemd/system/'])
+        
+        pro6 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/listener_maltrail.timer', '/etc/systemd/system/'])
+        
+        pro7 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/maltrail_scan.service', '/etc/systemd/system/'])
+        
+        pro8 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/maltrail_scan.timer', '/etc/systemd/system/'])
+        
+        pro9 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
+        
+        pro10 = subprocess.run(
+            ['sudo', 'systemctl', 'start', 'listener_maltrail.service'])
+        
+        pro11 = subprocess.run(
+            ['sudo', 'systemctl', 'enable', 'listener_maltrail.timer'])
+        
+        pro12 = subprocess.run(
+            ['sudo', 'systemctl', 'start', 'maltrail_scan.service'])
+        
+        pro13 = subprocess.run(
+            ['sudo', 'systemctl', 'enable', 'maltrail_scan.timer'])
+        
+        pro14 = subprocess.run(
+            'sudo ipset create blacklists hash:ip timeout 0 maxelem 150000', shell=True)
+        
+        pro15 = subprocess.run(
+            'sudo ipset create blacklists2 hash:ip timeout 0 family inet6 maxelem 150000', shell=True)
+        
+        pro16 = subprocess.run(
+            'sudo iptables -C INPUT  -m set  --match-set blacklists  src -j DROP 2> /dev/null || sudo iptables -I INPUT 1  -m set  --match-set blacklists src -j  DROP 2> /dev/null', shell=True)
+        
+        pro17 = subprocess.run(
+            'sudo ip6tables -C INPUT  -m set  --match-set blacklists2  src -j DROP 2> /dev/null || sudo ip6tables -I INPUT 1  -m set  --match-set blacklists2 src -j DROP 2> /dev/null', shell=True)
+        
+        pro18 = subprocess.run('sudo -i ipset save blacklists > /etc/ipset_maltrail.conf', shell=True)
+        pro19 = subprocess.run('sudo -i ipset save blacklists2 > /etc/ipset_maltrail2.conf', shell=True)
+
+    ### ipset optimization
+        pro20 = subprocess.run(['sudo', 'apt-get', 'install', 'iprange', 'libcorkipset-utils',
+                                'libcorkipset1', 'libipset-dev', 'libipset13', '-y'])
+
+        pro21 = subprocess.run(
+            ['sudo', 'cp', 'scripts/maltrail-clear-symbols.sh', '/opt/auto-clamIPS/maltrail/'])
+
+    # make sure dnsutils is install
+        pro22 = subprocess.run(
+            ['sudo', 'apt-get', 'install', 'bind9-dnsutils', '-y'])
+
+
+
+        print(pro1.returncode)
+        print(pro2.returncode)
+        print(pro3.returncode)
+        print(pro03.returncode)
+        print(pro04.returncode)
+        print(pro4.returncode)
+        print(pro5.returncode)
+        print(pro6.returncode)
+        print(pro7.returncode)
+        print(pro8.returncode)
+        print(pro9.returncode)
+        print(pro10.returncode)
+        print(pro11.returncode)
+        print(pro12.returncode)
+        print(pro13.returncode)
+        print(pro21.returncode)
+        print(pro22.returncode)
+
+
+        if int(pro1.returncode|pro2.returncode|pro3.returncode|pro03.returncode|pro04.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
+        |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
+        |pro13.returncode|pro21.returncode|pro22.returncode)==0:
+         print("") 
+         print("enable maltrail-active-sensors services was successful")
+         print("")
+         print("the program will continue the installation process in a few seconds, please wait ...")  
+         time.sleep(3)
+
+        else:
+
+         print("") 
+         print("*install maltrail-active-sensors services finished with errors *")
+         print("")
+         time.sleep(3)
+         print("")
+         loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
+         if loop  == "y":
+          subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+          ClamMaltrail_enable()
+        
+      ClamMaltrail_enable()
+
+
+    ### Automatic blacklist cleaning
+
+      def flush_blacklists():
+        
+        print("")
+        print("")
+        print("IP addresses that are considered malicious today can")
+        print("become legitimate again after a certain period of time.")
+        print("")
+        print("The program will allow you two options ")
+        print("for automatically cleaning the block list.")
+        print("once a week or once a month")
+        print("")
+        print("If the addresses remain malicious, they will be returned")
+        print("to the list automatically if the maltrail sensors detect")
+        print("them again.")
+        print("")
+        print("")
+
+
+
+        blacklists = input("Are you interested to enable automatic blacklist cleaning for maltrail-blocker ? [y/n] ")  
+        if blacklists  == "y":
+
+    ###
+
+         with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+         print(data)
+         data[89] = "maltrail-blacklist-cleaning = enable \n"
+
+         with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+    ###      
+            
+         pro = subprocess.run(['sudo', 'cp', 'maltrail/flush_blacklists.sh', '/opt/auto-clamIPS/maltrail/'])
+
+         pro1 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.timer', '/etc/systemd/system/'])
+
+         pro2 = subprocess.run(
+            ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.service', '/etc/systemd/system/'])  
+        
+
+         print("")
+         print("")  
+         print("Enter [1] clean once a week(default)")  
+         print("Enter [2] clean once a month on /**/15/ 02:00:00")
+         print("")
+         print("")
+
+         retls = input("select an option: ")
+
+         if retls  == "1":
+
+            with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
+                data = file.readlines()
+
+            print(data)
+            data[4] = "OnCalendar=Sat 2:00:00 \n"
+
+            with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
+                file.writelines(data)
+
+    ###
+
+            with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+                data = file.readlines()
+
+            print(data)
+            data[94] = "blacklist-cleaning = 1 \n"
+
+            with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+                file.writelines(data)
+        
+    ###
+
+         if retls  == "2":
+            
+            with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
+                data = file.readlines()
+
+            print(data)
+            data[4] = "OnCalendar=*-*-15 02:00:00 \n"
+
+            with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
+                file.writelines(data)
+
+    ###
+
+            with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+                data = file.readlines()
+
+            print(data)
+            data[94] = "blacklist-cleaning = 2 \n"
+
+            with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+                file.writelines(data)    
+
+    ###
+
+         pro3 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
+        
+         pro4 = subprocess.run(
+            ['sudo', 'systemctl', 'start', 'flush_blacklists.timer'])
+        
+         pro5 = subprocess.run(
+            ['sudo', 'systemctl', 'enable', 'flush_blacklists.timer'])
+
+         print(pro.returncode)
+         print(pro1.returncode)
+         print(pro2.returncode)
+         print(pro3.returncode)
+         print(pro4.returncode)
+         print(pro5.returncode)
+
+         if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode)==0:
+          print("") 
+          print("enable automatic-blacklist-cleaning services was successful")
+          print("")
+          print("the program will continue the installation process in a few seconds, please wait ...")  
+          time.sleep(3)
+
+         else:
+
+          print("") 
+          print("*enable automatic-blacklist-cleaning-services was was failed*")
+          print("")
+          time.sleep(3)
+          print("")
+          loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
+          if loop  == "y":
+           subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+           flush_blacklists() 
+
+        else:
+
+            print("") 
+            print("* warning: enable automatic-blacklist-cleaning-service was was failed *")
+            print("")
+            time.sleep(3)
+            print("")
+
+
+      flush_blacklists()
+        
+        
+###    
+### optimize_matrail
+###
+    
+      def optimize_maltrail():
+         
+         pro = subprocess.run(['sudo', 'bash', 'scripts/optimize_maltrail.sh'])   
+    
+         print(pro.returncode)
+    
+         if int(pro.returncode)==0:
+          print("") 
+          print("* succeeded to optimizing maltrail *")
+          print("")
+          print("")
+          print("the program will continue the installation process in a few seconds, please wait ...")  
+          time.sleep(3)
+
+         else:
+
+          print("") 
+          print("* warning: Failed to optimize maltrail *")
+          print("")
+          time.sleep(3)
+          print("")
+          loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
+          if loop  == "y":
+           subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+           optimize_maltrail()
+            
+                        
+      optimize_maltrail()   
+
      else:
 
       print("") 
@@ -1078,270 +1383,8 @@ def maltrail_commands():
         print("")
     
     maltrail_install()
-
-### maltrail-auto-active-sensors 
-
-    def ClamMaltrail_enable():
-     
-     pro = subprocess.run(
-         ['sudo', 'apt-get', 'install', 'ipset', 'iptables', '-y'])
-     
-     pro1 = subprocess.run(
-         ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/maltrail/logs/'])
-     
-     pro2 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/blacklist.sh', '/opt/auto-clamIPS/maltrail/'])
-     
-     pro3 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/listener_maltrail.sh', '/opt/auto-clamIPS/maltrail/'])
-     
-     pro4 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/maltrail_scan.py', '/opt/auto-clamIPS/maltrail/'])
-     
-     pro5 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/maltrail-services/listener_maltrail.service', '/etc/systemd/system/'])
-     
-     pro6 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/maltrail-services/listener_maltrail.timer', '/etc/systemd/system/'])
-     
-     pro7 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/maltrail-services/maltrail_scan.service', '/etc/systemd/system/'])
-     
-     pro8 = subprocess.run(
-         ['sudo', 'cp', 'maltrail/maltrail-services/maltrail_scan.timer', '/etc/systemd/system/'])
-     
-     pro9 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
-     
-     pro10 = subprocess.run(
-         ['sudo', 'systemctl', 'start', 'listener_maltrail.service'])
-     
-     pro11 = subprocess.run(
-         ['sudo', 'systemctl', 'enable', 'listener_maltrail.timer'])
-     
-     pro12 = subprocess.run(
-         ['sudo', 'systemctl', 'start', 'maltrail_scan.service'])
-     
-     pro13 = subprocess.run(
-         ['sudo', 'systemctl', 'enable', 'maltrail_scan.timer'])
-     
-     pro14 = subprocess.run(
-         'sudo ipset create blacklists hash:ip timeout 0 maxelem 150000', shell=True)
-     
-     pro15 = subprocess.run(
-         'sudo ipset create blacklists2 hash:ip timeout 0 family inet6 maxelem 150000', shell=True)
-     
-     pro16 = subprocess.run(
-         'sudo iptables -C INPUT  -m set  --match-set blacklists  src -j DROP 2> /dev/null || sudo iptables -I INPUT 1  -m set  --match-set blacklists src -j  DROP 2> /dev/null', shell=True)
-     
-     pro17 = subprocess.run(
-         'sudo ip6tables -C INPUT  -m set  --match-set blacklists2  src -j DROP 2> /dev/null || sudo ip6tables -I INPUT 1  -m set  --match-set blacklists2 src -j DROP 2> /dev/null', shell=True)
-     
-     pro18 = subprocess.run('sudo -i ipset save blacklists > /etc/ipset_maltrail.conf', shell=True)
-     pro19 = subprocess.run('sudo -i ipset save blacklists2 > /etc/ipset_maltrail2.conf', shell=True)
-
-### ipset optimization
-     pro20 = subprocess.run(['sudo', 'apt-get', 'install', 'iprange', 'libcorkipset-utils',
-                             'libcorkipset1', 'libipset-dev', 'libipset13', '-y'])
-
-     pro21 = subprocess.run(
-         ['sudo', 'cp', 'scripts/maltrail-clear-symbols.sh', '/opt/auto-clamIPS/maltrail/'])
-
-# make sure dnsutils is install
-     pro22 = subprocess.run(
-         ['sudo', 'apt-get', 'install', 'bind9-dnsutils', '-y'])
-
-
-
-     print(pro1.returncode)
-     print(pro2.returncode)
-     print(pro3.returncode)
-     print(pro4.returncode)
-     print(pro5.returncode)
-     print(pro6.returncode)
-     print(pro7.returncode)
-     print(pro8.returncode)
-     print(pro9.returncode)
-     print(pro10.returncode)
-     print(pro11.returncode)
-     print(pro12.returncode)
-     print(pro13.returncode)
-     print(pro21.returncode)
-     print(pro22.returncode)
-
-
-     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
-     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
-     |pro13.returncode|pro21.returncode|pro22.returncode)==0:
-      print("") 
-      print("enable maltrail-active-sensors services was successful")
-      print("")
-      print("the program will continue the installation process in a few seconds, please wait ...")  
-      time.sleep(3)
-
-     else:
-
-      print("") 
-      print("*install maltrail-active-sensors services finished with errors *")
-      print("")
-      time.sleep(3)
-      print("")
-      loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
-      if loop  == "y":
-        subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
-        ClamMaltrail_enable()
-    
-    ClamMaltrail_enable()
-
-
-### Automatic blacklist cleaning
-
-    def flush_blacklists():
-     
-     print("")
-     print("")
-     print("IP addresses that are considered malicious today can")
-     print("become legitimate again after a certain period of time.")
-     print("")
-     print("The program will allow you two options ")
-     print("for automatically cleaning the block list.")
-     print("once a week or once a month")
-     print("")
-     print("If the addresses remain malicious, they will be returned")
-     print("to the list automatically if the maltrail sensors detect")
-     print("them again.")
-     print("")
-     print("")
-
-
-
-     blacklists = input("Are you interested to enable automatic blacklist cleaning for maltrail-blocker ? [y/n] ")  
-     if blacklists  == "y":
-
-###
-
-      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
-        data = file.readlines()
-
-      print(data)
-      data[89] = "maltrail-blacklist-cleaning = enable \n"
-
-      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
-        file.writelines(data)
-
-###      
-         
-      pro = subprocess.run(['sudo', 'cp', 'maltrail/flush_blacklists.sh', '/opt/auto-clamIPS/maltrail/'])
-
-      pro1 = subprocess.run(
-        ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.timer', '/etc/systemd/system/'])
-
-      pro2 = subprocess.run(
-        ['sudo', 'cp', 'maltrail/maltrail-services/flush_blacklists.service', '/etc/systemd/system/'])  
-    
-
-      print("")
-      print("")  
-      print("Enter [1] clean once a week(default)")  
-      print("Enter [2] clean once a month on /**/15/ 02:00:00")
-      print("")
-      print("")
-
-      retls = input("select an option: ")
-
-      if retls  == "1":
-
-        with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
-            data = file.readlines()
-
-        print(data)
-        data[4] = "OnCalendar=Sat 2:00:00 \n"
-
-        with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
-            file.writelines(data)
-
-###
-
-        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
-            data = file.readlines()
-
-        print(data)
-        data[94] = "blacklist-cleaning = 1 \n"
-
-        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
-            file.writelines(data)
-    
-###
-
-      if retls  == "2":
-        
-        with open('/etc/systemd/system/flush_blacklists.timer', 'r', encoding='utf-8') as file:
-            data = file.readlines()
-
-        print(data)
-        data[4] = "OnCalendar=*-*-15 02:00:00 \n"
-
-        with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
-            file.writelines(data)
-
-###
-
-        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
-            data = file.readlines()
-
-        print(data)
-        data[94] = "blacklist-cleaning = 2 \n"
-
-        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
-            file.writelines(data)    
-
-###
-
-      pro3 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
-     
-      pro4 = subprocess.run(
-         ['sudo', 'systemctl', 'start', 'flush_blacklists.timer'])
-     
-      pro5 = subprocess.run(
-         ['sudo', 'systemctl', 'enable', 'flush_blacklists.timer'])
-
-      print(pro.returncode)
-      print(pro1.returncode)
-      print(pro2.returncode)
-      print(pro3.returncode)
-      print(pro4.returncode)
-      print(pro5.returncode)
-
-      if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode)==0:
-       print("") 
-       print("enable automatic-blacklist-cleaning services was successful")
-       print("")
-       print("the program will continue the installation process in a few seconds, please wait ...")  
-       time.sleep(3)
-
-      else:
-
-       print("") 
-       print("*enable automatic-blacklist-cleaning services was was failed*")
-       print("")
-       time.sleep(3)
-       print("")
-       loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
-       if loop  == "y":
-        subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
-        flush_blacklists() 
-
-       else:
-
-        print("") 
-        print("* warning: enable automatic-blacklist-cleaning services was was failed *")
-        print("")
-        time.sleep(3)
-        print("")
-
-
-    flush_blacklists()
-
-
+ 
+   
 maltrail_commands()
 
 
@@ -1903,11 +1946,271 @@ ufw_commands()
 #########################################################################################################################################
 
 
+######################################################
+# install rkhunter-auto-scanner and fix update error #
+######################################################
+
+
+def rkhunter_commands():
+ 
+ print('"rkhunter (Rootkit Hunter) is a Unix-based tool')
+ print('that scans for rootkits, backdoors and')
+ print('possible local exploits."')
+ print("")
+ print("")
+ print("This program will be used in rkhunter to perform")
+ print("automatic scans at pre-defined times and")
+ print("send notifications to the user in case of a")
+ print("warning about a suspicious directory or file.")
+ print("")
+ print("")
+ print("To avoid a situation of over-aggressive scan")
+ print("the program will focus only for three scans, which are:")
+ print(" 'rootkits' 'additional rootkit' 'Linux specific' ")
+ print("")
+ print("Note!")
+ print("This meant that the users had to perform a")
+ print("manual scan from time to time")
+ print("by using: [sudo rkhunter --check --sk]")
+ print("")
+ print("")
+ 
+ rkhunter = input("Are you interested to install rkhunter-auto-scanner ? [y/n]")  
+ if rkhunter  == "y":
+ ###
+ 
+  def rkhunter_install():
+        
+    pro = subprocess.run([
+        'sudo', 'apt-get', '-y', '--no-install-recommends', 'install', 'rkhunter'])
+    
+    pro2 = subprocess.run([
+        'sudo', 'mkdir', '-p', '/opt/auto-clamIPS/rkhunter/logs/'])   
+    
+    pro1 = subprocess.run([
+        'sudo', 'cp', 'rkhunter/rkhunter_scanner.sh', '/opt/auto-clamIPS/rkhunter/'])
+    
+    pro3 = subprocess.run([
+        'sudo', 'bash', 'scripts/fix_update_rkhunter.sh'])
+    
+    time.sleep(3)
+    pro4 = subprocess.run(['sudo', 'rkhunter', '--update'])
+    
+    pro5 = subprocess.run(
+        ['sudo', 'cp', 'rkhunter/rkhunter_service/rkhunter_scanner.service', '/etc/systemd/system/'])
+    
+    pro6 = subprocess.run(
+        ['sudo', 'cp', 'rkhunter/rkhunter_service/rkhunter_scanner.timer', '/etc/systemd/system/'])
+    
+    
+    print(pro.returncode)
+    print(pro1.returncode)
+    print(pro2.returncode)
+    print(pro3.returncode)
+    print(pro5.returncode)
+    print(pro6.returncode)
+
+    
+    if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode|pro5.returncode|pro6.returncode) == 0:
+        
+        print("########################################")
+        print("* rkhunter installation was successful *")
+        print("########################################")
+        print("")
+        print("the program will continue the installation process in a few seconds, please wait ...")
+        time.sleep(3)
+    else:
+        print("#######################################") 
+        print("* warning: failed to install rkhunter *")
+        print("#######################################")
+        print("")
+        time.sleep(3)
+        print("")
+        loop = input("Do you want to try to fix the problem and install again? [y/n]") 
+        if loop  == "y":
+          subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+          rkhunter_install()
+
+
+        else:
+            
+              print("#######################################") 
+              print("* warning: failed to install rkhunter *")
+              print("#######################################")
+              time.sleep(3)
+              print("")          
+          
+  rkhunter_install()
+
+###
+
+  def rkhunter_options():
+      
+      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+        data = file.readlines()
+
+      print(data)
+      data[108] = "rkhunter-auto-scanner = enable \n"
+
+      with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+        file.writelines(data)
+      
+      print("")
+      print("")
+      print("")
+      print('Since "rkhunter" it is a quick scan')
+      print('You can choose short scheduling times')  
+      print("")
+      print("")
+      print("Enter [1] rkhunter-scan all 6-hours (default)")  
+      print("Enter [2] rkhunter-scan 12-hours")
+      print("Enter [3] rkhunter-scan once a day")  
+      print("Enter [4] rkhunter-scan once week")
+
+      retls = input("select an option: ")
+
+      if retls  == "1":
+
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[5] = "OnCalendar=*-*-* 00,06,12,18:00:00 \n"
+
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+    
+    
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+         data = file.readlines()
+
+        print(data)
+        data[120] = "rkhunter-scan = 1 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+         file.writelines(data)
+
+  
+###
+
+      if retls  == "2":
+        
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[5] = "OnCalendar=*-*-* 00,12:00:00 \n"
+
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+         data = file.readlines()
+
+        print(data)
+        data[120] = "rkhunter-scan = 2 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+         file.writelines(data)
+
+###
+
+      if retls  == "3":
+        
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[5] = "OnCalendar=*-*-* 00:00:00 \n"
+
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)    
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+         data = file.readlines()
+
+        print(data)
+        data[120] = "rkhunter-scan = 3 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+         file.writelines(data)
+          
+### 
+
+      if retls  == "4":
+        
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[5] = "OnCalendar=Sat 3:00:00 \n"
+
+        with open('/etc/systemd/system/rkhunter_scanner.timer', 'w', encoding='utf-8') as file:
+            file.writelines(data)       
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+         data = file.readlines()
+
+        print(data)
+        data[120] = "rkhunter-scan = 4 \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+         file.writelines(data)
+        
+###   
+      def rkhunter_update():
+          
+        time.sleep(1)
+        pro7 = subprocess.run(
+        ['sudo', 'systemctl', 'daemon-reload'])
+        time.sleep(1)
+        pro8 = subprocess.run(
+        ['sudo', 'systemctl', 'enable', 'rkhunter_scanner.timer']) 
+        time.sleep(1)
+        pro9 = subprocess.run(
+        ['sudo', 'systemctl', 'start', 'rkhunter_scanner.service'])
+        time.sleep(3) 
+        print(pro7.returncode)
+        print(pro8.returncode)
+        print(pro9.returncode)
+
+        if int(pro7.returncode|pro8.returncode|pro9.returncode) == 0:
+  
+         print("") 
+         print("*enable rkhunter_scanner services was successful*")
+         print("")
+         print("the program will continue the installation process in a few seconds, please wait ...")  
+         time.sleep(3)
+
+        else:
+
+         print("") 
+         print("*enable rkhunter_scanner services was failed*")
+         print("")
+         time.sleep(3)
+         print("")
+         loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
+         if loop  == "y":
+          subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+          rkhunter_update()
+          
+      rkhunter_update()   
+          
+  rkhunter_options()
+  
+rkhunter_commands()
 
 
 ### To prevent bugs after the installation finished the program will make sure the file is clean
 subprocess.run("sudo -i truncate -s 0 /opt/auto-clamIPS/auto-clamav/logs/change.log", shell=True)
-
 
 
 
