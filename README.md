@@ -669,7 +669,7 @@ You have 4 options:
 
 
 Note!
-####################################################
+****************************************************
 To avoid a situation of over-aggressive
 the program will focus only for three scans,
 which are:
@@ -678,7 +678,9 @@ which are:
 This meant that the users had to perform a
 manual scan from time to time
 by using: [sudo rkhunter --check --sk]
-####################################################
+****************************************************
+
+
 
 
 ********************************************************************************************************************************************
