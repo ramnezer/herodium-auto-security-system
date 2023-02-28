@@ -24,7 +24,11 @@ chmod +x notify-send/notify-send.py
 chmod +x notify-send/notify-reset-boot.py
 chmod +x options/edit-options.sh
 chmod +x options/line-generator.sh
-
+chmod +x scripts/optimize_maltrail.sh
+chmod +x scripts/fix_update_rkhunter.sh
+chmod +x scripts/maltrail_fix_service.sh
+chmod +x scripts/maltrail_fix_listener.sh
+chmod +x rkhunter/rkhunter_scanner.sh
 
 
 
