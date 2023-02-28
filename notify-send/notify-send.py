@@ -3,6 +3,8 @@ import time
 
 
 def check_infected():
+    
+    
  check_infected = subprocess.run(
      "grep -F 'FOUND' /opt/auto-clamIPS/notify-clamMA/logs/notify.log", capture_output=True, shell=True)
  print(check_infected.stdout)
@@ -14,7 +16,9 @@ def check_infected():
 
   subprocess.run(
       "sudo -i truncate -s 0 /opt/auto-clamIPS/notify-clamMA/logs/notify.log", shell=True)
-
+    
+####
+     
  check_infected2 = subprocess.run(
      "grep -F 'FOUND' /opt/auto-clamIPS/notify-clamMA/logs/notify1.log", capture_output=True, shell=True)
  print(check_infected2.stdout)
@@ -26,6 +30,9 @@ def check_infected():
   subprocess.run(
       "sudo -i truncate -s 0 /opt/auto-clamIPS/notify-clamMA/logs/notify1.log", shell=True)
 
+
+###
+
  check_malware = subprocess.run(
      "grep -F '(malware)' /opt/auto-clamIPS/notify-clamMA/logs/notify2.log", capture_output=True, shell=True)
  print(check_malware.stdout)
@@ -35,6 +42,19 @@ def check_infected():
   time.sleep(10)
   subprocess.run(
       "sudo -i truncate -s 0 /opt/auto-clamIPS/notify-clamMA/logs/notify2.log", shell=True)
+
+
+###
+
+ rootkits_check = subprocess.run(
+     "grep -F 'Warning:' /opt/auto-clamIPS/notify-clamMA/logs/notify3.log", capture_output=True, shell=True)
+ print(rootkits_check.stdout)
+
+ if int(rootkits_check.returncode) == 0:
+  subprocess.run("sudo notify-send -u critical  '     ! WARNING !' 'The system detected warning from rkhunter '  -i '/opt/auto-clamIPS/notify-clamMA/notify-media/net-malwares1.png'", shell=True)
+  time.sleep(10)
+  subprocess.run(
+      "sudo -i truncate -s 0 /opt/auto-clamIPS/notify-clamMA/logs/notify3.log", shell=True)
 
 
 check_infected()
