@@ -1,10 +1,6 @@
 #!/bin/bash 
 
 
-### create values and variables && match them to correct templates
-### identify the number of destination line and convert it to a value
-### build functions and execute the change 
-
 
 ##################################
 ### clamscan-root-week options ###
@@ -307,3 +303,80 @@ sudo systemctl disable flush_blacklists.timer
 
 fi
 
+
+
+#############################
+### rkhunter-auto-scanner ###
+#############################
+
+
+#################################################################################################################################
+
+rkhunter_scan1=$(grep -E 'rkhunter-scan = 1|rkhunter-scan= 1|rkhunter-scan =1|rkhunter-scan=1' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+rkhunter_scan2=$(grep -E 'rkhunter-scan = 2|rkhunter-scan= 2|rkhunter-scan =2|rkhunter-scan=2' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+rkhunter_scan3=$(grep -E 'rkhunter-scan = 3|rkhunter-scan= 3|rkhunter-scan =3|rkhunter-scan=3' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+rkhunter_scan4=$(grep -E 'rkhunter-scan = 4|rkhunter-scan= 4|rkhunter-scan =4|rkhunter-scan=4' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+take_number6="/etc/systemd/system/rkhunter_scanner.timer"
+
+
+number6=$(sed '/^$/d' $take_number6 | cat $take_number6 | echo $(grep  -Fn 'OnCalendar=' $take_number6) | cut -d':' -f-1)
+
+if [ "$rkhunter_scan1" ]
+then
+
+awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00,06,12,18:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
+
+sudo systemctl daemon-reload
+sudo systemctl restart rkhunter_scanner.timer
+###
+
+elif [ "$rkhunter_scan2" ]
+then
+
+awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00,12:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
+
+sudo systemctl daemon-reload
+sudo systemctl restart rkhunter_scanner.timer
+###
+
+elif [ "$rkhunter_scan3" ]
+then
+
+awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
+
+sudo systemctl daemon-reload
+sudo systemctl restart rkhunter_scanner.timer
+###
+
+elif [ "$rkhunter_scan4" ]
+then
+
+awk  'NR=="'$number6'" {$0="OnCalendar=Sat 3:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
+
+sudo systemctl daemon-reload
+sudo systemctl restart rkhunter_scanner.timer
+###
+
+fi
+
+###
+
+rkhunter_scan_e=$(grep -E 'rkhunter-auto-scanner = enable|rkhunter-auto-scanner= enable|rkhunter-auto-scanner =enable|rkhunter-auto-scanner=enable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+rkhunter_scan_d=$(grep -E 'rkhunter-auto-scanner = disable|rkhunter-auto-scanner= disable|rkhunter-auto-scanner =disable|rkhunter-auto-scanner=disable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
+
+if [ "$rkhunter_scan_e" ]
+then
+
+sudo systemctl start rkhunter_scanner.timer
+sudo systemctl enable rkhunter_scanner.timer
+
+elif [ "$rkhunter_scan_d" ]
+then
+
+sudo systemctl stop rkhunter_scanner.timer
+sudo systemctl disable rkhunter_scanner.timer
+
+fi
+
+#################################################################################################################################
+#################################################################################################
