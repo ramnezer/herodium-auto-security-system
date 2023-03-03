@@ -630,6 +630,7 @@ it from doing anything I don't want
 (like accessing my music, documents, etc).
 This way even if your application is
 compromised, no harm can be done."
+https://askubuntu.com/questions/236381/what-is-apparmor
 
 
 Note !
@@ -984,6 +985,8 @@ https://github.com/crowdsecurity/crowdsec
 https://github.com/fail2ban/fail2ban
 
 https://github.com/teejee2008/timeshift
+
+https://rkhunter.sourceforge.net/
 
 
 #
