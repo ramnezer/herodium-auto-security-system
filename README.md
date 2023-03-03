@@ -622,6 +622,7 @@ who need a high level of security.
 
 A simple explanation for apparmor...
 
+#
 "Apparmor is a security framework that prevents applications
 from turning evil.For example:If I run Firefox and visit a
 bad site that tries to install malware that will delete my
@@ -630,8 +631,11 @@ it from doing anything I don't want
 (like accessing my music, documents, etc).
 This way even if your application is
 compromised, no harm can be done."
+#
 https://askubuntu.com/questions/236381/what-is-apparmor
-
+#
+#
+#
 
 Note !
 ************************************************************
