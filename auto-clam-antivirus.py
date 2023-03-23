@@ -15,16 +15,26 @@ def timeshift_commands():
     print(pro2.returncode)
 
     if int(pro.returncode|pro2.returncode)==0:
+        
+        print("")
+        print("")
         print("############################################################")
         print("* Timeshift installation and system backup were successful *")
         print("############################################################")
         print("")
+        print("")
         print("the program will continue the installation process in a few seconds, please wait ...")
+        print("")
         time.sleep(3)
+    
     else:
+        
+        print("")
+        print("")
         print("#####################################################") 
         print("*          warning:system backup is failed          *")
         print("#####################################################")
+        print("")
         print("")
         time.sleep(3)
         print("#################################################################")
@@ -34,6 +44,7 @@ def timeshift_commands():
         print("you were in before the installation.")
         print("#################################################################")
         print("")
+        print("")
         loop = input("Do you want to try to Install timeshift and backup the system again? [y/n]") 
         if loop  == "y":
           subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
@@ -41,11 +52,14 @@ def timeshift_commands():
 
 
         else:
-            
+              
+              print("")
+              print("")
               print("##############################################################################") 
               print("*                       warning: backup system failed                        *")
               print("##############################################################################")
               time.sleep(3)
+              print("")
               print("")
         
               while input("Do you want to continue without backup system? [y/n]") == "n":
@@ -54,8 +68,8 @@ def timeshift_commands():
 
 timeshift_commands()
 
-##############################################################################################################################
-
+####################################################################################################################################################################
+####################################################################################################################################################################
 
 
 ###########################
@@ -117,6 +131,7 @@ def clamav_install_commands():
     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode
     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
     |pro12.returncode|pro13.returncode)==0:
+        print("")
         print("") 
         print("* Installing and update clamav was successful*")
         print("")
@@ -125,7 +140,8 @@ def clamav_install_commands():
         time.sleep(3)
 
     else:
-
+        
+        print("")
         print("") 
         print("* warning: Installing and update clamav finished with errors *")
         print("")
@@ -138,9 +154,11 @@ def clamav_install_commands():
 
 
         else:
-        
+            
+            print("")
             print("") 
             print("* warning: Installing and update clamav was failed *")
+            print("")
             print("")
             time.sleep(3)
             print("")
@@ -157,6 +175,7 @@ def options():
  print(pro.returncode)
  
  if int(pro.returncode)==0:
+    print("")
     print("") 
     print("* Options file copied successfully *")
     print("")
@@ -165,7 +184,8 @@ def options():
     time.sleep(3)
 
  else:
-
+    
+    print("")
     print("") 
     print("* warning: Failed to copy options file *")
     print("")
@@ -192,7 +212,8 @@ def root_scan_commands():
  print("Enter [2] clamscan once a day on 00:00:00")
  print("Enter [3] clamscan once a week on Sat 3:00:00 (default)")  
  print("Enter [4] clamscan once a month on /**/15/ 03:00:00") 
-
+ print("")
+ print("")
 
  retls = input("select an option: ")
  
@@ -298,16 +319,22 @@ def root_scan_commands():
   print(pro.returncode)
 
   if int(pro.returncode)==0:
+        
+        print("")
         print("") 
         print("* enable root_scanner_timer was successful *")
         print("")
         print("")
         print("the program will continue the installation process in a few seconds, please wait ...")  
+        print("")
         time.sleep(3)
+        
   else:
-
+    
+    print("")
     print("")  
     print("enable root_scanner_timer was failed ")
+    print("")
     print("")
 
  update_timer()
@@ -325,6 +352,7 @@ def home_scan():
  print("will prefer to perform it once a week.")
  print("To give you more security the program will allow you to perform a ")
  print("scan to a home directory only which is considered more problematic.")
+ print("")
  print("")
  home_directory = input("Are you interested to running an automatic scan on your home directory ? [y/n] ")  
  if home_directory  == "y":   
@@ -373,9 +401,13 @@ def home_scan():
      time.sleep(1)
 
     else:
-    
+     
+     print("")   
+     print("")
      print("enable home directory scanner was filled' ")
-
+     print("")
+     print("")
+     
      loop = input("Do you want to try to fix possible problems and try to install again? [y/n]")  
      if loop  == "y":
       subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
@@ -391,7 +423,9 @@ def home_scan():
     print("Enter [1] clamscan all 6-hours")  
     print("Enter [2] clamscan all 12-hours")
     print("Enter [3] clamscan once a day")  
-    print("Enter [4] clamscan once a week") 
+    print("Enter [4] clamscan once a week")
+    print("")
+    print("") 
 
     retls = input("select an option: ")
 
@@ -500,23 +534,31 @@ def home_scan():
     print(pro.returncode)
 
     if int(pro.returncode)==0:
+     print("")
      print("") 
      print("* enable home directory scanner was successful *")
      print("")
      print("")
      print("the program will continue the installation process in a few seconds, please wait ...")  
+     print("")
      time.sleep(3)
    
     else:
-
+     
+     print("")
+     print("")
      print("enable home directory scanner was failed ")
-
+     print("")
+     print("")
+     
   update2_timer()
 
 home_scan()  
 
 
-##################################################################################################################################
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 #################
@@ -537,6 +579,7 @@ def real_time():
   print("creating,downloading,copying,moving a file or directories with files it will start")
   print("scanning the only the specific files added or moved inside the home directory")
   print("in case malware is found the program will perform a full scan of home directory.")
+  print("")
   print("")
 
   change = input("Are you interested to enable a real-time-home-scanner ? [y/n] ")  
@@ -612,14 +655,17 @@ def real_time():
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
     |pro13.returncode|pro14.returncode)==0:
+     print("")
      print("") 
      print("enable 'if_change' and timers && scripts was successful")
+     print("")
      print("")
      print("the program will continue the installation process in a few seconds, please wait ...")  
      time.sleep(3)
 
     else:
-
+     
+     print("")
      print("") 
      print("*warning: enable if_change and timers && scripts was failed*")
      print("")
@@ -629,8 +675,26 @@ def real_time():
      if loop  == "y":
       subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
       if_change() 
-
+    
+     else:
+        
+        print("")
+        print("") 
+        print("* warning: enable if_change and timers && scripts was failed *")
+        print("")
+        time.sleep(3)
+        print("")
+          
+        while input("Do you want to continue ? [y/n]") == "n":
+            exit ()
+    
+    
  if_change()
+
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 ##################
@@ -684,7 +748,7 @@ def real_time():
    print("")
    print("Use this option only if you know what you are doing !")
    print("")
-
+   print("")
 
 
 
@@ -694,7 +758,7 @@ def real_time():
 
 #######
 
-###
+#######
 
           with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
             data = file.readlines()
@@ -705,38 +769,43 @@ def real_time():
           with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
             file.writelines(data)
 
-###
+#######
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'r', encoding='utf-8') as file:
            data = file.readlines()
 
           print(data)
-          data[12] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
+          data[17] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/$desktop1/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
 
           time.sleep(1)
 
-  #######
+#######
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'r', encoding='utf-8') as file:
            data = file.readlines()
 
           print(data)
-          data[16] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/Desktop/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
+          data[21] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/$desktop1/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
 
           time.sleep(1)
 
+#######
 
  auto_move_malwares()
 
 real_time()
 
-################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
+
 
 ### to prevent bugs during installation the service will be temporarily stopped until the system reboot
 subprocess.run(['sudo', 'systemctl', 'stop', 'if-change.timer'], capture_output=True)
@@ -757,6 +826,7 @@ def zram_commands():
  print("actually increase the dynamic memory in your system by '50%'")
  print("on default with ubuntu-based or '2250MB' by default on debian-based")
  print("")
+ print("")
 
  zram = input("Are you interested to install zram-config ? [y/n] ")  
  if zram  == "y": 
@@ -771,7 +841,8 @@ def zram_commands():
     pro1 = subprocess.run(['sudo', 'apt-get', 'install', 'zram-config'])
     print(pro1.returncode)
     if int(pro1.returncode)==0:    
-     print("") 
+     print("")
+     print("")
      print("* Installation zram-config was successful *")
      print("")
      print("")
@@ -779,7 +850,8 @@ def zram_commands():
      time.sleep(3)
 
     else:
- 
+      
+      print("")
       print("") 
       print("*warning: Installation zram-config was failed*")
       print("")
@@ -790,7 +862,19 @@ def zram_commands():
       if loop  == "y":
        subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
        zram_ubuntu_debian()   
-
+      
+      else:
+        print("")
+        print("") 
+        print("* warning: installation zram-config was failed *")
+        print("")
+        time.sleep(3)
+        print("")
+        print("")
+          
+        while input("Do you want to continue ? [y/n]") == "n":
+            exit ()
+      
     
 ### for debian based distros
    pro2 = subprocess.run('cat /proc/version | grep Debian',
@@ -815,7 +899,8 @@ def zram_commands():
 
 
     if int(pro3.returncode|pro4.returncode|pro5.returncode|pro7.returncode)==0:    
-     print("") 
+     print("")
+     print("")
      print("*** Installation zram-config was successful ***")
      print("")
      print("")
@@ -824,8 +909,9 @@ def zram_commands():
 
     else:
 
-      print("") 
-      print("*warning: Installation zram-config was failed*")
+      print("")
+      print("")
+      print("* warning: Installation zram-config was failed *")
       print("")
       time.sleep(3)
       print("")
@@ -834,13 +920,27 @@ def zram_commands():
       if loop  == "y":
        subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
        zram_ubuntu_debian()   
-
+      
+      else:
+        
+        print("")
+        print("") 
+        print("* warning: installation zram-config was failed *")
+        print("")
+        print("")
+        time.sleep(3)
+        print("")
+          
+        while input("Do you want to continue ? [y/n]") == "n":
+            exit ()
+      
   zram_ubuntu_debian()
 
 zram_commands()    
 
 
-#####################################################################################################################################
+####################################################################################################################################################################
+####################################################################################################################################################################
 
 
 ###  An initial database update is performed immediately,and after that the
@@ -887,7 +987,9 @@ def auto_update_clamav():
  |pro5.returncode|pro6.returncode|pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode)==0:
   
   print("")
+  print("")
   print("*** enable auto_update_clamav was successful ***")
+  print("")
   print("")
   time.sleep(3)
  else:
@@ -929,7 +1031,9 @@ def freshclam_fix():
      "grep -E '429|403' clamav-scan/auto_update_clamav/freshclam_error.log", capture_output=True, shell=True)
  print(check_error.stdout)
 
- if int(check_error.returncode)==0:       
+ if int(check_error.returncode)==0:
+     
+     print("")       
      print("")
      print("Failed to update clamav database")
      print("'ERROR type FreshClam previously received error code 429 or 403'")
@@ -951,8 +1055,11 @@ def freshclam_fix():
      loop = input("Do you want to try to fix the problem right now ? [y/n] ")
      if loop  == "y":
       subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+      
+      print("")
       print("")
       print("Please wait it may take some time ...")
+      print("")
       print("")
       subprocess.run(
           'sudo rm -f  "/var/lib/clamav/bytecode.cvd" "/var/lib/clamav/daily.cld" "/var/lib/clamav/freshclam.dat" "/var/lib/clamav/main.cvd"', shell=True)
@@ -963,7 +1070,9 @@ def freshclam_fix():
 freshclam_fix()
 
 
-#####################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
 
 
 
@@ -1051,6 +1160,8 @@ def maltrail_commands():
      if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode
      |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
      |pro12.returncode)==0:
+      
+      print("")
       print("") 
       print("* Installing maltrail was successful *")
       print("")
@@ -1058,7 +1169,7 @@ def maltrail_commands():
       print("the program will continue the installation process in a few seconds, please wait ...")  
       time.sleep(3)
 
-    ### maltrail-auto-active-sensors 
+### maltrail-auto-active-sensors 
 
       def ClamMaltrail_enable():
         
@@ -1124,14 +1235,14 @@ def maltrail_commands():
         pro18 = subprocess.run('sudo -i ipset save blacklists > /etc/ipset_maltrail.conf', shell=True)
         pro19 = subprocess.run('sudo -i ipset save blacklists2 > /etc/ipset_maltrail2.conf', shell=True)
 
-    ### ipset optimization
+### ipset optimization
         pro20 = subprocess.run(['sudo', 'apt-get', 'install', 'iprange', 'libcorkipset-utils',
                                 'libcorkipset1', 'libipset-dev', 'libipset13', '-y'])
 
         pro21 = subprocess.run(
             ['sudo', 'cp', 'scripts/maltrail-clear-symbols.sh', '/opt/auto-clamIPS/maltrail/'])
 
-    # make sure dnsutils is install
+# make sure dnsutils is install
         pro22 = subprocess.run(
             ['sudo', 'apt-get', 'install', 'bind9-dnsutils', '-y'])
 
@@ -1159,16 +1270,21 @@ def maltrail_commands():
         if int(pro1.returncode|pro2.returncode|pro3.returncode|pro03.returncode|pro04.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
         |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
         |pro13.returncode|pro21.returncode|pro22.returncode)==0:
+         
+         print("")
          print("") 
          print("enable maltrail-active-sensors services was successful")
+         print("")
          print("")
          print("the program will continue the installation process in a few seconds, please wait ...")  
          time.sleep(3)
 
         else:
-
+         
+         print("")
          print("") 
-         print("*install maltrail-active-sensors services finished with errors *")
+         print("* install maltrail-active-sensors services finished with errors *")
+         print("")
          print("")
          time.sleep(3)
          print("")
@@ -1177,10 +1293,24 @@ def maltrail_commands():
           subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
           ClamMaltrail_enable()
         
+         else:
+             
+          print("") 
+          print("") 
+          print("* warning: install maltrail-active-sensors services finished with error *")
+          print("")
+          print("")
+          time.sleep(3)
+          print("")
+          
+          while input("Do you want to continue ? [y/n]") == "n":
+            exit ()
+        
+        
       ClamMaltrail_enable()
 
 
-    ### Automatic blacklist cleaning
+### Automatic blacklist cleaning
 
       def flush_blacklists():
         
@@ -1204,7 +1334,7 @@ def maltrail_commands():
         blacklists = input("Are you interested to enable automatic blacklist cleaning for maltrail-blocker ? [y/n] ")  
         if blacklists  == "y":
 
-    ###
+###
 
          with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
             data = file.readlines()
@@ -1215,7 +1345,7 @@ def maltrail_commands():
          with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
             file.writelines(data)
 
-    ###      
+###      
             
          pro = subprocess.run(['sudo', 'cp', 'maltrail/flush_blacklists.sh', '/opt/auto-clamIPS/maltrail/'])
 
@@ -1246,7 +1376,7 @@ def maltrail_commands():
             with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
                 file.writelines(data)
 
-    ###
+###
 
             with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
                 data = file.readlines()
@@ -1257,7 +1387,7 @@ def maltrail_commands():
             with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
                 file.writelines(data)
         
-    ###
+###
 
          if retls  == "2":
             
@@ -1270,7 +1400,7 @@ def maltrail_commands():
             with open('/etc/systemd/system/flush_blacklists.timer', 'w', encoding='utf-8') as file:
                 file.writelines(data)
 
-    ###
+###
 
             with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
                 data = file.readlines()
@@ -1281,7 +1411,7 @@ def maltrail_commands():
             with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
                 file.writelines(data)    
 
-    ###
+###
 
          pro3 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
         
@@ -1299,14 +1429,18 @@ def maltrail_commands():
          print(pro5.returncode)
 
          if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode)==0:
+
+          print("")
           print("") 
           print("enable automatic-blacklist-cleaning services was successful")
+          print("")
           print("")
           print("the program will continue the installation process in a few seconds, please wait ...")  
           time.sleep(3)
 
          else:
-
+          
+          print("") 
           print("") 
           print("*enable automatic-blacklist-cleaning-services was was failed*")
           print("")
@@ -1318,13 +1452,14 @@ def maltrail_commands():
            flush_blacklists() 
 
         else:
-
+            
+            print("")
             print("") 
             print("* warning: enable automatic-blacklist-cleaning-service was was failed *")
             print("")
             time.sleep(3)
             print("")
-
+            print("")
 
       flush_blacklists()
         
@@ -1340,6 +1475,7 @@ def maltrail_commands():
          print(pro.returncode)
     
          if int(pro.returncode)==0:
+          print("")
           print("") 
           print("* succeeded to optimizing maltrail *")
           print("")
@@ -1348,9 +1484,11 @@ def maltrail_commands():
           time.sleep(3)
 
          else:
-
+          
+          print("")
           print("") 
           print("* warning: Failed to optimize maltrail *")
+          print("")
           print("")
           time.sleep(3)
           print("")
@@ -1363,11 +1501,14 @@ def maltrail_commands():
       optimize_maltrail()   
 
      else:
-
+      
+      print("")
       print("") 
       print("* warning: Installation ended with errors *")
       print("")
+      print("")
       time.sleep(3)
+      print("")
       print("")
       loop = input("Do you want to try to Installing maltrail again and fix the errors ? [y/n]")  
       if loop  == "y":
@@ -1375,11 +1516,13 @@ def maltrail_commands():
         maltrail_install() 
 
       else:
-
+        
+        print("")
         print("") 
         print("* warning: Installing maltrail was failed *")
         print("")
         time.sleep(3)
+        print("")
         print("")
     
     maltrail_install()
@@ -1388,7 +1531,10 @@ def maltrail_commands():
 maltrail_commands()
 
 
-#####################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 #################
@@ -1460,28 +1606,51 @@ def enable_notify():
  if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
  |pro7.returncode|pro10.returncode|pro11.returncode|pro12.returncode)==0:
   
+  print("")
   print("") 
   print("*enable notify services was successful*")
   print("")
+  print("")
   print("the program will continue the installation process in a few seconds, please wait ...")  
+  print("")
   time.sleep(3)
 
  else:
-
+  
+  print("")
   print("") 
   print("*enable notify services was failed*")
   print("")
   time.sleep(3)
   print("")
+  print("")
+  
   loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
   if loop  == "y":
    subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
    enable_notify
-
+   
+  else:
+        
+        print("")
+        print("") 
+        print("* warning: enable notify services was failed *")
+        print("")
+        time.sleep(3)
+        print("")
+        print("")
+          
+        while input("Do you want to continue without enable notify services ? [y/n]") == "n":
+            exit ()   
+   
+   
 enable_notify() 
 
 
-#####################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 def fix_firefox_u22():
@@ -1501,6 +1670,7 @@ def fix_firefox_u22():
     pro2 = subprocess.run(['sudo', 'snap', 'refresh', 'firefox'])
     print(pro2.returncode)
     if int(pro2.returncode)==0:    
+     print("")
      print("") 
      print("* Updated/fix firefox-snap successfully *")
      print("")
@@ -1511,7 +1681,10 @@ def fix_firefox_u22():
 fix_firefox_u22() 
 
 
-#########################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 def crowdsec_install():
@@ -1564,6 +1737,7 @@ def crowdsec_install():
      print(pro4.returncode)
 
      if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
+      print("")
       print("") 
       print("* Installing crowdsec was successful *")
       print("")
@@ -1572,11 +1746,13 @@ def crowdsec_install():
       time.sleep(8)
 
      else:
-
+      
+      print("")
       print("") 
       print("* warning: Installing crowdsec ended with errors *")
       print("")
       time.sleep(3)
+      print("")
       print("")
       pro = subprocess.run(
          ['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
@@ -1590,8 +1766,10 @@ def crowdsec_install():
 
       else:
         
+        print("")
         print("") 
         print("* warning: Installing crowdsec was failed *")
+        print("")
         print("")
         time.sleep(3)
         print("")
@@ -1612,15 +1790,20 @@ def crowdsec_install():
         print(pro2.returncode)
 
         if int(pro.returncode|pro1.returncode|pro2.returncode)==0:
+         print("")
+         print("")   
          print("########################################################")
          print("*       Installing/enable fail2ban was successful      *")
          print("########################################################")
+         print("")
          print("")
          print("the program will continue the installation process in a few seconds, please wait ...")
          time.sleep(3)
 
         else:
-
+         
+         print("")
+         print("")
          print("#########################################################################") 
          print("*                 warning: failed installing fail2ban                   *")
          print("#########################################################################")
@@ -1630,6 +1813,7 @@ def crowdsec_install():
          print("Please check if the internet connection is available and try again")
          print("##################################################################")
          print("")
+         print("")
          loop = input("Do you want to try to installing fail2ban again? [y/n]")  
          if loop  == "y":
           subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
@@ -1637,11 +1821,14 @@ def crowdsec_install():
 
 
          else:
-
+              
+              print("")
+              print("")
               print("#######################################################################") 
               print("*                 warning: failed installing fail2ban                 *")
               print("#######################################################################")
               time.sleep(3)
+              print("")
               print("")
         
               while input("Do you want to continue without installing fail2ban ? [y/n]") == "n":
@@ -1652,7 +1839,10 @@ def crowdsec_install():
 crowdsec_install()
 
 
-#########################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 #############################
@@ -1682,6 +1872,7 @@ def apparmor_commands():
   print("change <apparmor=1> to <apparmor=0> save the file")
   print("go to terminal again and update-grub <sudo update-grub> after this reboot your system")
   print("")
+  print("")
   time.sleep(3)
 
   apparmor = input("Do you want to enable apparmor in enforce mode and install useful apparmor utilities ? [y/n] ")  
@@ -1693,16 +1884,24 @@ def apparmor_commands():
           print(pro.returncode)
 
           if int(pro.returncode)==0:
+            
+            print("")
+            print("") 
             print("#################################################")
             print(" timeshift_return-apparmor_backup was successful ")
             print("#################################################") 
+            print("")
+            print("")
             time.sleep(3)
           
           else:
-
+              
+              print("")
+              print("")
               print("##################################################################") 
               print("*      warning: timeshift_return-apparmor_backup was failed      *")
               print("##################################################################")
+              print("")
               print("")
               time.sleep(3)
               
@@ -1742,18 +1941,24 @@ def apparmor_commands():
 
           if int(pro0.returncode|pro1.returncode|pro2.returncode 
           |pro3.returncode)==0:
+              print("")
+              print("")
               print("#############################################################################") 
               print("* apparmor optimization and installation of useful utilities was successful *")
               print("#############################################################################")
               print("")
+              print("")
               print("the program will continue the installation process in a few seconds, please wait ...")  
               time.sleep(3)
           else:
-
+              
+              print("")
+              print("")
               print("##################################################") 
               print("* warning: optimize apparmor finished with errors*")
               print("##################################################")
               time.sleep(3)
+              print("")
               print("")
               loop = input("Do you want to try to fix it? [y/n]")  
               if loop  == "y":
@@ -1762,13 +1967,15 @@ def apparmor_commands():
 
 
               else:
-              
+                  
+                  print("")
+                  print("")
                   print("############################################") 
                   print("*   warning: failed to optimize apparmor   *")
                   print("############################################")
                   time.sleep(3)
                   print("")
-          
+                  print("")
 
       enable_apparmot()  
 
@@ -1776,7 +1983,10 @@ def apparmor_commands():
 apparmor_commands()
 
 
-#########################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 ### Linux Kernel security hardening
@@ -1833,6 +2043,9 @@ def hardening_commands():
 
 
     if int(pro.returncode|pro1.returncode)==0:
+       
+       print("")
+       print("") 
        print("#########################################################") 
        print("*       optimize sysctl.conf file was successful        *")
        print("#########################################################")
@@ -1842,7 +2055,9 @@ def hardening_commands():
        time.sleep(3)
 
     else:
-
+       
+       print("")
+       print("")
        print("#############################################################################") 
        print("*                warning: optimize sysctl.conf file was failed              *")
        print("#############################################################################")
@@ -1852,12 +2067,30 @@ def hardening_commands():
        loop = input("Do you want to try to optimize the file again? [y/n]")  
        if loop  == "y":
         hardening_commands()
+          
+          
+       else:
+            
+            print("")
+            print("")
+            print("#############################################################################") 
+            print("*               warning: optimize sysctl.conf file was failed               *")
+            print("#############################################################################")
+            time.sleep(3)
+            print("")
+            print("")
+          
+            while input("Do you want to continue without optimize sysctl.conf? [y/n]") == "n":
+              exit ()
             
 
 hardening_commands() 
 
 
-#########################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 
@@ -1907,15 +2140,22 @@ def ufw_commands():
     print(pro4.returncode)
 
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
+        
+        print("")
+        print("")
         print("########################################################") 
         print("*               enable ufw was successful              *")
         print("########################################################")
         print("")
+        print("")
         print("the program will continue the installation process in a few seconds, please wait ...")
+        print("")
         time.sleep(3)
 
     else:
-
+        
+        print("")
+        print("")
         print("#########################################################################") 
         print("*                   warning: enable ufw was failed                      *")
         print("#########################################################################")
@@ -1929,11 +2169,14 @@ def ufw_commands():
 
 
         else:
-
+            
+                print("")
+                print("")
                 print("#############################################################################") 
                 print("*                       warning: enable ufw was failed                      *")
                 print("#############################################################################")
                 time.sleep(3)
+                print("")
                 print("")
           
                 while input("Do you want to continue without enable ufw ? [y/n]") == "n":
@@ -1943,7 +2186,10 @@ def ufw_commands():
 ufw_commands()
 
 
-#########################################################################################################################################
+
+####################################################################################################################################################################
+####################################################################################################################################################################
+
 
 
 ######################################################
@@ -1953,6 +2199,8 @@ ufw_commands()
 
 def rkhunter_commands():
  
+ print("")
+ print("")
  print('"rkhunter (Rootkit Hunter) is a Unix-based tool')
  print('that scans for rootkits, backdoors and')
  print('possible local exploits."')
@@ -2013,13 +2261,18 @@ def rkhunter_commands():
     
     if int(pro.returncode|pro1.returncode|pro2.returncode|pro3.returncode|pro5.returncode|pro6.returncode) == 0:
         
+        print("")
+        print("")
         print("########################################")
         print("* rkhunter installation was successful *")
         print("########################################")
         print("")
+        print("")
         print("the program will continue the installation process in a few seconds, please wait ...")
         time.sleep(3)
     else:
+        print("")
+        print("")
         print("#######################################") 
         print("* warning: failed to install rkhunter *")
         print("#######################################")
@@ -2034,11 +2287,14 @@ def rkhunter_commands():
 
         else:
             
+              print("")
+              print("")              
               print("#######################################") 
               print("* warning: failed to install rkhunter *")
               print("#######################################")
               time.sleep(3)
-              print("")          
+              print("")
+              print("")         
           
   rkhunter_install()
 
@@ -2066,7 +2322,9 @@ def rkhunter_commands():
       print("Enter [2] rkhunter-scan 12-hours")
       print("Enter [3] rkhunter-scan once a day")  
       print("Enter [4] rkhunter-scan once week")
-
+      print("")
+      print("")
+      
       retls = input("select an option: ")
 
       if retls  == "1":
@@ -2183,25 +2441,39 @@ def rkhunter_commands():
         print(pro9.returncode)
 
         if int(pro7.returncode|pro8.returncode|pro9.returncode) == 0:
-  
+         
+         print("")
          print("") 
          print("*enable rkhunter_scanner services was successful*")
+         print("")
          print("")
          print("the program will continue the installation process in a few seconds, please wait ...")  
          time.sleep(3)
 
         else:
-
+            
+         print("")
          print("") 
          print("*enable rkhunter_scanner services was failed*")
          print("")
          time.sleep(3)
          print("")
+         print("")
          loop = input("Do you want to try to fix the problem and try again ? [y/n]")  
          if loop  == "y":
           subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
           rkhunter_update()
-          
+         
+         else:
+            
+            print("")
+            print("") 
+            print("* warning: enable rkhunter_scanner services was failed *")
+            print("")
+            time.sleep(3)
+            print("") 
+         
+
       rkhunter_update()   
           
   rkhunter_options()
@@ -2209,9 +2481,14 @@ def rkhunter_commands():
 rkhunter_commands()
 
 
+####################################################################################################################################################################
+####################################################################################################################################################################
+
+
+#
 ### To prevent bugs after the installation finished the program will make sure the file is clean
 subprocess.run("sudo -i truncate -s 0 /opt/auto-clamIPS/auto-clamav/logs/change.log", shell=True)
-
+#
 
 
 print("")
