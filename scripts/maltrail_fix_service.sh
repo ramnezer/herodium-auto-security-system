@@ -6,7 +6,7 @@
 while
  
  sleep 12h
- sudo systemctl restart maltrail-sensor 
+ systemctl restart maltrail-sensor 
  sleep 5
  
 do
