@@ -19,19 +19,25 @@ def uninstalling_auto_clamav_commands():
     print(pro.returncode)
 
     if int(pro.returncode)==0:
+        
+        print("")
+        print("")
         print("#######################################################") 
         print("*             Preparation was successful              *")
         print("#######################################################")
+        print("")
         print("")
         print("the program will continue the process in a few seconds, please wait ...")
         time.sleep(3)
 
     else:
-
+        print("")
+        print("")
         print("############################################################################") 
         print("*                   warning: Preparation was was failed                    *")
         print("############################################################################")
         time.sleep(3)
+        print("")
         print("")
         loop = input("Do you want to try to Prepare the system to uninstallation again? [y/n]")  
         if loop  == "y":
@@ -55,16 +61,21 @@ def uninstalling_auto_clamav_commands():
       print(pro.returncode)
 
       if int(pro.returncode)==0:
+          
+          print("")
           print("") 
           print("*auto_clamav-backup was successful*")
           print("")
           print("")
           print("")
           print("the program will continue the process in a few seconds, please wait ...")
+          print("")
+          print("")
           time.sleep(3)
 
       else:
-
+          
+          print("")
           print("") 
           print("*auto_clamav-backup was failed*")
           print("")
@@ -154,15 +165,20 @@ def uninstalling_auto_clamav_commands():
 
 
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
+       
+       print("")
        print("") 
        print("* uninstalling auto_clamav was successful *")
        print("")
        print("")
        print("the program will continue the process in a few seconds, please wait ...")
+       print("")
+       print("")
        time.sleep(3)
 
     else:
-
+       
+       print("")
        print("") 
        print("* warning: uninstalling auto_clamav finished with bugs *")
        print("")
@@ -201,20 +217,25 @@ def uninstalling_auto_clamav_commands():
 
 
     if int(pro.returncode|pro2.returncode)==0:
-   
+     
+     print("")
      print("") 
      print("* disable zram-config was successful *")
      print("")
      print("")
      print("the program will continue the process in a few seconds, please wait ...")
+     print("")
+     print("")
      time.sleep(3)
 
     else:
-
+     
+     print("")
      print("") 
      print("*warning: disable zram-config was failed*")
      print("")
      time.sleep(1)
+     print("")
      print("")
      loop = input("Do you want to try to disable zram-config again? [y/n]")  
      if loop  == "y":
@@ -250,15 +271,20 @@ def uninstalling_auto_clamav_commands():
       print(pro2.returncode)
  
       if int(pro.returncode|pro2.returncode)==0:
+       
+       print("")
        print("") 
        print(" *** restart apparmor to default was successful  ***")
        print("")
        print("")
        print("the program will continue the process in a few seconds, please wait ...")
+       print("")
+       print("")
        time.sleep(3)
 
       else:
 
+       print("")
        print("") 
        print("***  warning: restart apparmor to default was failed  ***")
        print("")
@@ -273,6 +299,8 @@ def uninstalling_auto_clamav_commands():
 
      reapparmor_commands()
 
+
+###################################################################################################################################
 ###################################################################################################################################
 
 
@@ -284,9 +312,11 @@ def uninstalling_auto_clamav_commands():
   def returnup_commands():
    
    print("")
+   print("")
    print("using sysctl.conf backup to return the")
    print("file to the state it was in before")
    print("installing the program")
+   print("")
    print("")
    print("Note !")
    print("This action will overwrite the current file")
@@ -301,6 +331,7 @@ def uninstalling_auto_clamav_commands():
     print(pro.returncode)
 
     if int(pro.returncode)==0:
+       print("")
        print("") 
        print("*** return sysctl.conf file was successful ***")
        print("")
@@ -308,7 +339,8 @@ def uninstalling_auto_clamav_commands():
        time.sleep(3)
 
     else:
-
+       
+       print("")
        print("") 
        print("*** warning: return sysctl.conf file was failed ***")
        print("")
@@ -342,15 +374,23 @@ def uninstalling_auto_clamav_commands():
    print(pro2.returncode)
 
    if int(pro.returncode|pro2.returncode)==0:
+      
+      print("")
+      print("")
       print("###########################################################") 
       print("*         autoclean && autoremove was successful          *")
       print("###########################################################")
       print("")
+      print("")
       print("the program will continue the process in a few seconds, please wait ...")
+      print("")
+      print("")
       time.sleep(3)
 
    else:
-
+      
+      print("")
+      print("")
       print("##############################################################################") 
       print("*                warning: autoclean && autoremove was failed                 *")
       print("##############################################################################")
@@ -382,3 +422,4 @@ print("")
 print("#################################################")
 print("Uninstallation complete please reboot your system")
 print("#################################################")
+print("")
