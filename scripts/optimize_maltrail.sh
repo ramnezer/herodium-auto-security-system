@@ -36,6 +36,6 @@ fi
 if [ "$UPDATE_TRAILS" ==  'USE_SERVER_UPDATE_TRAILS false' ] ||  [ "$ENABLE_FEEDS" == 'DISABLED_FEEDS turris, ciarmy, policeman, myip, alienvault' ]
 then
 
-sudo systemctl restart maltrail-sensor
+systemctl restart maltrail-sensor
 
 fi
