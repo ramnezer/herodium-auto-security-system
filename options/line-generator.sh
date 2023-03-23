@@ -23,8 +23,8 @@ then
 
 awk  'NR=="'$number1'" {$0="OnCalendar=*-*-* 00,12:00:00"} 1'  $take_number1 > tmp && mv tmp $take_number1 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-root-week.timer
+systemctl daemon-reload
+systemctl restart clamscan-root-week.timer
 ###
 
 elif [ "$full_scan2" ]
@@ -32,8 +32,8 @@ then
 
 awk  'NR=="'$number1'" {$0="OnCalendar=*-*-* 3:00:00"} 1'  $take_number1 > tmp && mv tmp $take_number1 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-root-week.timer
+systemctl daemon-reload
+systemctl restart clamscan-root-week.timer
 ###
 
 elif [ "$full_scan3" ]
@@ -41,8 +41,8 @@ then
 
 awk  'NR=="'$number1'" {$0="OnCalendar=Sat 3:00:00"} 1'  $take_number1 > tmp && mv tmp $take_number1 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-root-week.timer
+systemctl daemon-reload
+systemctl restart clamscan-root-week.timer
 ###
 
 elif [ "$full_scan4" ]
@@ -50,8 +50,8 @@ then
 
 awk  'NR=="'$number1'" {$0="OnCalendar=*-*-15 03:00:00"} 1'  $take_number1 > tmp && mv tmp $take_number1 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-root-week.timer
+systemctl daemon-reload
+systemctl restart clamscan-root-week.timer
 ###
 
 fi
@@ -64,14 +64,14 @@ full_scan_d=$(grep -E 'full-scan = disable|full-scan= disable|full-scan =disable
 if [ "$full_scan_e" ]
 then
 
-sudo systemctl start clamscan-root-week.timer
-sudo systemctl enable clamscan-root-week.timer
+systemctl start clamscan-root-week.timer
+systemctl enable clamscan-root-week.timer
 
 elif [ "$full_scan_d" ]
 then
 
-sudo systemctl stop clamscan-root-week.timer
-sudo systemctl disable clamscan-root-week.timer
+systemctl stop clamscan-root-week.timer
+systemctl disable clamscan-root-week.timer
 
 fi
 
@@ -101,8 +101,8 @@ then
 
 awk  'NR=="'$number2'" {$0="OnCalendar=*-*-* 00,06,12,18:00:00"} 1'  $take_number2 > tmp && mv tmp $take_number2 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-home-day.timer
+systemctl daemon-reload
+systemctl restart clamscan-home-day.timer
 ###
 
 elif [ "$home_scan2" ] 
@@ -110,8 +110,8 @@ then
 
 awk  'NR=="'$number2'" {$0="OnCalendar=*-*-* 00,12:00:00"} 1'  $take_number2 > tmp && mv tmp $take_number2 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-home-day.timer
+systemctl daemon-reload
+systemctl restart clamscan-home-day.timer
 ###
 
 elif [ "$home_scan3" ]
@@ -119,8 +119,8 @@ then
 
 awk  'NR=="'$number2'" {$0="OnCalendar=*-*-* 00:00:00"} 1'  $take_number2 > tmp && mv tmp $take_number2
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-home-day.timer
+systemctl daemon-reload
+systemctl restart clamscan-home-day.timer
 ###
 
 elif [ "$home_scan4" ]
@@ -128,8 +128,8 @@ then
 
 awk  'NR=="'$number2'" {$0="OnCalendar=Sat 3:00:00"} 1'  $take_number2 > tmp && mv tmp $take_number2 
 
-sudo systemctl daemon-reload
-sudo systemctl restart clamscan-home-day.timer
+systemctl daemon-reload
+systemctl restart clamscan-home-day.timer
 ###
 
 fi
@@ -141,16 +141,16 @@ home_scan_d=$(grep -E 'home-scan = disable|home-scan= disable|home-scan =disable
 if [ "$home_scan_e" ]
 then
 
-sudo systemctl start clamscan-home-day.timer
-sudo systemctl enable clamscan-home-day.timer
+systemctl start clamscan-home-day.timer
+systemctl enable clamscan-home-day.timer
 ###
 
 elif [ "$home_scan_d" ]
 then
 ###
 
-sudo systemctl stop clamscan-home-day.timer
-sudo systemctl disable clamscan-home-day.timer
+systemctl stop clamscan-home-day.timer
+systemctl disable clamscan-home-day.timer
 
 fi
 
@@ -170,14 +170,14 @@ clam_real_time_d=$(grep -E 'clam-real-time = disable|clam-real-time= disable|cla
 if [ "$clam_real_time_e" ]
 then
 
-sudo systemctl start if-change-scan.timer
-sudo systemctl enable if-change-scan.timer
+systemctl start if-change-scan.timer
+systemctl enable if-change-scan.timer
 
 elif [ "$clam_real_time_d" ]
 then
 
-sudo systemctl stop if-change-scan.timer
-sudo systemctl disable if-change-scan.timer
+systemctl stop if-change-scan.timer
+systemctl disable if-change-scan.timer
 
 fi
 
@@ -234,16 +234,16 @@ maltrail_real_d=$(grep -E 'maltrail-real-time = disable|maltrail-real-time= disa
 if [ "$maltrail_real_e" ]
 then
 
-sudo systemctl start maltrail-sensor
-sudo systemctl enable maltrail-sensor
+systemctl start maltrail-sensor
+systemctl enable maltrail-sensor
 ###
 
 elif [ "$maltrail_real_d" ]
 then
 ###
 
-sudo systemctl stop maltrail-sensor
-sudo systemctl disable maltrail-sensor
+systemctl stop maltrail-sensor
+systemctl disable maltrail-sensor
 
 fi
 
@@ -266,8 +266,8 @@ then
 
 awk  'NR=="'$number5'" {$0="OnCalendar=Sat 2:00:00"} 1'  $take_number5 > tmp && mv tmp $take_number5 
 
-sudo systemctl daemon-reload
-sudo systemctl restart flush_blacklists.timer
+systemctl daemon-reload
+systemctl restart flush_blacklists.timer
 ###
 
 elif [ "$maltrail_blacklist2" ]
@@ -275,8 +275,8 @@ then
 
 awk  'NR=="'$number5'" {$0="OnCalendar=*-*-15 02:00:00"} 1'  $take_number5 > tmp && mv tmp $take_number5 
 
-sudo systemctl daemon-reload
-sudo systemctl restart flush_blacklists.timer
+systemctl daemon-reload
+systemctl restart flush_blacklists.timer
 ###
 
 
@@ -290,16 +290,16 @@ blacklist_cleaning_d=$(grep -E 'maltrail-blacklist-cleaning = disable|maltrail-b
 if [ "$blacklist_cleaning_e" ]
 then
 
-sudo systemctl start flush_blacklists.timer
-sudo systemctl enable flush_blacklists.timer
+systemctl start flush_blacklists.timer
+systemctl enable flush_blacklists.timer
 ###
 
 elif [ "$blacklist_cleaning_d" ]
 then
 ###
 
-sudo systemctl stop flush_blacklists.timer
-sudo systemctl disable flush_blacklists.timer
+systemctl stop flush_blacklists.timer
+systemctl disable flush_blacklists.timer
 
 fi
 
@@ -326,8 +326,8 @@ then
 
 awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00,06,12,18:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
 
-sudo systemctl daemon-reload
-sudo systemctl restart rkhunter_scanner.timer
+systemctl daemon-reload
+systemctl restart rkhunter_scanner.timer
 ###
 
 elif [ "$rkhunter_scan2" ]
@@ -335,8 +335,8 @@ then
 
 awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00,12:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
 
-sudo systemctl daemon-reload
-sudo systemctl restart rkhunter_scanner.timer
+systemctl daemon-reload
+systemctl restart rkhunter_scanner.timer
 ###
 
 elif [ "$rkhunter_scan3" ]
@@ -344,8 +344,8 @@ then
 
 awk  'NR=="'$number6'" {$0="OnCalendar=*-*-* 00:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
 
-sudo systemctl daemon-reload
-sudo systemctl restart rkhunter_scanner.timer
+systemctl daemon-reload
+systemctl restart rkhunter_scanner.timer
 ###
 
 elif [ "$rkhunter_scan4" ]
@@ -353,8 +353,8 @@ then
 
 awk  'NR=="'$number6'" {$0="OnCalendar=Sat 3:00:00"} 1'  $take_number6 > tmp && mv tmp $take_number6 
 
-sudo systemctl daemon-reload
-sudo systemctl restart rkhunter_scanner.timer
+systemctl daemon-reload
+systemctl restart rkhunter_scanner.timer
 ###
 
 fi
@@ -367,16 +367,15 @@ rkhunter_scan_d=$(grep -E 'rkhunter-auto-scanner = disable|rkhunter-auto-scanner
 if [ "$rkhunter_scan_e" ]
 then
 
-sudo systemctl start rkhunter_scanner.timer
-sudo systemctl enable rkhunter_scanner.timer
+systemctl start rkhunter_scanner.timer
+systemctl enable rkhunter_scanner.timer
 
 elif [ "$rkhunter_scan_d" ]
 then
 
-sudo systemctl stop rkhunter_scanner.timer
-sudo systemctl disable rkhunter_scanner.timer
+systemctl stop rkhunter_scanner.timer
+systemctl disable rkhunter_scanner.timer
 
 fi
 
 #################################################################################################################################
-#################################################################################################
