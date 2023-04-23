@@ -1,62 +1,74 @@
 
-## auto-clamIPS-AntiMalware
+## Herodium-Auto-Security-System
 
-auto-clamIPS is an automatic-integrated-protection-system against malware and malicious traffic
+Herodium is an automatic-integrated-protection-system against malware and malicious traffic
 
-The purpose of this tool is to create auto-active-system 
-against malware and malicious traffic for debian/ubuntu based distros.
-The project was based on a combination of several other open
+The purpose of this tool is to create auto-active-system against 
+malware and malicious traffic for debian/ubuntu based distros.
+the project was based on a combination of several other open
 source projects (clamav,maltrail,apparmor and more) that will
 be managed by scripts in bash,python and systemd to
 create one coordinated and automatic system.
+#
+#
+The main purpose of the project is to provide protection
+for cyber security experts(especially ethical hackers)
+but also for workstations and regular desktop users.
+#
+
+ 
+
+*******************************************
+#### Minimum system requirements
+
+dual-core cpu 
+
+4GB of RAM memory
+
+8GB of swap memory on the hard disk
+(recommended nvme or at least sata SSD)
+
+*It is also recommended to use
+'compressed RAM devices' such as 'zram'
+
+*******************************************
 
 
+#
+#
 
 #### For debian/ubuntu based distributions
-#### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distrio
+#### like mint,popos,linux-lite,*mx-linux,kali-linux and similar distributions
 
-
-
-
-#### Before we start the installation ... 
-#### Explanation of the program
-
-Whereas in the past the use of antivirus on
-Linux-based distributions was unnecessary.
-after all,over the years the situation has
-changed and today there are quite a few
-threats on the network.
-
-It's true that responsible
-linux-users do not have to use antivirus,
-but when it comes to less responsible and
-less experienced users the situation
-is of course different.
-
-Project clamav together with other open
-source projects
-can give a strong and effective solution but
-unfortunately for some users (even advanced)
-the use of these programs can be difficult.
-
-This tool wants to solve this problem by combining
-between clamav,maltrail,apparmor and other projects
-managed by systemd,python and bash scripts to
-create a single coordinated system against
-malicious activity.
 
 #
 #
 #
+
+#### Before installation
+#### Explanation about the tool...
+
 *******************************************************************************************************************************
 
 ### auto-clam-antivirus
 
-to prevent unnecessary use of ram memory,the installation will
-not install 'clamav-daemon' you can install clamav-daemon
-manually if you want and use 'clamdscan' with your shell.
 
-The program will then allow you to perform two types of scans,
+*****************************************************************************
+To improve performance and the response time of the system,
+the tool will use 'clamdscan'.since the response time of
+'clamav-daemon' is significantly higher than a regular scan,
+the tool will limit the cpu power (by 'cpulimit') during
+the scan to 50% of one core.for example,if you have a cpu 
+with 4 cores,the system will use up to 12.5% of the total
+processing power.
+
+Clam will use more RAM memory (approximately 1000 MB of RAM)
+on the one hand,but 50% less(from normal scan)processing power
+on the other hand.the result is a better balance between resources
+and performance.
+****************************************************************************
+
+The tool will allow you to perform two types of scans,
 each scan includes several scheduling options.
 and a third option for real-time-scanner.
 
@@ -81,12 +93,19 @@ once a month
 
 2.
 
-A full scan of the system can take a very long time, so most users will prefer to perform it once a week.
-to give you more security the program will allow you to perform a additional scan that will work in parallel with the main scan
-(full scan) Specific to a home directory only which is considered more problematic.
+A full scan of the system can take a very long time,
+so most users will prefer to perform it once a week.
+to give you more security the program will allow you
+to perform a additional scan that will work in parallel
+with the main scan(full scan) specific to a home 
+directory only which is considered more problematic.
 
-By logic you will need to perform the scan at a lower timing than the full scan.
-for example, if you run a full scan once a week, you will want to run a home-scan once a day or 12 hours.
+By logic you will need to perform the
+scan at a lower timing than the full scan.
+for example,if you run a full scan once a
+week, you will want to run a home-scan once
+a day or 12 hours.
+
 
 You have 4 options:
 
@@ -105,42 +124,53 @@ once a week
 #### real-time scanner 
 
 To make the program more effective and identify risks immediately.
-you have the option to enable real-time scanner for home (by default) or additional target directories.
-The system will scan your home directory and all the directories inside her
-on a regular basis every 15 seconds and if it detects a change such as
-creating,downloading,copying,moving a file or directories with files
-it will start scanning the only the specific files added or moved inside the home directory
-in case malware is found the program will perform a full scan of home directory.
+you have the option to enable real-time scanner for home (by default)
+or additional target directories.the system will scan your home directory
+and all the directories inside her on a regular basis and if it detects a
+change such as creating,downloading,copying,moving a file or directories
+with files it will start scanning the only the specific files added or
+moved inside the home directory in case malware is found the program
+will perform a full scan of home directory.
 
 #### Note !
 #
-For obvious reasons the service will not listen to changes on Hidden directories that come inside
-'home' such ".mozilla" ".cache" ".local"
-In addition the scanner partially ignored from snap directory if it is installed,
-he will allow only visible files to be scanned within the snap directory.
-all other hidden folders and files inside home directory will be scanned
-by real-time scanner 
+For obvious reasons the service will not listen to changes on Hidden
+directories that come inside 'home' such ".mozilla" ".cache" ".local"
+In addition the scanner partially ignored from snap directory if it is
+installed,he will allow only visible files to be scanned within the snap
+directory.all other hidden folders and files inside home directory will
+be scanned by real-time scanner.
+
+#### important to know
 #
-To avoid duplicate scans while transferring large directories containing multiple files
-the program will turn off the execution scanner but will continue to listen for new changes
-and if there were new changes while performing the scan the program will perform another scan
-after finishing the first.
+The scan under the current concept is so efficient so even if
+new hidden folders that do not exist in the ignore list are
+added in the future,it will not have too much effect on cpu
+performance,especially if we consider the processing power
+and the number of cores of an average processor today together
+with the use of 'cpulimit' tool and the constant use of RAM
+memory as already mentioned.
+#
 #
 #### The real-time scanner is not a substitute for scheduled scans !!!
-it is surely not a substitute for the full scan but neither substitute for a home-scan-timer.
-this is because if the real-time scanner is failed for any reason,you will be left without
-protection of your home directory until the next full system scan,
-and the second reason is because real-time scanning is not trying to detect and scan
-changes in some of the hidden directories as I mentioned before.
+it is surely not a substitute for the full scan but neither substitute
+for a home-scan-timer.this is because if the real-time scanner is failed
+for any reason,you will be left without protection of your home directory
+until the next full system scan,and the second reason is because real-time
+scanning is not trying to detect and scan changes in some of the hidden 
+directories as I mentioned before.
 
 #### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
 #
-Earlier versions of ubuntu 22.04 come with a directory called "firefox.tmp"
-In the downloads directory that creates a problem with real-time-scanner.
-To fix this you need to update Firefox via snap.
-The program will try to fix this automatically
-and do so only on distributions which are
+Earlier versions of ubuntu 22.04 come
+with a directory called "firefox.tmp"
+In the downloads directory that creates
+a problem with real-time-scanner.to fix
+this you need to update Firefox via snap.
+The program will try to fix this
+automatically and do so only
+on distributions which are
 based on ubuntu 22.04 lts.
 
 you can also do it manually
@@ -222,9 +252,10 @@ in any ub/de distribution.
 *******************************************************************************************************************************
 
 To ensure that the clamav-database is regularly updated,the system will
-run a service that will perform a manual update for you automatically every 6 hours.
-updates clamav-database on a daily basis are very small so they will
-not interfere with network usage.
+run a service that will perform a manual update for you automatically
+every 24 hours.updates clamav-database on a daily basis are very small
+so they will not interfere with network usage.the tool will also update
+'clamd-daemon' automatically immediately after updating the database.
 
 *******************************************************************************************************************************
 *******************************************************************************************************************************
@@ -245,41 +276,31 @@ not interfere with network usage.
 #### auto-move-malware with real-time-scanner for home(default) or target directory
 #
 
-If you want to make the detection system mor autonomous 
-you have the option to automatically move threats 
-with real-time-home-scanner to a special test directory
-named 'virus-found'
-Located in: /home/user_name/auto-clamIPS/VIRUS-FOUND/
+If you want to make the detection system more autonomous 
+you have the option to automatically remove threats.
 
-Within this directory a zip file will be created that will include
-all the infected files and will allow the user to make a selection
-between the files.if you come to the conclusion that there is
-nothing important in the zip file you can just delete it,
-Deleting the zip will not have a negative effect on the program,
-The program will create a new zip as soon as needed again.
-
-To prevent unwanted loop of the detection system after
-malware detection,the program will put the directory
-'VIRUS-FOUND' in ignore mode.this ignore command 
-will not include the scheduled scanners.
 
 
 #### !!! Note !!!
 
-auto-move-malware will not include the regular schedulers
-(full scan and home)for the reason that sometimes 'auto-move'
-may be too aggressive.the real-time-scanner includes a backup scan
-in case it fails or in case malware is found,the backup scan will
-include the entire home directory and if you choose to enable
-'auto-move' its settings will also be included in this scan !
+auto-remove-malware will not include the regular schedulers
+(full scan and home),the real-time-scanner includes a backup
+scan in case it fails or in case malware is found,the backup
+scan will include the entire home directory and if you choose
+to enable 'auto-move' its settings will also be included in
+this scan !
 
-#### !!! Warning !!!
+#### ! Warning !
 
 If there are files in your home or target directory
 that are compatible with windows that have undergone reverse
 engineering with tools like wine to run on linux distro,the 
 antivirus may identify them as a risk and in case you choose
-to automatically move risks they might move to 'VIRUS-FOUND' directory
+to automatically remove risks they might delete.
+
+It is also not recommended to use unofficial sources for
+clam database under this concept,especially not with
+"auto-remove" option !
 
 #### Use this option only if you know what you are doing !
 
@@ -364,49 +385,7 @@ $ sudo cscli hub list
 The installation will not active cscli-dashboard
 ************************************************
 
-*******************************************************************************************************************************************
-
-
-#### 4.
-
-
-#
-#### unofficial sources for clamav
-#
-
-Using databases from unofficial sources can increase your 
-clam signatures dramatically (50% or more in some cases) but may
-cause over-aggressiveness especially cases of identifying text
-files containing names of known viruses.
-This can sometimes lead to strange scenarios in which an antivirus
-will detect one of the signatures of clamav or the lists of 'maltrail'
-as if it contained malware even though it is of course incorrect
-and illogical and this problem of over-aggressiveness can also
-happen with 'ad-blockers' for browsers.
-
-Despite everything I said,
-According to a study I did, using unofficial sources can
-make an antivirus much more effective if used properly.
-And thus increase the success rate from 80%-85% to 90%-95%.
-For these reasons the use of unofficial sources is
-recommended for professional or experienced users who
-can benefit greatly from them.
-
-Unfortunately this is problematic to automatically add unofficial
-sources through the program,this is because in some cases registration
-for the services is required,and in others cases the
-servers that provide the download links change frequently.
-
-So if you wish to add external sources you
-will have to do this manually. 
-
-This is an example of one company that offers effective services for
-improving clamav signatures when its basic services are free.
-
-https://www.securiteinfo.com/services-cybersecurite/anti-spam-anti-virus/improve-detection-rate-of-zero-day-malwares-for-clamav.shtml?lg=en
-*******************************************************************************************************************************************
-
-
+********************************************************************************************************************************************
 ********************************************************************************************************************************************
 ********************************************************************************************************************************************
 
@@ -599,11 +578,11 @@ reboot the system
 
 ### zram-config
 
-Use in maltrail cost you up to '10%' of the RAM in your system,
-to deal with this problem the installation will give you the 
-option to use 'zram-config' which will optimize and
-actually increase the dynamic memory in your system by '50%'
-on default with ubuntu-based or '2250MB' by default on debian-based
+Use in maltrail and 'clamav-daemon' together cost you up to '1500MB'
+of the RAM in your system,to deal with this problem the installation
+will give you the option to use 'zram-config' which will optimize and
+actually increase the dynamic memory in your system by '50%' on default
+with ubuntu-based or '2250MB' by default on debian-based
 
 *********************************************************************
 
@@ -683,6 +662,10 @@ which are:
 This meant that the users had to perform a
 manual scan from time to time
 by using: [sudo rkhunter --check --sk]
+
+the system will run a service that will perform
+a manual update for 'rootkits' automatically
+every 24 hours.
 ****************************************************
 
 
@@ -716,7 +699,7 @@ https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-u
 
 
 
-## install auto-clamIPS
+## install herodium-auto-security-system
 
 
 Open a terminal and run the following commands
@@ -727,13 +710,13 @@ Open a terminal and run the following commands
 
 Download the tool to home folder
 
-#### $ git clone https://github.com/ramner98/auto-clamIPS.git
+#### $ git clone https://github.com/ramner98/herodium-auto-security-system.git
 
-#### $ cd auto-clamIPS && chmod +x setup.sh && sudo ./setup.sh -yy
+#### $ cd herodium-auto-security-system && chmod +x setup.sh && sudo ./setup.sh -yy
 
 or
 
-#### $ cd auto-clamIPS
+#### $ cd herodium-auto-security-system
 
 #### $ chmod +x setup.sh
 
@@ -855,42 +838,7 @@ $ sudo aa-complain /etc/apparmor.d/*
 
 ********************************************************************************************************************************************
 
-#### Use a ignore files list for clamscan
 
-This means that the antivirus ignores files
-that appear in the list if you need to do so
-for some reason.
-
-The text file located in 
-
-$ /opt/auto-clamIPS/auto-clamav/ignore_list.txt
-
-You need to add this command before target
-
---exclude=
-
-example of adding a file to a list:
-****************************************
---exclude=/home/user/test/file_test.sh
-
---exclude=/usr/local/bin/file_test2.py
-****************************************
-
-Note !
-*******************************************************
-#### This ignore-list will work on all types of scans,
-#### so be careful with it !
-
-and if you chose to use the list..
-perform from time to time a manual check to see
-what is on the list and if it should be there,
-it is important !
-
-You can check the list easily with
-
-$ cat -n /opt/auto-clamIPS/auto-clamav/ignore_list.txt
-
-*******************************************************
 
 ******************************************************************************************************
 ******************************************************************************************************
@@ -904,7 +852,14 @@ In addition
 **************************************************************************************************
 Perform manual scans by clamscan on a regular basis
 
+for standard scan
+use:
 $ clamscan -r -i /
+
+
+for daemon-scan (for speed)
+use:
+$ sudo clamdscan --fdpass --infected /
 
 **************************************************************************************************
 
