@@ -8,9 +8,9 @@ dig=$(dig "$IPSCAN" +short >> "$dig_log" && dig AAAA "$IPSCAN" +short >> "$dig_l
 
 ### For distributions with non-english languages,get the correct desktop name 
 ### and convert it to universal(for english and non-english distro)variable
-desktop1=$(cat /home/"$user"/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
+desktop1=$(cat /home/$user/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
 
-echo $(cat "$ipset_log") >> "/home/"$user"/"$desktop1"/maltrail-found-$(date +'%Y-%m-%d').log"
+echo $(cat "$ipset_log") >> "/home/$user/$desktop1/maltrail-found-$(date +'%Y-%m-%d').log"
 echo $(cat "$ipset_log") >> "/root/maltrail-found-$(date +'%Y-%m-%d').log"
 
 printf  "\n#############################################################\nfound malicious traffic check with\n[sudo ipset list blacklists && sudo ipset list blacklists2]\nif the malicious addresses have been blocked\n#############################################################\n" >> "/home/"$user"/"$desktop1"/maltrail-found-$(date +'%Y-%m-%d').log"
