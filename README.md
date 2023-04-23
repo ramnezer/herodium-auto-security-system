@@ -185,9 +185,9 @@ Add or change a real-time-scan target directory
 
 #### example for apache web server
 
-go to /opt/auto-clamIPS/auto-clamav/if-change.sh
+go to /opt/auto-clamIPS/auto-clamav/change-li.sh
 
-$ sudo nano /opt/auto-clamIPS/auto-clamav/if-change.sh
+$ sudo nano /opt/auto-clamIPS/auto-clamav/change-li.sh
 
 change the relevant part that appears in the line
 
