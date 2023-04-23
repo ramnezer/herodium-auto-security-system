@@ -13,7 +13,8 @@ ip6tables -C INPUT  -m set  --match-set blacklists2  src -j DROP 2> /dev/null ||
 touch /var/log/maltrail/$(date +"%Y-%m-%d").log
 
 ### To avoid an unnecessary warning after system reboot tail will only listen to new results from the target log file
-timeout  10m  sudo -i tail -n0 -f /var/log/maltrail/$(date +"%Y-%m-%d").log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
+data=$(date +"%Y-%m-%d")
+timeout 10m tail -n0 -f /var/log/maltrail/"$data".log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
 
 
 /opt/auto-clamIPS/maltrail/maltrail_fix_listener.sh & /opt/auto-clamIPS/maltrail/maltrail_fix_service.sh
