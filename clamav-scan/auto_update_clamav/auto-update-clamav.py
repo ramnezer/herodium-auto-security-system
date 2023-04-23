@@ -26,6 +26,26 @@ def check_internet():
     pro3 = subprocess.run(['sudo', 'systemctl', 'start', 'clamav-freshclam'])
     time.sleep(3)
     
+
+### Make sure the service ('clamav-daemon') is not updated while 'clamdscan' is running
+### In order not to break the scan.wait until the end and perform an update    
+    
+    def check_clamdscan_if():
+     
+     check_clamdscan = subprocess.run(['pgrep', '-f',  "clamdscan --fdpass"])
+     print(check_clamdscan.returncode)
+    
+     if int(check_clamdscan.returncode) == 0:
+      print("wait...")
+      time.sleep(60)
+      check_clamdscan_if()
+     
+     else:
+      
+      update_clamav_daemon = subprocess.run(['sudo', 'systemctl', 'restart', 'clamav-daemon'])   
+   
+    check_clamdscan_if()
+    
   ### check if rkhunter is installed and update if it is true
   
     check_rkhunter = subprocess.run(['sudo', 'rkhunter', '--version'])
