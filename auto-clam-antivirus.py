@@ -422,7 +422,7 @@ def home_scan():
     print("By logic you will need to perform the scan")
     print("at a lower timing than the full scan .")
     print("For example, if you run a full scan once a week, you")
-    print("will want to runa home scan once a day or 12 hours.")
+    print("will want to run a home scan once a day or 12 hours.")
     print("")
     print("")
     print("Enter [1] clamscan all 6-hours")  
