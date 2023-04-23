@@ -10,7 +10,7 @@ option_remove=$(echo "")
 
 ### For distributions with non-english languages,get the correct desktop name 
 ### and convert it to universal(for english and non-english distro)variable
-desktop1=$(cat /home/"$user"/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
+desktop1=$(cat /home/$user/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
 
 clamdscan --fdpass --infected $option_remove --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE"
 mkdir -p /opt/auto-clamIPS/auto-clamav/logs/logs_history/real-time-history/
