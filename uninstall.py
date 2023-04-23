@@ -138,6 +138,7 @@ def uninstalling_auto_clamav_commands():
     pro28 = subprocess.run(['sudo', 'systemctl', 'stop', 'rkhunter_scanner.timer'])
     pro29 = subprocess.run(['sudo', 'systemctl', 'disable', 'rkhunter_scanner.timer'])
     pro30 = subprocess.run(['sudo', 'apt-get', 'remove', 'rkhunter', '-y'])
+    pro31 = subprocess.run(['sudo', 'apt-get', 'remove', 'cpulimit', '-y'])
 ###
 
     print(pro.returncode)
@@ -161,7 +162,14 @@ def uninstalling_auto_clamav_commands():
     print(pro21.returncode)
     print(pro22.returncode)
     print(pro23.returncode)
-
+    print(pro24.returncode)
+    print(pro25.returncode)
+    print(pro26.returncode)
+    print(pro27.returncode)
+    print(pro28.returncode)
+    print(pro29.returncode)
+    print(pro30.returncode)
+    print(pro31.returncode)
 
 
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
@@ -413,9 +421,9 @@ uninstalling_auto_clamav_commands()
 print("")
 print("")
 print("")
-print("############################################")
-print("https://github.com/ramner98/auto-clamIPS.git")
-print("############################################")
+print("#########################################################")
+print("https://github.com/ramner98/herodium-auto-security-system")
+print("#########################################################")
 time.sleep(3)
 print("")
 print("")
