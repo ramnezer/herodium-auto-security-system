@@ -5,11 +5,10 @@ After=multi-user.target network.target
 [Timer]
 OnStartupSec=10sec
 OnUnitActiveSec=12sec
-OnCalendar=*:*:0/15
+OnCalendar=*:*:0/10
 
 Unit=if-change-scan.service
 
 [Install]
 WantedBy=timers.target
-
 
