@@ -186,33 +186,33 @@ fi
 #################################################################################################################################
 
 
-#####################################
-###   auto-move-malware-options   ###
-#####################################
+#######################################
+###   auto-remove-malware-options   ###
+#######################################
 
 
 move_malware_e=$(grep -E 'move-malware = enable|move-malware= enable|move-malware =enable|move-malware=enable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
 move_malware_d=$(grep -E 'move-malware = disable|move-malware= disable|move-malware =disable|move-malware=disable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
 take_number3="/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh"
 take_number4="/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh"
-move=$(echo '--move=/home/$user/auto-clamIPS/VIRUS-FOUND/')
-move2=$(echo '$option_move')
+move=$(echo '--remove')
+move2=$(echo '$option_remove')
 
-number3=$(sed '/^$/d' $take_number3 | cat $take_number3 | echo $(grep  -Fn 'clamscan --infected --recursive' $take_number3) | cut -d':' -f-1)
-number4=$(sed '/^$/d' $take_number4 | cat $take_number4 | echo $(grep  -Fn 'clamscan --infected --recursive' $take_number4) | cut -d':' -f-1)
+number3=$(sed '/^$/d' $take_number3 | cat $take_number3 | echo $(grep  -Fn 'clamdscan --fdpass --infected' $take_number3) | cut -d':' -f-1)
+number4=$(sed '/^$/d' $take_number4 | cat $take_number4 | echo $(grep  -Fn 'clamdscan --fdpass --infected' $take_number4) | cut -d':' -f-1)
 
 if [ "$move_malware_e" ]
 then
 
 
-awk  'NR=="'$number3'" {$8="'$move'"} 1'  $take_number3 > tmp && mv tmp $take_number3
-awk  'NR=="'$number4'" {$9="'$move'"} 1'  $take_number4 > tmp && mv tmp $take_number4
+awk  'NR=="'$number3'" {$4="'$move'"} 1'  $take_number3 > tmp && mv tmp $take_number3
+awk  'NR=="'$number4'" {$4="'$move'"} 1'  $take_number4 > tmp && mv tmp $take_number4
 
 elif [ "$move_malware_d" ]
 then
 
-awk  'NR=="'$number3'" {$8="'$move2'"} 1'  $take_number3 > tmp && mv tmp $take_number3
-awk  'NR=="'$number4'" {$9="'$move2'"} 1'  $take_number4 > tmp && mv tmp $take_number4
+awk  'NR=="'$number3'" {$4="'$move2'"} 1'  $take_number3 > tmp && mv tmp $take_number3
+awk  'NR=="'$number4'" {$4="'$move2'"} 1'  $take_number4 > tmp && mv tmp $take_number4
 
 
 fi
