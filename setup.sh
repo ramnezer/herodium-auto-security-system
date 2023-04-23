@@ -16,6 +16,8 @@ chmod +x clamav-scan/auto_update_clamav/auto-update-clamav.py
 chmod +x clamav-scan/change_service/clamav-scan-if.sh
 chmod +x clamav-scan/change_service/clamav-scan-if2.sh
 chmod +x clamav-scan/change_service/clamav-scan-home2.sh
+chmod +x clamav-scan/change_service/change-li.sh
+chmod +x clamav-scan/change_service/cpulimit-chack.sh
 chmod +x maltrail/blacklist.sh
 chmod +x maltrail/listener_maltrail.sh
 chmod +x maltrail/maltrail_scan.py
@@ -28,7 +30,9 @@ chmod +x scripts/optimize_maltrail.sh
 chmod +x scripts/fix_update_rkhunter.sh
 chmod +x scripts/maltrail_fix_service.sh
 chmod +x scripts/maltrail_fix_listener.sh
+chmod +x scripts/check_user.sh
 chmod +x rkhunter/rkhunter_scanner.sh
+ 
 
 
 ### *Prepare the system for installation* ###
@@ -55,11 +59,11 @@ sudo apt-get install git -yy
 HEIGHT=15
 WIDTH=76
 CHOICE_HEIGHT=4
-BACKTITLE="https://github.com/ramner98/auto-clamIPS.git"
-TITLE="auto-clamIPS"
+BACKTITLE="https://github.com/ramner98/herodium-auto-security-system.git"
+TITLE="herodium-auto-security-system"
 MENU="Choose one of the following options:"
 
-OPTIONS=(1 "install auto-clamIPS"
+OPTIONS=(1 "install herodium"
          2 "uninstall")
 
 CHOICE=$(dialog --clear \
