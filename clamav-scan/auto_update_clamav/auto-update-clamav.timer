@@ -2,9 +2,8 @@
 Description=auto-update-clamav service timer
 
 [Timer]
-OnCalendar=*-*-* 00,06,12,18:00:00
+OnCalendar=*-*-* 06:00:00
 Unit=auto-update-clamav.service
 
 [Install]
 WantedBy=multi-user.target
-
