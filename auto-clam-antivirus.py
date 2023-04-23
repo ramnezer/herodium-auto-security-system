@@ -209,7 +209,7 @@ def root_scan_commands():
  print("")
  print("")
  print("You can set 4 types of auto-full-scan for the") 
- print("entire system and eachdevice connected to it.")
+ print("entire system and each device connected to it.")
  print("the default is to perform a full scan once a week ")
  print("")
  print("Enter [1] clamscan all 12-hours")  
