@@ -8,7 +8,7 @@ user=$( users | cut -d ' ' -f 1)
 
 ### For distributions with non-english languages,get the correct desktop name 
 ### and convert it to universal(for english and non-english distro)variable
-desktop1=$(cat /home/"$user"/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
+desktop1=$(cat /home/$user/.config/user-dirs.dirs | grep "XDG_DESKTOP_DIR" | cut -d'/' -f2- | tr -d '"')
 
 cat "$LOGFILE" >> "$LOGS_HISTORY"
 cat "$LOGFILE" >> "$LOGFILE2"
