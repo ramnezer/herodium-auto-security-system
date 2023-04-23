@@ -91,7 +91,7 @@ def clamav_install_commands():
     pro4 = subprocess.run(
         ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/auto-clamav/logs/logs_history/'])
     
-    pro5 = subprocess.run(['sudo', 'apt-get', 'install', 'clamav', '-y'])
+    pro5 = subprocess.run(['sudo', 'apt-get', 'install', 'clamav', 'clamav-daemon', '-y'])
     
     pro7 = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/clamav-root-scan.sh', '/opt/auto-clamIPS/auto-clamav/'])
@@ -111,7 +111,10 @@ def clamav_install_commands():
         ['sudo', 'systemctl', 'enable', 'clamscan-root-week.timer'])
     
     pro13 = subprocess.run(
-        ['sudo', 'cp', 'clamav-scan/ignore_list.txt', '/opt/auto-clamIPS/auto-clamav/'])
+        ['sudo', 'systemctl', 'start', 'clamav-daemon'])
+    
+    pro14 = subprocess.run(
+        ['sudo', 'systemctl', 'enable', 'clamav-daemon'])
 
     
     print(pro1.returncode)
@@ -126,11 +129,12 @@ def clamav_install_commands():
     print(pro11.returncode)
     print(pro12.returncode)
     print(pro13.returncode)
+    print(pro14.returncode)
 
 
     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode
     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
-    |pro12.returncode|pro13.returncode)==0:
+    |pro12.returncode|pro13.returncode|pro14.returncode)==0:
         print("")
         print("") 
         print("* Installing and update clamav was successful*")
@@ -204,8 +208,8 @@ def root_scan_commands():
  
  print("")
  print("")
- print("You can set 4 types of auto-full-scan for the entire system and each") 
- print("device connected to it.")
+ print("You can set 4 types of auto-full-scan for the") 
+ print("entire system and eachdevice connected to it.")
  print("the default is to perform a full scan once a week ")
  print("")
  print("Enter [1] clamscan all 12-hours")  
@@ -415,10 +419,11 @@ def home_scan():
     
     print("")
     print("")
-    print("By logic you will need to perform the scan at a lower ")
-    print("timing than the full scan.")
-    print("For example, if you run a full scan once a week, you will want to run")
-    print("a home scan once a day or 12 hours.")
+    print("By logic you will need to perform the scan")
+    print(" at a lower timing than the full scan .")
+    print("For example, if you run a full scan once a week, you")
+    print(" will want to runa home scan once a day or 12 hours.")
+    print("")
     print("")
     print("Enter [1] clamscan all 6-hours")  
     print("Enter [2] clamscan all 12-hours")
@@ -560,6 +565,45 @@ home_scan()
 ####################################################################################################################################################################
 
 
+####################
+# install cpulimit #
+####################
+
+
+def install_cpulimit():
+ 
+ pro = subprocess.run(['sudo', 'apt-get', 'install', 'cpulimit'])   
+ 
+ print(pro.returncode)
+ 
+ if int(pro.returncode)==0:
+    print("")
+    print("") 
+    print("* program installation was successful *")
+    print("")
+    print("")
+    print("the program will continue the installation process in a few seconds, please wait ...")  
+    time.sleep(3)
+
+ else:
+    
+    print("")
+    print("") 
+    print("* warning: program installation was failed *")
+    print("")
+    time.sleep(3)
+    print("")
+    loop = input("Do you want to try to install the program again ? [y/n]")  
+    if loop  == "y":
+     subprocess.run(['sudo', 'bash', 'scripts/fix.sh']) 
+     install_cpulimit() 
+  
+install_cpulimit()       
+    
+    
+####################################################################################################################################################################
+####################################################################################################################################################################
+    
 
 #################
 #   Real-time   #
@@ -572,13 +616,16 @@ def real_time():
 
   print("")  
   print("")   
-  print("To make the program more effective and identify risks immediately.") 
-  print("You have the option to enable automatic scan of changes.")
-  print("The system will scan your home directory and all the directories inside her")
-  print("on a regular basis and if it detects a change such as")
-  print("creating,downloading,copying,moving a file or directories with files it will start")
-  print("scanning the only the specific files added or moved inside the home directory")
-  print("in case malware is found the program will perform a full scan of home directory.")
+  print("To make the program more effective and identify") 
+  print("risks immediately you have the option to enable")
+  print("automatic scan of changes the system will scan")
+  print("your home directory and all the directories inside")
+  print("her on a regular basis and if it detects a change")
+  print("such as creating,downloading,copying,moving a file")
+  print("or directories with files it will start scanning")
+  print("the only the specific files added or moved inside")
+  print("the home directory in case malware is found the")
+  print("program will perform a full scan of home directory.")
   print("")
   print("")
 
@@ -601,6 +648,12 @@ def real_time():
     
     pro2 = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/change_service/if-change.sh', '/opt/auto-clamIPS/auto-clamav/'])
+    
+    pro2_if_change1 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/change_service/change-li.sh', '/opt/auto-clamIPS/auto-clamav/'])
+    
+    pro2_if_change2 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/change_service/cpulimit-chack.sh', '/opt/auto-clamIPS/auto-clamav/'])
     
     pro3 = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/change_service/if-change-scan.py', '/opt/auto-clamIPS/auto-clamav/'])
@@ -638,6 +691,8 @@ def real_time():
     
     print(pro.returncode)
     print(pro2.returncode)
+    print(pro2_if_change1.returncode)
+    print(pro2_if_change2.returncode)
     print(pro3.returncode)
     print(pro4.returncode)
     print(pro5.returncode)
@@ -652,9 +707,9 @@ def real_time():
     print(pro14.returncode)
 
 
-    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
-    |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode|pro12.returncode
-    |pro13.returncode|pro14.returncode)==0:
+    if int(pro.returncode|pro2.returncode|pro2_if_change1.returncode|pro2_if_change2.returncode|pro3.returncode|pro4.returncode
+    |pro5.returncode|pro6.returncode|pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
+    |pro12.returncode|pro13.returncode|pro14.returncode)==0:
      print("")
      print("") 
      print("enable 'if_change' and timers && scripts was successful")
@@ -692,6 +747,7 @@ def real_time():
  if_change()
 
 
+
 ####################################################################################################################################################################
 ####################################################################################################################################################################
 
@@ -719,32 +775,34 @@ def real_time():
    print("!!! This option is intended for professional or experienced users only !!!")
    print("")
    print("")
-   print("To make the detection system mor autonomous") 
-   print("You have the option to automatically move threats")
-   print("with real-time-home-scanner to a special directory")
-   print("named 'virus-found'")
-   print("Located in:  /home/$(users)/auto-clamIPS/VIRUS-FOUND/")
-   print("within this directory a zip file will be created that will")
-   print("include all the infected files,it will allow the user to")
-   print("make a selection between the files.")
+   print("To make the detection system more") 
+   print("autonomous you have the option to")
+   print("automatically remove(delete)threats")
+   print("with real-time-home-scanner .")
    print("")
    print("")
-   print("!!! Note !!!")
+   print("")
+   print("Note !")
    print("")
    print("This option will not include the regular schedulers(full scan and home)")
-   print("for the reason that sometimes 'auto-move' may be too aggressive")
+   print("for the reason that sometimes 'auto-remove' may be too aggressive")
    print("The real-time scan includes a backup scan in case it fails or in case")
    print("malware is found,the backup scan will include the entire home directory")
-   print("and the 'auto-move' settings will also be included in this scan ! ")
+   print("and the 'auto-remove' settings will also be included in this scan ! ")
    print("")
    print("")
-   print("!!! Warning !!!")
+   print("Warning !")
    print("")
    print("If there are files in your home directory that are compatible with windows")
    print("that have undergone reverse engineering with tools like")
    print("wine to run on linux distro,the antivirus may identify them as a risk")
-   print("and in case you choose to automatically move risks")
-   print("They might move to the target directory")
+   print("and in case you choose to automatically remove risks")
+   print("They might deletet")
+   print("")
+   print("")
+   print("It is also not recommended to use unofficial sources for")
+   print("clam database under this concept,especially not with")
+   print("'auto-remove' option !")
    print("")
    print("Use this option only if you know what you are doing !")
    print("")
@@ -752,7 +810,7 @@ def real_time():
 
 
 
-   auto_move = input("Are you interested to enable automatically-move-threats together with real-time-home-scaner ? [y/n] ")  
+   auto_move = input("Are you interested to enable automatically-remove-threats together with real-time-home-scaner ? [y/n] ")  
    if auto_move  == "y":
 
 
@@ -775,7 +833,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[17] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/$desktop1/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
+          data[14] = 'clamdscan --fdpass --infected --remove --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -788,7 +846,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[21] = 'clamscan --infected --recursive --exclude=/home/$user/auto-clamIPS/VIRUS-FOUND/ --exclude=/home/$user/.local/share/Trash/files/ --exclude=/home/$user/$desktop1/clamav-found-malware-$(date +"%Y-%m-%d").log $exclude --move=/home/$user/auto-clamIPS/VIRUS-FOUND/ "$S" >> "$LOGFILE" \n'
+          data[18] = 'clamdscan --fdpass --infected --remove "$S" >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
@@ -820,14 +878,20 @@ def zram_commands():
  
  print("")
  print("")
- print("Use in maltrail cost you '10%' of the RAM in your system,") 
- print("to deal with this problem the program will give you the")
- print("option to 'install zram-config' which will optimize and")  
- print("actually increase the dynamic memory in your system by '50%'")
- print("on default with ubuntu-based or '2250MB' by default on debian-based")
+ print("Use in maltrail and 'clamav-daemon'") 
+ print("together cost you up to '1500MB'")
+ print("of the RAM in your system,to deal ")  
+ print("with this problem the installation")
+ print("will give you the option to use ")
+ print("'zram-config' which will optimize and")
+ print("actually increase the dynamic memory")
+ print("in your system by '50%' on default")
+ print("with ubuntu-based or '2250MB' by ")
+ print("default on debian-based")
  print("")
  print("")
-
+ 
+ 
  zram = input("Are you interested to install zram-config ? [y/n] ")  
  if zram  == "y": 
 
@@ -1556,6 +1620,9 @@ def enable_notify():
  pro4 = subprocess.run(
      ['sudo', 'cp', 'scripts/notify_send.sh', '/opt/auto-clamIPS/notify-clamMA/'])
  
+ check_user = subprocess.run(
+     ['sudo', 'cp', 'scripts/check_user.sh', '/opt/auto-clamIPS/notify-clamMA/'])
+ 
  pro5 = subprocess.run(['sudo', 'cp', '-r', 'notify-send/notify-media/',
                         '/opt/auto-clamIPS/notify-clamMA/notify-media/'])
  
@@ -1595,15 +1662,17 @@ def enable_notify():
  print(pro2.returncode)
  print(pro3.returncode)
  print(pro4.returncode)
+ print(check_user.returncode)
  print(pro5.returncode)
  print(pro6.returncode)
  print(pro7.returncode)
  print(pro10.returncode)
  print(pro11.returncode)
  print(pro12.returncode)
+ print(check_user.returncode)
 
 
- if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode|pro6.returncode 
+ if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|check_user.returncode|pro5.returncode|pro6.returncode 
  |pro7.returncode|pro10.returncode|pro11.returncode|pro12.returncode)==0:
   
   print("")
@@ -2427,15 +2496,22 @@ def rkhunter_commands():
       def rkhunter_update():
           
         time.sleep(1)
+       
         pro7 = subprocess.run(
         ['sudo', 'systemctl', 'daemon-reload'])
+       
         time.sleep(1)
+       
         pro8 = subprocess.run(
         ['sudo', 'systemctl', 'enable', 'rkhunter_scanner.timer']) 
+       
         time.sleep(1)
+        
         pro9 = subprocess.run(
         ['sudo', 'systemctl', 'start', 'rkhunter_scanner.service'])
+       
         time.sleep(3) 
+       
         print(pro7.returncode)
         print(pro8.returncode)
         print(pro9.returncode)
@@ -2494,9 +2570,9 @@ subprocess.run("sudo -i truncate -s 0 /opt/auto-clamIPS/auto-clamav/logs/change.
 print("")
 print("")
 print("")
-print("############################################")
-print("https://github.com/ramner98/auto-clamIPS.git")
-print("############################################")
+print("#############################################################")
+print("https://github.com/ramner98/herodium-auto-security-system.git")
+print("#############################################################")
 time.sleep(3)
 print("")
 print("")
