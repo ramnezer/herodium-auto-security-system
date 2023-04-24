@@ -4,12 +4,12 @@
 ### fix error 'listener frozen/not responding'
 ##########################################################################################################################
 
-data=$(date +"%Y-%m-%d")
 
 # Prevent the listener from entering to a frozen state by creating a loop
 while
  
- timeout 10m tail -n0 -f /var/log/maltrail/"$data".log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
+ touch /var/log/maltrail/$(date +"%Y-%m-%d").log
+ timeout  10m  sudo -i tail -n0 -f /var/log/maltrail/$(date +"%Y-%m-%d").log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
  
  sleep 1
  
