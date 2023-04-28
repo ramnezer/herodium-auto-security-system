@@ -854,11 +854,13 @@ Perform manual scans by clamscan on a regular basis
 
 for standard scan
 use:
+
 $ clamscan -r -i /
 
 
 for daemon-scan (for speed)
 use:
+
 $ sudo clamdscan --fdpass --infected /
 
 **************************************************************************************************
