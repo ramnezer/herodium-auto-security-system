@@ -153,8 +153,8 @@ memory as already mentioned.
 #
 #
 #### The real-time scanner is not a substitute for scheduled scans !!!
-it is surely not a substitute for the full scan but neither substitute
-for a home-scan-timer.this is because if the real-time scanner is failed
+it is surely not a substitute for the 'full-scan' but neither substitute
+for a 'home-scan'.this is because if the real-time scanner is failed
 for any reason,you will be left without protection of your home directory
 until the next full system scan,and the second reason is because real-time
 scanning is not trying to detect and scan changes in some of the hidden 
