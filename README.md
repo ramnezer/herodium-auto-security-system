@@ -57,15 +57,33 @@ dual-core cpu
 To improve performance and the response time of the system,
 the tool will use 'clamdscan'.since the response time of
 'clamav-daemon' is significantly higher than a regular scan,
-the tool will limit the cpu power (by 'cpulimit') during
-the scan to 50% of one core.for example,if you have a cpu 
-with 4 cores,the system will use up to 12.5% of the total
-processing power.
+the tool will limit the cpu power (by 'cpulimit')
+using two limiting modes and automatic switching
+when necessary.
+
+
+The tool will limit the real-time scanner
+to 25% of one thread.for example,if you have a cpu 
+with 4 threads,the system will use up to 6.25%(or
+3.1% for 8 threads)of the total processing power.
+
+And for a scheduled scan (full and home scan)
+to 75% of one thread.for example,if you have a cpu 
+with 4 threads,the system will use up to 18.75%(or
+9.3% for 8 threads)of the total processing power.
+
+
+If two or more scanners work together,the system will 
+divide the power between them under the rules of limitation
+number 2.this means that all the scanners together will work
+under the limit of 75% of one thread and will share the power
+between them.
+
 
 Clam will use more RAM memory (approximately 1000 MB of RAM)
-on the one hand,but 50% less(from normal scan)processing power
-on the other hand.the result is a better balance between resources
-and performance.
+on the one hand,but 25%/75% less(most of the time 75% less from
+regular scan)processing power on the other hand.the result is a better
+balance between resources and performance.
 ****************************************************************************
 
 The tool will allow you to perform two types of scans,
@@ -103,7 +121,7 @@ directory only which is considered more problematic.
 By logic you will need to perform the
 scan at a lower timing than the full scan.
 for example,if you run a full scan once a
-week, you will want to run a home-scan once
+week,you will want to run a home-scan once
 a day or 12 hours.
 
 
@@ -124,37 +142,35 @@ once a week
 #### real-time scanner 
 
 To make the program more effective and identify risks immediately.
-you have the option to enable real-time scanner for home (by default)
-or additional target directories.the system will scan your home directory
-and all the directories inside her on a regular basis and if it detects a
-change such as creating,downloading,copying,moving a file or directories
-with files it will start scanning the only the specific files added or
-moved inside the home directory in case malware is found the program
-will perform a full scan of home directory.
-
-#### Note !
+you have the option to enable real-time scanner for target directory.
+the system will perform a scan of relevant changes according to a
+pre-determined strategy.
 #
-For obvious reasons the service will not listen to changes on Hidden
-directories that come inside 'home' such ".mozilla" ".cache" ".local"
-In addition the scanner partially ignored from snap directory if it is
-installed,he will allow only visible files to be scanned within the snap
-directory.all other hidden folders and files inside home directory will
-be scanned by real-time scanner.
+#
+#### You have two options:
+
+1.scan the entire system
+
+2.scan home directory only
+
+if you want to choose another directory or a list of
+directories,you can do so after installation in the
+options file
 
 #### important to know
 #
-The scan under the current concept is so efficient so even if
-new hidden folders that do not exist in the ignore list are
-added in the future,it will not have too much effect on cpu
-performance,especially if we consider the processing power
-and the number of cores of an average processor today together
-with the use of 'cpulimit' tool and the constant use of RAM
-memory as already mentioned.
+The scan under the current concept is so efficient so there
+is no need to use an ignore list of 'popular' cache directories
+(such ".mozilla" ".cache" ".local" ,etc) especially if we
+consider the processing power and the number of cores of
+an average processor today together with the use of
+'cpulimit' tool and the constant use of RAM memory
+as already mentioned.
 #
 #
 #### The real-time scanner is not a substitute for scheduled scans !!!
-it is surely not a substitute for the 'full-scan' but neither substitute
-for a 'home-scan'.this is because if the real-time scanner is failed
+it is surely not a substitute for the full scan but neither substitute
+for a home-scan-timer.this is because if the real-time-scanner is failed
 for any reason,you will be left without protection of your home directory
 until the next full system scan,and the second reason is because real-time
 scanning is not trying to detect and scan changes in some of the hidden 
@@ -163,57 +179,6 @@ directories as I mentioned before.
 #### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
 #
-Earlier versions of ubuntu 22.04 come
-with a directory called "firefox.tmp"
-In the downloads directory that creates
-a problem with real-time-scanner.to fix
-this you need to update Firefox via snap.
-The program will try to fix this
-automatically and do so only
-on distributions which are
-based on ubuntu 22.04 lts.
-
-you can also do it manually
-
-$ sudo snap refresh firefox
-
-and then delete "firefox.tmp" if it exists in the download directory
-***************************************************************************************************
-
-Add or change a real-time-scan target directory
-
-
-#### example for apache web server
-
-go to /opt/auto-clamIPS/auto-clamav/change-li.sh
-
-$ sudo nano /opt/auto-clamIPS/auto-clamav/change-li.sh
-
-change the relevant part that appears in the line
-
-from:
-'%Xe %w%f' --exclude $exc /home/ >>
-
-to: 
-'%Xe %w%f' --exclude $exc /home/ /var/www/html/ >>
-
-
-#### You should also change it for 'real-time-scaner-backup-scan'
-
-go to /opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh
-
-$ sudo nano /opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh
-
-and change the line
-
-from:
-DIRTOSCAN="/home/"
-
-to:
-DIRTOSCAN="/home/ /var/www/html/"
-
-#### save the file and reboot the system
-
 ***************************************************************************************************
 ***************************************************************************************************
 
@@ -236,7 +201,11 @@ it will send 1 or 2 message by 'notify-send'
 
 3.
 the program will create a database of historical
-log files(also empty ones)for all types of scans.
+log files for all types of scans.
+
+To prevent unnecessary memory usage while using
+the real-time scanner,the system save only 
+infected results into the dedicated log file.
 
 Located in: /opt/auto-clamIPS/auto-clamav/logs/logs_history/
 
@@ -854,13 +823,11 @@ Perform manual scans by clamscan on a regular basis
 
 for standard scan
 use:
-
 $ clamscan -r -i /
 
 
 for daemon-scan (for speed)
 use:
-
 $ sudo clamdscan --fdpass --infected /
 
 **************************************************************************************************
