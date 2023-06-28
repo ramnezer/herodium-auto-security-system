@@ -4,7 +4,7 @@
 mkdir -p /opt/auto-clamIPS/rkhunter/logs/
 truncate -s 0 "/opt/auto-clamIPS/rkhunter/logs/ROOTKITS_WARNING-$(date +'%Y-%m-%d').log"
 ROOTKITS_LOG="/opt/auto-clamIPS/rkhunter/logs/ROOTKITS_WARNING-$(date +'%Y-%m-%d').log"
-user=$( users | cut -d ' ' -f 1)
+user=$(cat /etc/group | grep $(id -u $(w -s | grep "tty7" | cut -d ' ' -f 1)) | cut -d: -f1)
 ###
 
 ### For distributions with non-english languages,get the correct desktop name 
