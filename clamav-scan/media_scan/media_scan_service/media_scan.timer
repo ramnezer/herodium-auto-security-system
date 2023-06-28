@@ -1,0 +1,13 @@
+[Unit]
+Description=media-change-timer
+After=multi-user.target network.target
+
+[Timer]
+OnStartupSec=15sec
+OnUnitActiveSec=20sec
+Unit=media_scan.service
+
+[Install]
+WantedBy=timers.target
+
+
