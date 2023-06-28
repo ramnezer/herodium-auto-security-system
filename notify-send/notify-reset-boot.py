@@ -6,7 +6,7 @@ def notify_send():
 ### in case of switching between users,fix the service to the currently user that is currently in use
 
  check_user = subprocess.run(
-     "echo $(users) | cut -d ' ' -f 1", capture_output=True, shell=True)
+     "cat /etc/group | grep $(id -u $(w -s | grep 'tty7' | cut -d ' ' -f 1)) | cut -d: -f1", capture_output=True, shell=True)
  print(check_user.stdout.decode())
 
   
