@@ -14,9 +14,9 @@ touch /var/log/maltrail/$(date +"%Y-%m-%d").log
 
 ### To avoid an unnecessary warning after system reboot tail will only listen to new results from the target log file
 data=$(date +"%Y-%m-%d")
-timeout 10m tail -n0 -f /var/log/maltrail/"$data".log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
+timeout 10m tail -n0 -f "/var/log/maltrail/$data.log" >>"/opt/auto-clamIPS/maltrail/logs/scan.log"
 
 
-/opt/auto-clamIPS/maltrail/maltrail_fix_listener.sh & /opt/auto-clamIPS/maltrail/maltrail_fix_service.sh
+/opt/auto-clamIPS/maltrail/check_ml_log.sh & /opt/auto-clamIPS/maltrail/maltrail_loop_listener.sh
  
 #############################################################################################################################
