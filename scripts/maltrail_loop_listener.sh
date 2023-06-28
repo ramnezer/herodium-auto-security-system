@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-### fix error 'listener frozen/not responding'
 ##########################################################################################################################
 
 
@@ -9,9 +7,9 @@
 while
  
  touch /var/log/maltrail/$(date +"%Y-%m-%d").log
- timeout  10m  sudo -i tail -n0 -f /var/log/maltrail/$(date +"%Y-%m-%d").log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
+ timeout  10m tail -n0 -f /var/log/maltrail/$(date +"%Y-%m-%d").log >>'/opt/auto-clamIPS/maltrail/logs/scan.log'
  
- sleep 1
+sleep 1
  
 do
     :
