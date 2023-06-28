@@ -1,6 +1,7 @@
 #!/bin/bash
 
+sysctl fs.inotify.max_user_watches=524288
 
-exc=$(echo "'|.cache|.mozilla|.local|.config|.gnupg|snap/\.|auto-clamIPS/VIRUS-FOUND/|'")
+data=$(cat /opt/auto-clamIPS/auto-clamav/logs/data_scan.log)
 
-sudo -i inotifywait  -ecreate,move -m -r -q --format  '%Xe %w%f' --exclude $exc /home/ >> '/opt/auto-clamIPS/auto-clamav/logs/change.log'
+inotifywait  -ecreate,move,close_write -m -r -q  --format  '%Xe %w%f' $data  >> '/opt/auto-clamIPS/auto-clamav/logs/change.log'
