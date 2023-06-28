@@ -619,21 +619,98 @@ def real_time():
   print("To make the program more effective and identify") 
   print("risks immediately you have the option to enable")
   print("automatic scan of changes the system will scan")
-  print("your home directory and all the directories inside")
+  print("your target directory and all the directories inside")
   print("her on a regular basis and if it detects a change")
   print("such as creating,downloading,copying,moving a file")
   print("or directories with files it will start scanning")
-  print("the only the specific files added or moved inside")
-  print("the home directory in case malware is found the")
-  print("program will perform a full scan of home directory.")
+  print("only the specific files added or moved")
+  print("")
+  print("")
   print("")
   print("")
 
-  change = input("Are you interested to enable a real-time-home-scanner ? [y/n] ")  
+  change = input("Are you interested to enable a real-time-scanner ? [y/n] ")  
   if change  == "y":
 
 ###
+###
+   
+   def if_change_op():
+       
+    print("")
+    print("")
+    print("You have two options:")
+    print("")
+    print("1.scan the entire system")
+    print("2.scan home directory only")
+    print("")
+    print("")
+    print("Note!")
+    print("")
+    print("if you want to choose another directory or a list of")
+    print("directories,you can do so after installation in the")
+    print("options file")
+    print("")
+    print("")
+    
+    retls = input("select an option: ")
 
+    if retls  == "1":
+
+        with open('clamav-scan/change_service/data_scan.log', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[0] = "/ \n"
+
+        with open('clamav-scan/change_service/data_scan.log', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+        
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[127] = "default-real-time = / \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)        
+    
+###
+                
+    if retls  == "2":
+        
+        with open('clamav-scan/change_service/data_scan.log', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[0] = "/home/ \n"
+
+        with open('clamav-scan/change_service/data_scan.log', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+
+###
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
+            data = file.readlines()
+
+        print(data)
+        data[127] = "default-real-time = /home/ \n"
+
+        with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'w', encoding='utf-8') as file:
+            file.writelines(data)
+   
+   time.sleep(3)
+   
+   if_change_op()  
+
+   
+###
+###    
+   
+   def if_change_do():
+       
     with open('/opt/auto-clamIPS/auto-clamav/options/options.conf', 'r', encoding='utf-8') as file:
         data = file.readlines()
 
@@ -665,7 +742,31 @@ def real_time():
         ['sudo', 'cp', 'clamav-scan/change_service/clamav-scan-if2.sh', '/opt/auto-clamIPS/auto-clamav/'])
     
     pro6 = subprocess.run(
-        ['sudo', 'cp', 'clamav-scan/change_service/clamav-scan-home2.sh', '/opt/auto-clamIPS/auto-clamav/'])
+        ['sudo', 'cp', 'clamav-scan/change_service/cpulimit_inotifywait.sh', '/opt/auto-clamIPS/auto-clamav/'])
+    
+    pro6_2 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/change_service/integral_cpulimit.sh', '/opt/auto-clamIPS/auto-clamav/'])
+
+    media_scan_1 = subprocess.run(
+        ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/auto-clamav/media_scan/'])
+    
+    media_scan_2 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/media_scan/check_media.sh', '/opt/auto-clamIPS/auto-clamav/media_scan/'])
+    
+    media_scan_3 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/media_scan/media_if-change.sh', '/opt/auto-clamIPS/auto-clamav/media_scan/']) 
+
+    media_scan_4 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/media_scan/media-li.sh', '/opt/auto-clamIPS/auto-clamav/media_scan/'])
+
+    media_scan_5 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/media_scan/media_scan_service/media_scan.service', '/etc/systemd/system/'])
+
+    media_scan_6 = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/media_scan/media_scan_service/media_scan.timer', '/etc/systemd/system/'])
+    
+    data_log = subprocess.run(
+        ['sudo', 'cp', 'clamav-scan/change_service/data_scan.log', '/opt/auto-clamIPS/auto-clamav/logs/']) 
     
     pro7 = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/change_service/if-change.service', '/etc/systemd/system/'])
@@ -682,9 +783,10 @@ def real_time():
     pro11 = subprocess.run(['sudo', 'systemctl', 'daemon-reload'])
     pro12 = subprocess.run(['sudo', 'systemctl', 'start', 'if-change.timer'])
     pro13 = subprocess.run(['sudo', 'systemctl', 'enable', 'if-change.timer'])
+    pro14 = subprocess.run(['sudo', 'systemctl', 'enable', 'if-change-scan.timer'])
+    pro15 = subprocess.run(['sudo', 'systemctl', 'enable', 'media_scan.timer'])
     
-    pro14 = subprocess.run(
-        ['sudo', 'systemctl', 'enable', 'if-change-scan.timer'])
+    
 
 #### make sure 'engrampa' is installed,it is not critical but it is better to have it installed
     pro16 = subprocess.run(['sudo', 'apt-get', 'install', 'engrampa', '-y'])
@@ -697,6 +799,14 @@ def real_time():
     print(pro4.returncode)
     print(pro5.returncode)
     print(pro6.returncode)
+    print(pro6_2.returncode)
+    print(media_scan_1.returncode)
+    print(media_scan_2.returncode)
+    print(media_scan_3.returncode)
+    print(media_scan_4.returncode)
+    print(media_scan_5.returncode)
+    print(media_scan_6.returncode)
+    print(data_log.returncode)
     print(pro7.returncode)
     print(pro8.returncode)
     print(pro9.returncode)
@@ -705,11 +815,13 @@ def real_time():
     print(pro12.returncode)
     print(pro13.returncode)
     print(pro14.returncode)
+    print(pro15.returncode)
 
 
     if int(pro.returncode|pro2.returncode|pro2_if_change1.returncode|pro2_if_change2.returncode|pro3.returncode|pro4.returncode
-    |pro5.returncode|pro6.returncode|pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
-    |pro12.returncode|pro13.returncode|pro14.returncode)==0:
+    |pro5.returncode|pro6.returncode|pro6_2.returncode|media_scan_1.returncode|media_scan_2.returncode|media_scan_3.returncode
+    |media_scan_4.returncode|media_scan_5.returncode|media_scan_6.returncode|data_log.returncode|pro7.returncode|pro8.returncode|pro9.returncode
+    |pro10.returncode|pro11.returncode|pro12.returncode|pro13.returncode|pro14.returncode)==0:
      print("")
      print("") 
      print("enable 'if_change' and timers && scripts was successful")
@@ -743,6 +855,7 @@ def real_time():
         while input("Do you want to continue ? [y/n]") == "n":
             exit ()
     
+   if_change_do()
     
  if_change()
 
@@ -778,7 +891,7 @@ def real_time():
    print("To make the detection system more") 
    print("autonomous you have the option to")
    print("automatically remove(delete)threats")
-   print("with real-time-home-scanner .")
+   print("with real-time-scanner .")
    print("")
    print("")
    print("")
@@ -810,7 +923,7 @@ def real_time():
 
 
 
-   auto_move = input("Are you interested to enable automatically-remove-threats together with real-time-home-scaner ? [y/n] ")  
+   auto_move = input("Are you interested to enable automatically-remove-threats together with real-time-scanner ? [y/n] ")  
    if auto_move  == "y":
 
 
@@ -842,16 +955,7 @@ def real_time():
 
 #######
 
-          with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'r', encoding='utf-8') as file:
-           data = file.readlines()
 
-          print(data)
-          data[18] = 'clamdscan --fdpass --infected --remove "$S" >> "$LOGFILE" \n'
-
-          with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh', 'w', encoding='utf-8') as file:
-           file.writelines(data) 
-
-          time.sleep(1)
 
 #######
 
@@ -1250,10 +1354,10 @@ def maltrail_commands():
             ['sudo', 'cp', 'maltrail/listener_maltrail.sh', '/opt/auto-clamIPS/maltrail/'])
         
         pro03 = subprocess.run(
-            ['sudo', 'cp', 'scripts/maltrail_fix_service.sh', '/opt/auto-clamIPS/maltrail/'])
+            ['sudo', 'cp', 'scripts/check_ml_log.sh', '/opt/auto-clamIPS/maltrail/'])
 
         pro04 = subprocess.run(
-            ['sudo', 'cp', 'scripts/maltrail_fix_listener.sh', '/opt/auto-clamIPS/maltrail/'])     
+            ['sudo', 'cp', 'scripts/maltrail_loop_listener.sh', '/opt/auto-clamIPS/maltrail/'])     
         
         pro4 = subprocess.run(
             ['sudo', 'cp', 'maltrail/maltrail_scan.py', '/opt/auto-clamIPS/maltrail/'])
@@ -1636,7 +1740,7 @@ def enable_notify():
 
 #### Add notify-send.service to user environment ####
 
- check_user = subprocess.run("echo $(users) | cut -d ' ' -f 1" ,capture_output=True ,shell=True)
+ check_user = subprocess.run("cat /etc/group | grep $(id -u $(w -s | grep 'tty7' | cut -d ' ' -f 1)) | cut -d: -f1" ,capture_output=True ,shell=True)
  print(check_user.stdout.decode())
 
   
