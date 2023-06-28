@@ -194,25 +194,24 @@ fi
 move_malware_e=$(grep -E 'move-malware = enable|move-malware= enable|move-malware =enable|move-malware=enable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
 move_malware_d=$(grep -E 'move-malware = disable|move-malware= disable|move-malware =disable|move-malware=disable' /opt/auto-clamIPS/auto-clamav/options/options.conf)
 take_number3="/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh"
-take_number4="/opt/auto-clamIPS/auto-clamav/clamav-scan-home2.sh"
+
 move=$(echo '--remove')
 move2=$(echo '$option_remove')
 
 number3=$(sed '/^$/d' $take_number3 | cat $take_number3 | echo $(grep  -Fn 'clamdscan --fdpass --infected' $take_number3) | cut -d':' -f-1)
-number4=$(sed '/^$/d' $take_number4 | cat $take_number4 | echo $(grep  -Fn 'clamdscan --fdpass --infected' $take_number4) | cut -d':' -f-1)
+
 
 if [ "$move_malware_e" ]
 then
 
 
 awk  'NR=="'$number3'" {$4="'$move'"} 1'  $take_number3 > tmp && mv tmp $take_number3
-awk  'NR=="'$number4'" {$4="'$move'"} 1'  $take_number4 > tmp && mv tmp $take_number4
+
 
 elif [ "$move_malware_d" ]
 then
 
 awk  'NR=="'$number3'" {$4="'$move2'"} 1'  $take_number3 > tmp && mv tmp $take_number3
-awk  'NR=="'$number4'" {$4="'$move2'"} 1'  $take_number4 > tmp && mv tmp $take_number4
 
 
 fi
@@ -377,5 +376,41 @@ systemctl stop rkhunter_scanner.timer
 systemctl disable rkhunter_scanner.timer
 
 fi
+
+
+### get default directory/directories value
+### and print them in the destination file
+
+take_number_d="/opt/auto-clamIPS/auto-clamav/options/options.conf"
+number_d1=$(grep  -Fn 'default-real-time' $take_number_d | cut -d':' -f-1)
+default_d=$(awk 'NR=="'$number_d1'"' '/opt/auto-clamIPS/auto-clamav/options/options.conf' | cut -d = -f2-)
+take_number_d2="/opt/auto-clamIPS/auto-clamav/logs/data_scan.log"
+number_d2=$(grep  -Fn 'inotifywait' $take_number_d2 | cut -d':' -f-1)
+data=$(cat /opt/auto-clamIPS/auto-clamav/logs/data_scan.log)
+
+
+
+
+### run it only if settings have been changed
+echo $default_d > '/opt/auto-clamIPS/auto-clamav/logs/check_scan.log'
+compare=$(diff -q /opt/auto-clamIPS/auto-clamav/logs/check_scan.log /opt/auto-clamIPS/auto-clamav/logs/data_scan.log)
+
+###
+if [ "$compare" ]
+then
+
+check=$(pgrep -f  "/opt/auto-clamIPS/auto-clamav/change-li.sh")
+pro=$(pgrep -f "inotifywait"|pgrep -f "ecreate,move,close_write"|pgrep -f "%Xe %w%f /")
+
+kill $check 
+kill $(pgrep -f "inotifywait"|pgrep -f "ecreate,move,close_write"|pgrep -f "%Xe %w%f /")
+
+echo $default_d > $take_number_d2
+setsid /opt/auto-clamIPS/auto-clamav/change-li.sh >/dev/null 2>&1 < /dev/null &
+setsid /opt/auto-clamIPS/auto-clamav/media_scan/media-li.sh >/dev/null 2>&1 < /dev/null &
+echo "y"
+
+fi
+###
 
 #################################################################################################################################
