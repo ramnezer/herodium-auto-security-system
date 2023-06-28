@@ -15,9 +15,13 @@ chmod +x clamav-scan/change_service/if-change-scan.py
 chmod +x clamav-scan/auto_update_clamav/auto-update-clamav.py
 chmod +x clamav-scan/change_service/clamav-scan-if.sh
 chmod +x clamav-scan/change_service/clamav-scan-if2.sh
-chmod +x clamav-scan/change_service/clamav-scan-home2.sh
 chmod +x clamav-scan/change_service/change-li.sh
 chmod +x clamav-scan/change_service/cpulimit-chack.sh
+chmod +x clamav-scan/change_service/cpulimit_inotifywait.sh
+chmod +x clamav-scan/change_service/integral_cpulimit.sh
+chmod +x clamav-scan/media_scan/check_media.sh
+chmod +x clamav-scan/media_scan/media_if-change.sh
+chmod +x clamav-scan/media_scan/media-li.sh
 chmod +x maltrail/blacklist.sh
 chmod +x maltrail/listener_maltrail.sh
 chmod +x maltrail/maltrail_scan.py
@@ -28,8 +32,8 @@ chmod +x options/edit-options.sh
 chmod +x options/line-generator.sh
 chmod +x scripts/optimize_maltrail.sh
 chmod +x scripts/fix_update_rkhunter.sh
-chmod +x scripts/maltrail_fix_service.sh
-chmod +x scripts/maltrail_fix_listener.sh
+chmod +x scripts/check_ml_log.sh
+chmod +x scripts/maltrail_loop_listener.sh
 chmod +x scripts/check_user.sh
 chmod +x rkhunter/rkhunter_scanner.sh
  
