@@ -139,6 +139,8 @@ def uninstalling_auto_clamav_commands():
     pro29 = subprocess.run(['sudo', 'systemctl', 'disable', 'rkhunter_scanner.timer'])
     pro30 = subprocess.run(['sudo', 'apt-get', 'remove', 'rkhunter', '-y'])
     pro31 = subprocess.run(['sudo', 'apt-get', 'remove', 'cpulimit', '-y'])
+    pro32 = subprocess.run(['sudo', 'systemctl', 'stop', 'media_scan.timer'])
+    pro33 = subprocess.run(['sudo', 'systemctl', 'disable', 'media_scan.timer'])
 ###
 
     print(pro.returncode)
@@ -170,6 +172,8 @@ def uninstalling_auto_clamav_commands():
     print(pro29.returncode)
     print(pro30.returncode)
     print(pro31.returncode)
+    print(pro32.returncode)
+    print(pro33.returncode)
 
 
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
