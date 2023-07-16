@@ -172,9 +172,7 @@ as already mentioned.
 it is surely not a substitute for the full scan but neither substitute
 for a home-scan-timer.this is because if the real-time-scanner is failed
 for any reason,you will be left without protection of your home directory
-until the next full system scan,and the second reason is because real-time
-scanning is not trying to detect and scan changes in some of the hidden 
-directories as I mentioned before.
+until the next full system scan.
 
 #### all that real-time scanning gives you is an extra layer of protection but no more than that !
 
@@ -250,14 +248,10 @@ you have the option to automatically remove threats.
 
 
 
-#### !!! Note !!!
+#### Note
 
 auto-remove-malware will not include the regular schedulers
-(full scan and home),the real-time-scanner includes a backup
-scan in case it fails or in case malware is found,the backup
-scan will include the entire home directory and if you choose
-to enable 'auto-move' its settings will also be included in
-this scan !
+(full scan and home).
 
 #### ! Warning !
 
