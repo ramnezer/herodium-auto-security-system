@@ -673,7 +673,7 @@ Open a terminal and run the following commands
 
 Download the tool to home folder
 
-#### $ git clone https://github.com/ramner98/herodium-auto-security-system.git
+#### $ git clone https://github.com/ramnezer/herodium-auto-security-system.git
 
 #### $ cd herodium-auto-security-system && chmod +x setup.sh && sudo ./setup.sh -yy
 
