@@ -3,7 +3,7 @@ import time
 
 
 
-###  Verify that the clamav Signature database has been updated every 6 hours
+###  Verify that the clamav Signature database has been updated every 24 hours
 
 def check_internet(): 
 
