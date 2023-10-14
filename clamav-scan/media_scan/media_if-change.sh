@@ -10,8 +10,7 @@ while
  if [ "$check" ]
  then
   
-  user_val=$(id -u $(w -s | grep "tty7" | cut -d ' ' -f 1))
-  user1=$(cat /etc/passwd|grep $user_val | cut -d: -f1)
+  user1=$( users | cut -d ' ' -f 1)
 
   inotifywait  -ecreate -m -q   "/media/$user1/" >> "/opt/auto-clamIPS/auto-clamav/media_scan/logs/media_check.log"
   
@@ -22,7 +21,6 @@ sleep 3
 do
     :
 done
-
 
 
 
