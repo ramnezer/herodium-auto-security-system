@@ -3,7 +3,7 @@
 IPSCAN=$(cat /opt/auto-clamIPS/maltrail/logs/ipset.log)
 ipset_log="/opt/auto-clamIPS/maltrail/logs/ipset.log"
 dig_log="/opt/auto-clamIPS/maltrail/logs/dig.log"
-user=$(cat /etc/group | grep $(id -u $(w -s | grep "tty7" | cut -d ' ' -f 1)) | cut -d: -f1)
+user=$( users | cut -d ' ' -f 1)
 dig=$(dig "$IPSCAN" +short >> "$dig_log" && dig AAAA "$IPSCAN" +short >> "$dig_log" && cat "$dig_log")
 
 ### For distributions with non-english languages,get the correct desktop name 
