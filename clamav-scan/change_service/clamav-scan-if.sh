@@ -5,7 +5,7 @@ rm -f "/var/log/clamav/clamav-found-malware-$(date +'%Y-%m-%d').log"
 LOGFILE="/var/log/clamav/clamav-found-malware-$(date +'%Y-%m-%d').log"
 LOGS_HISTORY="/opt/auto-clamIPS/auto-clamav/logs/logs_history/real-time-history/real-time-history-$(date +'%Y-%m-%d').log"
 LOGFILE2="/opt/auto-clamIPS/notify-clamMA/logs/notify.log"
-user=$(cat /etc/group | grep $(id -u $(w -s | grep "tty7" | cut -d ' ' -f 1)) | cut -d: -f1)
+user=$( users | cut -d ' ' -f 1)
 option_remove=$(echo "")
 
 ### For distributions with non-english languages,get the correct desktop name 
