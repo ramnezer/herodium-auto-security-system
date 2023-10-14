@@ -133,7 +133,10 @@ def uninstalling_auto_clamav_commands():
     pro25 = subprocess.run(['sudo', 'systemctl', 'disable', 'flush_blacklists.timer'])
 ###  
     pro26 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec', '-y'])
+    pro26 = subprocess.run(['sudo', 'apt-get', 'purge', 'crowdsec', '-y'])
+    
     pro27 = subprocess.run(['sudo', 'apt-get', 'remove', 'crowdsec-firewall-bouncer-iptables', '-y'])
+    pro27 = subprocess.run(['sudo', 'apt-get', 'purge', 'crowdsec-firewall-bouncer-iptables', '-y'])
 ###  
     pro28 = subprocess.run(['sudo', 'systemctl', 'stop', 'rkhunter_scanner.timer'])
     pro29 = subprocess.run(['sudo', 'systemctl', 'disable', 'rkhunter_scanner.timer'])
@@ -141,6 +144,7 @@ def uninstalling_auto_clamav_commands():
     pro31 = subprocess.run(['sudo', 'apt-get', 'remove', 'cpulimit', '-y'])
     pro32 = subprocess.run(['sudo', 'systemctl', 'stop', 'media_scan.timer'])
     pro33 = subprocess.run(['sudo', 'systemctl', 'disable', 'media_scan.timer'])
+    pro34 = subprocess.run(['sudo', 'truncate', '-s', '0', '/opt/auto-clamIPS/auto-clamav/logs/install.log'])
 ###
 
     print(pro.returncode)
@@ -174,6 +178,7 @@ def uninstalling_auto_clamav_commands():
     print(pro31.returncode)
     print(pro32.returncode)
     print(pro33.returncode)
+    print(pro34.returncode)
 
 
     if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
@@ -426,7 +431,7 @@ print("")
 print("")
 print("")
 print("#########################################################")
-print("https://github.com/ramner98/herodium-auto-security-system")
+print("https://github.com/ramnezer/herodium-auto-security-system")
 print("#########################################################")
 time.sleep(3)
 print("")
