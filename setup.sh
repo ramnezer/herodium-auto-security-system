@@ -1,6 +1,7 @@
 #!/bin/bash
 
 chmod +x auto-clam-antivirus.py
+chmod +x reinstall.py
 chmod +x uninstall.py
 chmod +x scripts/fix.sh
 chmod +x scripts/freshclam_fix/freshclam_fix.py
