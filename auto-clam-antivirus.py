@@ -2,6 +2,41 @@ import subprocess
 import time
 
 
+def check_if_install():
+
+### check_if_install
+
+   pro = subprocess.run('cat /opt/auto-clamIPS/auto-clamav/logs/install.log | grep -F herodium' ,capture_output=True ,shell=True)
+   print(pro.stdout)
+   if int(pro.returncode)==0:
+ 
+    print("")
+    print("")
+    print("The system has detected that a previous")
+    print("version of the program is already installed.")
+    print("")
+    print("")
+    time.sleep(3)
+
+    print("what would you like to do ?")
+    print("")
+    print("Choose '1' to ignore and continue the installation")
+    print("Choose '2' to reinstall")
+    print("")
+    print("")
+    print("You can press 'ctrl + c' to exit")
+    print("")
+    print("")
+    
+    while input("Select an option:") == "2":
+     subprocess.run(['sudo', 'python3', '/opt/auto-clamIPS/auto-clamav/reinstall.py'])
+     subprocess.run(['sudo', 'python3', 'auto-clam-antivirus.py'])
+     exit()
+        
+check_if_install()
+
+
+
 ###########################################
 # Install timeshift and backup the system #
 ###########################################
@@ -116,7 +151,13 @@ def clamav_install_commands():
     pro14 = subprocess.run(
         ['sudo', 'systemctl', 'enable', 'clamav-daemon'])
 
+    pro15 = subprocess.run(
+        ['sudo', 'cp', 'uninstall.py', '/opt/auto-clamIPS/auto-clamav/'])
     
+    
+    pro16 = subprocess.run(
+        ['sudo', 'cp', 'reinstall.py', '/opt/auto-clamIPS/auto-clamav/'])   
+     
     print(pro1.returncode)
     print(pro2.returncode)
     print(pro3.returncode)
@@ -130,11 +171,13 @@ def clamav_install_commands():
     print(pro12.returncode)
     print(pro13.returncode)
     print(pro14.returncode)
+    print(pro15.returncode)
+    print(pro16.returncode)
 
 
     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode
     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
-    |pro12.returncode|pro13.returncode|pro14.returncode)==0:
+    |pro12.returncode|pro13.returncode|pro14.returncode|pro15.returncode|pro16.returncode)==0:
         print("")
         print("") 
         print("* Installing and update clamav was successful*")
@@ -973,9 +1016,9 @@ real_time()
 subprocess.run(['sudo', 'systemctl', 'stop', 'if-change.timer'], capture_output=True)
 
 
-###########################
+############################
 #  installing zram-config  #
-###########################
+############################
 
 
 def zram_commands():
@@ -1711,7 +1754,11 @@ maltrail_commands()
 
 
 def enable_notify():
-
+ 
+### Check if package 'dbus-x11' is installed
+ pro0 = subprocess.run(
+     ['sudo', 'apt-get', 'install', 'dbus-x11', '-y'])
+ 
  pro1 = subprocess.run(
      ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/notify-clamMA/logs/'])
  
@@ -1740,7 +1787,7 @@ def enable_notify():
 
 #### Add notify-send.service to user environment ####
 
- check_user = subprocess.run("cat /etc/group | grep $(id -u $(w -s | grep 'tty7' | cut -d ' ' -f 1)) | cut -d: -f1" ,capture_output=True ,shell=True)
+ check_user = subprocess.run(" users | cut -d ' ' -f 1" ,capture_output=True ,shell=True)
  print(check_user.stdout.decode())
 
   
@@ -1761,7 +1808,8 @@ def enable_notify():
  pro11 = subprocess.run(['sudo', 'systemctl', 'start', 'notify-send.service'])
  pro12 = subprocess.run(['sudo', 'systemctl', 'enable', 'notify-send.timer'])  
 
-
+ 
+ print(pro0.returncode)
  print(pro1.returncode)
  print(pro2.returncode)
  print(pro3.returncode)
@@ -1776,7 +1824,7 @@ def enable_notify():
  print(check_user.returncode)
 
 
- if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|check_user.returncode|pro5.returncode|pro6.returncode 
+ if int(pro0.returncode|pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|check_user.returncode|pro5.returncode|pro6.returncode 
  |pro7.returncode|pro10.returncode|pro11.returncode|pro12.returncode)==0:
   
   print("")
@@ -1939,14 +1987,64 @@ def crowdsec_install():
 
       else:
         
-        print("")
-        print("") 
-        print("* warning: Installing crowdsec was failed *")
-        print("")
-        print("")
-        time.sleep(3)
-        print("")
-    
+        def fail2ban_commands():
+       
+         pro = subprocess.run(['sudo', 'apt-get', 'install', 'fail2ban', '-y'])
+         pro1 = subprocess.run(['sudo', 'systemctl', 'enable', 'fail2ban'])
+         pro2 = subprocess.run(['sudo', 'systemctl', 'start', 'fail2ban'])
+
+
+         print(pro.returncode)
+         print(pro1.returncode)
+         print(pro2.returncode)
+
+         if int(pro.returncode|pro1.returncode|pro2.returncode)==0:
+          print("")
+          print("")   
+          print("########################################################")
+          print("*       Installing/enable fail2ban was successful      *")
+          print("########################################################")
+          print("")
+          print("")
+          print("the program will continue the installation process in a few seconds, please wait ...")
+          time.sleep(3)
+
+         else:
+         
+          print("")
+          print("")
+          print("#########################################################################") 
+          print("*                 warning: failed installing fail2ban                   *")
+          print("#########################################################################")
+          time.sleep(3)
+          print("")
+          print("##################################################################")
+          print("Please check if the internet connection is available and try again")
+          print("##################################################################")
+          print("")
+          print("")
+          loop = input("Do you want to try to installing fail2ban again? [y/n]")  
+          if loop  == "y":
+           subprocess.run(['sudo', 'bash', 'scripts/fix.sh'])
+           fail2ban_commands()
+
+
+          else:
+              
+              print("")
+              print("")
+              print("#######################################################################") 
+              print("*                 warning: failed installing fail2ban                 *")
+              print("#######################################################################")
+              time.sleep(3)
+              print("")
+              print("")
+        
+              while input("Do you want to continue without installing fail2ban ? [y/n]") == "n":
+                exit ()
+
+        fail2ban_commands()
+        
  else:
 
 # Installing fail2ban #
@@ -2668,14 +2766,17 @@ rkhunter_commands()
 #
 ### To prevent bugs after the installation finished the program will make sure the file is clean
 subprocess.run("sudo -i truncate -s 0 /opt/auto-clamIPS/auto-clamav/logs/change.log", shell=True)
+
 #
+### Allow the system to detect in the future if the program has already been installed
+subprocess.run("sudo echo herodium > /opt/auto-clamIPS/auto-clamav/logs/install.log", shell=True)
 
 
 print("")
 print("")
 print("")
 print("#############################################################")
-print("https://github.com/ramner98/herodium-auto-security-system.git")
+print("https://github.com/ramnezer/herodium-auto-security-system.git")
 print("#############################################################")
 time.sleep(3)
 print("")
