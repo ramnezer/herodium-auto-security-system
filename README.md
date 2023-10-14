@@ -15,8 +15,9 @@ The main purpose of the project is to provide protection
 for cyber security experts(especially ethical hackers)
 but also for workstations and regular desktop users.
 #
+#### Tested on Ubuntu\Debian based distributions||UBUNTU LTS 20.04/22.04 && DEBIAN 11/12 on xfce desktop
+#
 
- 
 
 *******************************************
 #### Minimum system requirements
