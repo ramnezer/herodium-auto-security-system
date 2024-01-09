@@ -10,25 +10,6 @@ def check_if_install():
    print(pro.stdout)
    if int(pro.returncode)==0:
  
-    print("")
-    print("")
-    print("The system has detected that a previous")
-    print("version of the program is already installed.")
-    print("")
-    print("")
-    time.sleep(3)
-
-    print("what would you like to do ?")
-    print("")
-    print("Choose '1' to ignore and continue the installation")
-    print("Choose '2' to reinstall")
-    print("")
-    print("")
-    print("You can press 'ctrl + c' to exit")
-    print("")
-    print("")
-    
-    while input("Select an option:") == "2":
      subprocess.run(['sudo', 'python3', '/opt/auto-clamIPS/auto-clamav/reinstall.py'])
      subprocess.run(['sudo', 'python3', 'auto-clam-antivirus.py'])
      exit()
