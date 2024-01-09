@@ -53,17 +53,15 @@ def uninstalling_auto_clamav_commands():
 ##############################################################################################################################
 
   
-###############################
+################################
 #   uninstalling auto_clamav   #
-###############################
+################################
 
 
  def uninstalling_commands():
 ###   
-    pro = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav', '-y'])
-    pro2 = subprocess.run(['sudo', 'apt-get', 'purge', 'clamav', '-y'])
-    pro3 = subprocess.run(['sudo', 'apt-get', 'remove', 'clamav-daemon', '-y'])
-    pro4 = subprocess.run(['sudo', 'apt-get', 'purge', 'clamav-daemon', '-y'])
+    pro = subprocess.run(['sudo', 'systemctl', 'disable', 'clamav-daemon'])
+    pro3 = subprocess.run(['sudo', 'systemctl', 'stop', 'clamav-daemon'])
     pro5 = subprocess.run(['sudo', 'systemctl', 'stop', 'clamscan-root-week.timer'])
     pro6 = subprocess.run(['sudo', 'systemctl', 'disable', 'clamscan-root-week.timer'])
     pro7 = subprocess.run(['sudo', 'systemctl', 'stop', 'clamscan-home-day.timer'])
@@ -106,9 +104,7 @@ def uninstalling_auto_clamav_commands():
 ###
 
     print(pro.returncode)
-    print(pro2.returncode)
     print(pro3.returncode)
-    print(pro4.returncode)
     print(pro5.returncode)
     print(pro6.returncode)
     print(pro7.returncode)
@@ -139,7 +135,7 @@ def uninstalling_auto_clamav_commands():
     print(pro34.returncode)
 
 
-    if int(pro.returncode|pro2.returncode|pro3.returncode|pro4.returncode)==0:
+    if int(pro.returncode|pro3.returncode)==0:
        
        print("")
        print("") 
@@ -172,5 +168,4 @@ uninstalling_auto_clamav_commands()
 
 ##############################################################################################################################
 ##############################################################################################################################
-
 
