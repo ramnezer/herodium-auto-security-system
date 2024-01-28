@@ -1,6 +1,10 @@
 #!/bin/bash
 
-### inotifywait
+# inotifywait limit
+
+### Optional for extreme situations,
+### mainly intended for workstations and
+### servers that are particularly busy
 
 sleep 1
 
