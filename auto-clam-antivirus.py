@@ -135,9 +135,11 @@ def clamav_install_commands():
     pro15 = subprocess.run(
         ['sudo', 'cp', 'uninstall.py', '/opt/auto-clamIPS/auto-clamav/'])
     
-    
     pro16 = subprocess.run(
-        ['sudo', 'cp', 'reinstall.py', '/opt/auto-clamIPS/auto-clamav/'])   
+        ['sudo', 'cp', 'reinstall.py', '/opt/auto-clamIPS/auto-clamav/'])
+    
+    pro17 = subprocess.run(
+        ['sudo', 'apt-get', 'install', 'python3-schedule'])
      
     print(pro1.returncode)
     print(pro2.returncode)
@@ -154,11 +156,13 @@ def clamav_install_commands():
     print(pro14.returncode)
     print(pro15.returncode)
     print(pro16.returncode)
+    print(pro17.returncode)
 
 
     if int(pro1.returncode|pro2.returncode|pro3.returncode|pro4.returncode|pro5.returncode
     |pro7.returncode|pro8.returncode|pro9.returncode|pro10.returncode|pro11.returncode
-    |pro12.returncode|pro13.returncode|pro14.returncode|pro15.returncode|pro16.returncode)==0:
+    |pro12.returncode|pro13.returncode|pro14.returncode|pro15.returncode|pro16.returncode|
+     pro17.returncode)==0:
         print("")
         print("") 
         print("* Installing and update clamav was successful*")
@@ -970,7 +974,7 @@ def real_time():
            data = file.readlines()
 
           print(data)
-          data[14] = 'clamdscan --fdpass --infected --remove --file-list="/opt/auto-clamIPS/auto-clamav/logs/auto.log" >> "$LOGFILE" \n'
+          data[14] = 'clamdscan --fdpass --infected --remove --file-list=$(cat /opt/auto-clamIPS/auto-clamav/auto_check.log) >> "$LOGFILE" \n'
 
           with open('/opt/auto-clamIPS/auto-clamav/clamav-scan-if.sh', 'w', encoding='utf-8') as file:
            file.writelines(data) 
