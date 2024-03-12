@@ -94,7 +94,7 @@ $ sudo apt-get install htop
 
 and use the following command:
 
-$ htop -uroot -F " $()-p $(pgrep -f  "/usr/sbin/clamd")"
+$ _htop -uroot -F " $()-p $(pgrep -f  "/usr/sbin/clamd")"_
 
 #########################################################
 
