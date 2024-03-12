@@ -56,35 +56,48 @@ dual-core cpu
 
 *****************************************************************************
 To improve performance and the response time of the system,
-the tool will use 'clamdscan'.since the response time of
-'clamav-daemon' is significantly higher than a regular scan,
-the tool will limit the cpu power (by 'cpulimit')
-using two limiting modes and automatic switching
-when necessary.
+the tool will use 'clamdscan'.since the response time and speed
+of 'clamav-daemon' is significantly higher than a regular scan,
+the tool will limit the cpu power (by 'cpulimit') requirements
+of real-time-scanner using a fuzzy-logic-system in range between
+5% to 75% from one core.
+
+Since in most situations scans are performed at a speed of less than one second
+the average speed will be about 10% from one core.for example,if you have a cpu 
+with 4 threads,the system will use up to 2.50%(or 1.25% for 8 threads)of the total
+processing power.
 
 
-The tool will limit the real-time scanner
-to 25% of one thread.for example,if you have a cpu 
-with 4 threads,the system will use up to 6.25%(or
-3.1% for 8 threads)of the total processing power.
+The system will know how to automatically identify situations that require greater
+processing power(such as a full scan)and will adapt itself to the situation in a
+short time in this way,a full scan will get a processing power of 75% from one core
+but processes that will require a lower processing power will be able to settle for
+a range of 25%-55% from one core for scanning that requires medium processing power
+for example.
 
-And for a scheduled scan (full and home scan)
-to 75% of one thread.for example,if you have a cpu 
-with 4 threads,the system will use up to 18.75%(or
-9.3% for 8 threads)of the total processing power.
-
-
-If two or more scanners work together,the system will 
-divide the power between them under the rules of limitation
-number 2.this means that all the scanners together will work
-under the limit of 75% of one thread and will share the power
-between them.
+Either way,as already mentioned,in most cases the strength of the restriction on
+the processor will be 10% from one core of the cpu.
 
 
 Clam will use more RAM memory (approximately 1000 MB of RAM)
-on the one hand,but 25%/75% less(most of the time 75% less from
-regular scan)processing power on the other hand.the result is a better
-balance between resources and performance.
+on the one hand,but 25%/90% less(most of the time 90% less from
+regular scan)processing power on the other hand.the result is
+a better balance between resources and performance which will
+achieve a very significant optimization.
+
+
+##########################################################
+
+To monitor the tool make sure htop is installed 
+
+$ sudo apt-get install htop
+
+and use the following command:
+
+$ htop -uroot -F " $()-p $(pgrep -f  "/usr/sbin/clamd")"
+
+#########################################################
+
 ****************************************************************************
 
 The tool will allow you to perform two types of scans,
