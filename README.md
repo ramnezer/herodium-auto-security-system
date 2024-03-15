@@ -88,7 +88,7 @@ achieve a very significant optimization.
 
 ##########################################################
 
-To monitor the tool make sure htop is installed 
+To monitor the controller make sure htop is installed 
 
 $ sudo apt-get install htop
 
