@@ -38,7 +38,12 @@ while
   if [ "$check" ] && [ "$check_cpu5" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+### Although it is possible to kill the process more efficiently by 
+### [kill "$kill_correct"] variable it is better to use a less efficient
+### but more accurate list to avoid the theoretical possibility of killing
+### other processes.
+  kill  "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" "$check_cpu40" 2> /dev/null
+  kill  "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
  
   fi
 #
@@ -52,7 +57,8 @@ while
   if [ "$check" ] && [ "$check_cpu15" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill  "$check_cpu5" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" "$check_cpu40" 2> /dev/null
+  kill  "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
  
   fi
 #
@@ -66,8 +72,9 @@ while
   if [ "$check" ] && [ "$check_cpu20" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
-
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu25" "$check_cpu30" "$check_cpu35" "$check_cpu40" 2> /dev/null
+  kill "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
+ 
   fi
 #
 
@@ -81,7 +88,8 @@ while
   if [ "$check" ] && [ "$check_cpu25" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu30" "$check_cpu35" "$check_cpu40" 2> /dev/null
+  kill "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -96,7 +104,8 @@ while
   if [ "$check" ] && [ "$check_cpu30" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu35" "$check_cpu40" 2> /dev/null
+  kill "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -111,7 +120,8 @@ while
   if [ "$check" ] && [ "$check_cpu35" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu40" 2> /dev/null
+  kill "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -126,7 +136,8 @@ while
   if [ "$check" ] && [ "$check_cpu40" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -141,7 +152,8 @@ while
   if [ "$check" ] && [ "$check_cpu45" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -156,7 +168,8 @@ while
   if [ "$check" ] && [ "$check_cpu50" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -171,7 +184,8 @@ while
   if [ "$check" ] && [ "$check_cpu55" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu50" "$check_cpu60" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -186,7 +200,8 @@ while
   if [ "$check" ] && [ "$check_cpu60" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu65" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -201,7 +216,8 @@ while
   if [ "$check" ] && [ "$check_cpu65" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu70" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -216,7 +232,8 @@ while
   if [ "$check" ] && [ "$check_cpu70" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu75" 2> /dev/null
 
   fi
 #
@@ -231,7 +248,8 @@ while
   if [ "$check" ] && [ "$check_cpu75" == "" ]
   then
  
-  kill  "$kill_correct" 2> /dev/null
+  kill "$check_cpu5" "$check_cpu15" "$check_cpu20" "$check_cpu25" "$check_cpu30" "$check_cpu35" 2> /dev/null
+  kill "$check_cpu40" "$check_cpu45" "$check_cpu50" "$check_cpu55" "$check_cpu60" "$check_cpu65" "$check_cpu70" 2> /dev/null
 
   fi
 #
