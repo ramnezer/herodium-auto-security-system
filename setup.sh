@@ -36,6 +36,7 @@ chmod +x scripts/fix_update_rkhunter.sh
 chmod +x scripts/check_ml_log.sh
 chmod +x scripts/maltrail_loop_listener.sh
 chmod +x scripts/check_user.sh
+chmod +x scripts/return_back_if.sh
 chmod +x rkhunter/rkhunter_scanner.sh
  
 
