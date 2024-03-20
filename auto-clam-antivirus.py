@@ -774,6 +774,9 @@ def real_time():
     
     pro6_2 = subprocess.run(
         ['sudo', 'cp', 'clamav-scan/change_service/integral_cpulimit.sh', '/opt/auto-clamIPS/auto-clamav/'])
+    
+    pro6_3 = subprocess.run(
+        ['sudo', 'cp', 'scripts/return_back_if.sh', '/opt/auto-clamIPS/auto-clamav/'])
 
     media_scan_1 = subprocess.run(
         ['sudo', 'mkdir', '-p', '/opt/auto-clamIPS/auto-clamav/media_scan/'])
@@ -828,6 +831,7 @@ def real_time():
     print(pro5.returncode)
     print(pro6.returncode)
     print(pro6_2.returncode)
+    print(pro6_3.returncode)
     print(media_scan_1.returncode)
     print(media_scan_2.returncode)
     print(media_scan_3.returncode)
@@ -847,7 +851,7 @@ def real_time():
 
 
     if int(pro.returncode|pro2.returncode|pro2_if_change1.returncode|pro2_if_change2.returncode|pro3.returncode|pro4.returncode
-    |pro5.returncode|pro6.returncode|pro6_2.returncode|media_scan_1.returncode|media_scan_2.returncode|media_scan_3.returncode
+    |pro5.returncode|pro6.returncode|pro6_2.returncode|pro6_3.returncode|media_scan_1.returncode|media_scan_2.returncode|media_scan_3.returncode
     |media_scan_4.returncode|media_scan_5.returncode|media_scan_6.returncode|data_log.returncode|pro7.returncode|pro8.returncode|pro9.returncode
     |pro10.returncode|pro11.returncode|pro12.returncode|pro13.returncode|pro14.returncode)==0:
      print("")
